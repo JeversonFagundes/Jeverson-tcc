@@ -83,7 +83,7 @@ if ($entrega['natureza'] == $atividadeComplementar['descricao']) {
     echo "selected";
 }
     ?>
-    value="<?php echo $atividadeComplementar['natureza'1'] ?>">
+    value="<?php echo $atividadeComplementar['natureza'] ?>">
         <?php echo $atividadeComplementar['descricao'] ?>
     </option>
 <?php 
