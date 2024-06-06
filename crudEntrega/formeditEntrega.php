@@ -1,56 +1,82 @@
 <?php
 
-//conectar com o banco de atividadeComplementar.
+//connectar com o banco de dados.
 include ("../conecta.php");
 
+//conectar com a proteção.
 include ("../protecao.php");
 
-//selecionar os atividadeComplementar das atividades complementares cadastradas no sistema.
+//selecionar as atividades complementares cadastradas no sistema.
 $sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['id_curso'];
 
+//excutar o comando sql acima.
 $resultado = mysqli_query($mysql, $sql);
 
+//veriifcar se deu algum erro.
 if ($mysql->error) {
     
-    die("Falha ao listar" . $mysql->error);
+    die ("Falha ao listar as atividades complementares cadastradas no sistema! " . $mysql->error);
 
 }else {
-
-    echo '<h1>Formulário de alteração de atividade complementar!</h1>';
-
-    echo '<h3>Tabela de atividades complementares.</h3>';
     
-    //Lista os itens
-echo '<table border=4;">
+//transformar o resultado da consulta no banco de dados em vetor.
+$atividades_complementares = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+
+echo '<h1>Formulário de alteração da sua atividade complementar entregue!</h1>';
+
+echo '<h3>Tabela de atividades complementares.</h3>';
+
+//abrir uma tabela para listar os itens.
+echo '<table border = 4 
+
 <tr>
+
 <th>Natureza</th>
 <th>Descrição</th>
-<th>Carga horaria máxima</th>
-</tr>';
-$atividadesComplementares = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
-foreach ($atividadesComplementares as $atividadeComplementar) {
-    echo '<tr>';    
-    echo '<td>'.$atividadeComplementar['natureza'].'</td>';
-    echo '<td>'.$atividadeComplementar['descricao'] .'</td>';
-    echo '<td>'.$atividadeComplementar['carga_horaria_maxima'] .'</td>';
+<th>Carga horária máxima</th>
 
+</tr>';
+
+//percorre o vetor criado [$atividades_complementares]
+foreach ($atividades_complementares as $atividade_complementar) {
+    
+    echo '<tr>';
+
+    echo '<td>' . $atividade_complementar['natureza'] . '</td>';
+
+    echo '<td>' . $atividade_complementar['descricao'] . '</td>';
+
+    echo '<td>' . $atividade_complementar['carga_horaria_maxima'] . '</td>';
+    
     echo '</tr>';
-    }
 }
 
-echo '</table>'.'<br><br>';
+}
 
-// Recebe o id da historia
+echo '</table>' . '<br><br>';
+
+//receber o id da atividade entregue, que se deseja alterar.
 $id = $_GET['id'];
 
-// Seleciona os atividadeComplementar da historia da tabela historia
-$sql = "SELECT * FROM entrega_atividade WHERE id_entrega_atividade = $id";
+//selecionar os dados da tabela de entrega de atividades.
+$sql2 = "SELECT * FROM entrega_atividade WHERE id_entrega_atividade = $id";
 
-// Executa o Select
-$resultado = mysqli_query($mysql,$sql);
+//excutar o comando sql acima.
+$resultado = mysqli_query($mysql, $sql2);
 
-// Gera o vetor com os atividadeComplementar buscados
-$entrega = mysqli_fetch_assoc($resultado);
+//varificar se houve algum erro.
+if ($mysql->error) {
+    
+    die ("Falha ao listar a entrega da atividade complementar no sistema! " . $mysql->error);
+
+}else {
+    
+    //gerar o vetor com os resultados.
+    $entrega = mysqli_fetch_assoc($resultado);
+}
+
+
+/**/
 
 ?>
 
@@ -68,51 +94,59 @@ $entrega = mysqli_fetch_assoc($resultado);
 
 <form action="editarEntrega.php" method="post" enctype="multipart/form-data">
 
-<select name="natureza">
+ <!--Abrir um campo select para a selção dos itens.-->
 
-<?php 
+ <select name="natureza">
 
-foreach ($atividadesComplementares as $atividadeComplementar) {
-    
+ <?php
+
+  //percorre o vetor
+ foreach ($atividades_complementares as $atividade_complementar) {
+
     ?>
-    <option 
+
+    <option
+
     <?php
 
-if ($entrega['natureza'] == $atividadeComplementar['descricao']) {
+    if ($entrega ['natureza'] == $atividade_complementar['natureza']) {
+
+       echo "selected";
     
-    echo "selected";
-}
-    ?>
-    value="<?php echo $atividadeComplementar['natureza'] ?>">
-        <?php echo $atividadeComplementar['descricao'] ?>
-    </option>
-<?php 
-} 
-?>
+    }
+       ?>
 
-</select><br><br>
+       value = " <?php echo $atividade_complementar['natureza']; ?>">
+    
+            <?php echo $atividade_complementar['descricao']; ?>
 
+      </option>
 
-    <label for="titulo">Titulo do certificado:</label>
-    <input type="text" value="<?php echo $entrega['titulo_certificado']; ?>" id="titulo" name="titulo"><br><br>
+      <?php
+    }
 
-    <label for="carga">Carga horaria do certificado:</label>
-    <input type="number" value="<?php echo $entrega['carga_horaria_certificado']; ?>" id="carga" name="carga"><br><br>
+ ?>
 
-    <input  type="hidden" value="<?php echo $entrega['id_entrega_atividade'];?>" name="id"/>
+ </select><br><br>
 
-    <input  type="hidden" value="<?php echo $entrega['caminho'];?>" name="caminho"/>
+ <label for="titulo">Titulo do certificado:</label>
+ <input type="text" name="titulo" id="titulo" value="<?php echo $entrega['titulo_certificado']; ?>"> <br><br>
 
-    <label for="certi">Certificado:</label>
-    <input type="file" id="certi" name="certificado"><br><br>
+ <label for="carga">Carga horaria do certificado:</label>
+ <input type="number" name="carga" id="carga" value="<?php echo $entrega['carga_horaria_certificado']; ?>"> <br><br>
 
-    <a href="<?php echo $entrega['caminho']; ?>" ><?php echo $entrega['certificado'];?></a><br><br>
+ <input type="hidden" name="id" value=" <?php echo $entrega['id_entrega_atividade']; ?>">
 
-    <input type="submit" value="Editar">
+ <input type="hidden" name="caminho" value=" <?php echo $entrega['caminho']; ?>">
 
-    </form>
+ <label for="certi">Certificado:</label>
+ <input type="file" name="certificado" id="certi"> <br><br>
 
+ <a href=" <?php echo $entrega['caminho']; ?>"> <?php echo $entrega['certificado']; ?></a> <br><br>
 
+ <input type="submit" value="Editar">
+
+</form>
 
 <a href="../inicialAluno.php">Voltar</a>
     

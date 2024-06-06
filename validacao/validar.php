@@ -83,9 +83,9 @@ while ($dados = mysqli_fetch_assoc($resultado)) {
 
     echo '<p class="card-text">'. 'E-mail: '. '' .$dados['email'].'</p>';
 
-    echo '<select>';
+    echo '<p class="card-text">'. 'Natureza do certificado: '. '' .$dados['natureza'].'</p>';
 
-    
+    echo '<select>';
 
     echo '</select>';
 

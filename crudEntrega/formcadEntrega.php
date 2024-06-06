@@ -59,7 +59,7 @@ echo '</table>'.'<br><br>';
 
 <?php
 
-       $sql = "SELECT descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['id_curso'];
+       $sql = "SELECT natureza, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['id_curso'];
        $resultado = mysqli_query($mysql, $sql);
     ?>
 
@@ -72,7 +72,7 @@ echo '</table>'.'<br><br>';
     while ($dados = mysqli_fetch_assoc($resultado)) { 
         
         ?>
-        <option value="<?php echo $dados['descricao'] ?>">
+        <option value="<?php echo $dados['natureza'] ?>">
 
             <?php echo $dados['descricao'] ?>
 
