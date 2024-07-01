@@ -104,6 +104,8 @@ if ($mysql->error) {
     die ("Falha ao unir as informações! " . $mysql->error);
 
 }else {
+
+    
     
     while ($dados1 = mysqli_fetch_assoc($resultado1)) {
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 26-Maio-2024 às 19:57
+-- Tempo de geração: 29-Jun-2024 às 20:18
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -58,17 +58,17 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome_aluno`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(22, 'Jeverson Miguel Rios Fagundes', '2022412434', 'Jever@gmail.com', 'Kratos123', 4),
-(23, 'Lauro', '2222222222', 'Lau@gmail.com', 'dede', 8),
-(24, 'Wagner', '2022312289', 'wag@gmail.com', '123456', 4),
-(25, 'Victor Yan', '2022311870', 'victor.2022311870@aluno.iffar.edu.br', 'magnata123', 8);
+(26, 'Jeverson Miguel Rios Fagundes', '2022311933', 'Jever@gmail.com', '123', 9),
+(27, 'Jever', '2022311870', 'Jeve@gmail.com', '1234', 9),
+(28, 'Vitor', '2022311818', 'vit@gmail.com', '123', 10),
+(29, 'Yan', '2022312020', 'yan@gmail.com', '123456', 10);
 
 -- --------------------------------------------------------
 
@@ -85,17 +85,19 @@ CREATE TABLE IF NOT EXISTS `atividade_complementar` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_atividade_complementar`),
   KEY `fk_curso_atividade_complementar` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `atividade_complementar`
 --
 
 INSERT INTO `atividade_complementar` (`id_atividade_complementar`, `natureza`, `descricao`, `carga_horaria_maxima`, `id_curso`) VALUES
-(2, '1', 'Cursos relacionados a área de informática.', 40, 4),
-(3, '2', 'Curso de literatura portuguesa.', 30, 4),
-(4, '3', 'Participação em palestras.', 40, 4),
-(5, '1', 'rrrrrrrererrr', 40, 8);
+(6, '1', 'Cursos relacionados a área de informática', 30, 9),
+(7, '2', 'Participação em palestras', 20, 9),
+(8, '3', 'Curso de linguas', 22, 9),
+(9, '1', 'Curso 1', 21, 10),
+(10, '2', 'Curso 2', 30, 10),
+(11, '3', 'Curso 3\r\n', 32, 10);
 
 -- --------------------------------------------------------
 
@@ -112,16 +114,17 @@ CREATE TABLE IF NOT EXISTS `coordenador_curso` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_coordenador`),
   KEY `fk_curso_coordenador` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `coordenador_curso`
 --
 
 INSERT INTO `coordenador_curso` (`id_coordenador`, `nome_coordenador`, `email`, `senha`, `id_curso`) VALUES
-(6, 'Fabio', 'Fabio@gmail.com', 'Fab', 4),
-(7, 'Lauro', 'Lau@gmail.com', 'Lau123', 8),
-(8, 'Victor Yan', 'v@gmail.com', '1234', 4);
+(9, 'Michel', 'Michel@gmail.com', '12345', 9),
+(10, 'Jeverson', 'Jever@gmail.com', '1234', 9),
+(11, 'Coordenador de curso 1', 'coorde1@gmail.com', '123456', 10),
+(12, 'coordenador de curso 2', 'coorde2@gmail.com', '123456', 10);
 
 -- --------------------------------------------------------
 
@@ -135,15 +138,15 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `nome_curso` varchar(255) NOT NULL,
   `carga_horaria` int NOT NULL,
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `curso`
 --
 
 INSERT INTO `curso` (`id_curso`, `nome_curso`, `carga_horaria`) VALUES
-(4, 'Informática', 50),
-(8, 'Bootstrap', 30);
+(9, 'Curso Técnico Integrado em Informática', 120),
+(10, 'Curso Técnico em Administração', 100);
 
 -- --------------------------------------------------------
 
@@ -154,7 +157,7 @@ INSERT INTO `curso` (`id_curso`, `nome_curso`, `carga_horaria`) VALUES
 DROP TABLE IF EXISTS `entrega_atividade`;
 CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `id_entrega_atividade` int NOT NULL AUTO_INCREMENT,
-  `natureza` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `natureza` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `titulo_certificado` varchar(255) DEFAULT NULL,
   `carga_horaria_certificado` int DEFAULT NULL,
   `certificado` varchar(255) DEFAULT NULL,
@@ -164,18 +167,26 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `caminho` varchar(255) NOT NULL,
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `entrega_atividade`
 --
 
 INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `natureza`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`) VALUES
-(38, '1', 'Não sei', 20, 'DADOS.jpg', 0, 'Em análise', 25, '../certificados/66493bb2adaad.jpg'),
-(44, 'Participação em palestras.', 'Neabi', 12, 'neabi.jpg', 0, 'Em análise', 24, '../certificados/6650e7b4edf22.jpg'),
-(45, 'Cursos relacionados a área de informática.', 'Modelagem de dados', 21, 'MODELAGEM DE DADOS DE BANCO DE DADOS.pdf', 0, 'Em análise', 22, '../certificados/6650f07355738.pdf'),
-(46, 'Participação em palestras.', 'Neabi', 4, 'neabi.jpg', 0, 'Em análise', 22, '../certificados/6650f449ddd86.jpg'),
-(47, 'Cursos relacionados a área de informática.', 'Modelagem de dados', 50, 'matbásica.jpg', 0, 'Em análise', 22, '../certificados/6650fbb6cf20d.jpg');
+(55, '1', 'Modelagem de dados', 21, 'DADOS.jpg', 0, 'Em análise', 26, '../certificados/6678976f23e51.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `recuperar_senha`
+--
+
+DROP TABLE IF EXISTS `recuperar_senha`;
+CREATE TABLE IF NOT EXISTS `recuperar_senha` (
+  `email` varchar(255) DEFAULT NULL,
+  `data_recuperacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Restrições para despejos de tabelas

@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 //conectar com o banco de dados.
-include ("../conecta.php");
+include("../conecta.php");
 
 //receber os dados.
 $nome = $_POST['nome'];
@@ -20,8 +20,8 @@ $query = mysqli_query($mysql, $sql1);
 $quantidade = $query->num_rows;
 
 //verificar se existem alunos acdastrados no sistema.
-if ($quantidade == 0 ) {
-    
+if ($quantidade == 0) {
+
     //cadastrar normalmente o aluno no sistema.
     $sql = "INSERT INTO aluno (nome_aluno, matricula, email, senha, id_curso) VALUES ('$nome', '$matricula', '$email', '$senha', $curso)";
 
@@ -30,25 +30,23 @@ if ($quantidade == 0 ) {
 
     //caso dê erro
     if ($mysql->error) {
-        
-        die ("Falha ao cadastrar uma aluno no sistema!" . $mysql->error);
 
-    }else {
-        
+        die("Falha ao cadastrar uma aluno no sistema!" . $mysql->error);
+    } else {
+
         header("location: ../logout.php");
     }
-}else {
-    
-    if ($quantidade != 0 ) {
-        
+} else {
+
+    if ($quantidade != 0) {
+
         $aluno = $query->fetch_assoc();
 
         if ($aluno['email'] == $email) {
-            
-            die ("Este email já estam em uso no sistema.");
 
-        }else {
-            
+            die("Este email já está em uso no sistema.");
+        } else {
+
             //cadastrar normalmente o aluno no sistema.
             $sql = "INSERT INTO aluno (nome_aluno, matricula, email, senha, id_curso) VALUES ('$nome', '$matricula', '$email', '$senha', $curso)";
 
@@ -57,15 +55,12 @@ if ($quantidade == 0 ) {
 
             //caso dê erro
             if ($mysql->error) {
-        
-           die ("Falha ao cadastrar uma aluno no sistema!" . $mysql->error);
 
-    }else {
-        
-        header("location: ../logout.php");
-    }
+                die("Falha ao cadastrar uma aluno no sistema!" . $mysql->error);
+            } else {
+
+                header("location: ../logout.php");
+            }
         }
     }
 }
-
-?>

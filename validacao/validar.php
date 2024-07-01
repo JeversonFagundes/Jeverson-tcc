@@ -85,10 +85,6 @@ while ($dados = mysqli_fetch_assoc($resultado)) {
 
     echo '<p class="card-text">'. 'Natureza do certificado: '. '' .$dados['natureza'].'</p>';
 
-    echo '<select>';
-
-    echo '</select>';
-
     echo '<p class="card-title">'.'O certificado:'. ' ' . '<a href="'. $dados['caminho'].'">'. $dados['certificado'].'</a>'.'</p>';
 
     echo '<p class="card-text">'. 'Carga horaria do certificado: '. '' .$dados['carga_horaria_certificado'].'</p>';
