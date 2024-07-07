@@ -8,20 +8,34 @@ $nome = $_POST['nome'];
 $curso = $_POST['curso'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
+$nova_senha = password_hash($senha, PASSWORD_ARGON2ID);
 
-//comando sql.
-$sql = "INSERT INTO coordenador_curso (nome_coordenador, email, senha, id_curso) VALUES ('$nome', '$email', '$senha', $curso)";
+//verificar se o email digitado existe no banco de dados.
 
-//excutar o comando sql acima.
-mysqli_query($mysql, $sql);
+// Verifica se o e-mail existe na tabela de alunos.
+$consulta_alunos = mysqli_query($mysql, "SELECT COUNT(*) FROM aluno WHERE email = '$email'");
+$quantidade_alunos = mysqli_fetch_row($consulta_alunos)[0];
 
-//caso dê algum erro.
-if ($mysql->error) {
-    
-    die ("Falha ao cadastrar um coordenador de curso no sistema! " . $mysql->error);
+// Verifica se o e-mail existe na tabela de coordenadores.
+$consulta_coordenadores = mysqli_query($mysql, "SELECT COUNT(*) FROM coordenador_curso WHERE email = '$email'");
+$quantidade_coordenadores = mysqli_fetch_row($consulta_coordenadores)[0];
 
+// Verifica se o e-mail existe na tabela de administradores.
+$consulta_administradores = mysqli_query($mysql, "SELECT COUNT(*) FROM administrador WHERE email = '$email'");
+$quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
+
+var_dump($quantidade_alunos);
+var_dump($quantidade_coordenadores);
+var_dump($quantidade_administradores);
+
+if ($quantidade_alunos > 0 || $quantidade_coordenadores > 0 || $quantidade_administradores > 0) {
+    echo "E-mail: " . " " . $email . " " . " já está cadastrado no sistema!<p><a href = \"formcadCoordenador.php\">Voltar</a></p>";
 }else {
-    
-    header("location: ../inicialAdmin.php");
+
+    $sql = "INSERT INTO coordenador_curso (nome_coordenador, email, senha, id_curso)
+    VALUES ('$nome', '$email', '$nova_senha', $curso)";
+
+    $query = mysqli_query($mysql, $sql);
+
+    header("location: ../index.php");
 }
-?>

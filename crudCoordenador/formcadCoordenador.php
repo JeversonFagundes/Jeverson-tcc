@@ -1,13 +1,14 @@
 <?php
 
 //conectar com o banco de dados.
-include ("../conecta.php");
+include("../conecta.php");
 
 
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 
     <meta charset="UTF-8">
@@ -26,43 +27,43 @@ include ("../conecta.php");
 
         <?php
 
-    //selecionar os itens.
-    $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
-    $resultado = mysqli_query($mysql, $sql);
-    ?>
-
-    <select name="curso">
-
-    <option selected disabled value="">Escolha um curso</option>
-    
-    <?php 
-    
-    while ($dados = mysqli_fetch_assoc($resultado)) { 
-        
+        //selecionar os itens.
+        $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+        $resultado = mysqli_query($mysql, $sql);
         ?>
-        <option value="<?php echo $dados['id_curso'] ?>">
 
-            <?php echo $dados['nome_curso'] ?>
+        <select name="curso">
 
-        </option>
-    <?php 
-} 
-?>
+            <option selected disabled value="">Escolha um curso</option>
 
-    </select><br><br>
+            <?php
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email"><br><br>
+            while ($dados = mysqli_fetch_assoc($resultado)) {
 
-    <label for="senha">Senha: </label>
-    <input type="password" name="senha" id="senha"><br><br>
+            ?>
+                <option value="<?php echo $dados['id_curso'] ?>">
 
-    <input type="submit" value="Cadastrar">
-        
+                    <?php echo $dados['nome_curso'] ?>
+
+                </option>
+            <?php
+            }
+            ?>
+
+        </select><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email"><br><br>
+
+        <label for="senha">Senha: </label>
+        <input type="password" name="senha" id="senha"><br><br>
+
+        <input type="submit" value="Cadastrar">
+
     </form>
 
     <button><a href="../inicialAdmin.php">Voltar</a></button>
-    
+
 </body>
 
 </html>

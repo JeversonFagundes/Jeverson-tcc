@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 29-Jun-2024 às 20:18
+-- Tempo de geração: 07-Jul-2024 às 19:29
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 --
 
 INSERT INTO `administrador` (`id_administrador`, `email`, `senha`) VALUES
-(1, 'admin@gmail.com', 'admin123');
+(1, 'admin@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$RXNUbEtQWEcueDBDZlRsVg$7lPv8IbT7GxiZdwQGtKCJl/VRPjhkfxbIh+B0ie1W8Q');
 
 -- --------------------------------------------------------
 
@@ -58,17 +58,15 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome_aluno`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(26, 'Jeverson Miguel Rios Fagundes', '2022311933', 'Jever@gmail.com', '123', 9),
-(27, 'Jever', '2022311870', 'Jeve@gmail.com', '1234', 9),
-(28, 'Vitor', '2022311818', 'vit@gmail.com', '123', 10),
-(29, 'Yan', '2022312020', 'yan@gmail.com', '123456', 10);
+(75, 'Jeverson', '2022311922', 'Jever@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Mmoud2wxZWo2U1N1RElnYw$lbvtxUE3Mj7dADdHvZOJ+0zOR5DvhJ5mC84hOEC13Tw', 9),
+(76, 'Victor Yan', '2022311870', 'vic@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Lkc0Y1EwZ0xuSnpMY1NRMg$LlLOujZbC/Y1VX/OLadtF6OskxhGSRmeIJJb21uXy9I', 9);
 
 -- --------------------------------------------------------
 
@@ -85,19 +83,14 @@ CREATE TABLE IF NOT EXISTS `atividade_complementar` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_atividade_complementar`),
   KEY `fk_curso_atividade_complementar` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `atividade_complementar`
 --
 
 INSERT INTO `atividade_complementar` (`id_atividade_complementar`, `natureza`, `descricao`, `carga_horaria_maxima`, `id_curso`) VALUES
-(6, '1', 'Cursos relacionados a área de informática', 30, 9),
-(7, '2', 'Participação em palestras', 20, 9),
-(8, '3', 'Curso de linguas', 22, 9),
-(9, '1', 'Curso 1', 21, 10),
-(10, '2', 'Curso 2', 30, 10),
-(11, '3', 'Curso 3\r\n', 32, 10);
+(12, '1', 'wswswsws', 23, 9);
 
 -- --------------------------------------------------------
 
@@ -114,17 +107,14 @@ CREATE TABLE IF NOT EXISTS `coordenador_curso` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_coordenador`),
   KEY `fk_curso_coordenador` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `coordenador_curso`
 --
 
 INSERT INTO `coordenador_curso` (`id_coordenador`, `nome_coordenador`, `email`, `senha`, `id_curso`) VALUES
-(9, 'Michel', 'Michel@gmail.com', '12345', 9),
-(10, 'Jeverson', 'Jever@gmail.com', '1234', 9),
-(11, 'Coordenador de curso 1', 'coorde1@gmail.com', '123456', 10),
-(12, 'coordenador de curso 2', 'coorde2@gmail.com', '123456', 10);
+(14, 'Fabio', 'Fabio@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$aHZiSlR3Wm1aVmpYbTFnaA$yCaT8jjPWk3xfi+8sl/qBuO5U8ST20xQDBBbGFRigi4', 9);
 
 -- --------------------------------------------------------
 
@@ -138,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `nome_curso` varchar(255) NOT NULL,
   `carga_horaria` int NOT NULL,
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `curso`
@@ -146,7 +136,9 @@ CREATE TABLE IF NOT EXISTS `curso` (
 
 INSERT INTO `curso` (`id_curso`, `nome_curso`, `carga_horaria`) VALUES
 (9, 'Curso Técnico Integrado em Informática', 120),
-(10, 'Curso Técnico em Administração', 100);
+(11, 'Curso Técnico Integrado em Administração', 120),
+(12, 'Curso de Manutenção e Suporte em Informática (MSI))', 120),
+(13, 'Curso de Markiting Subsequente', 120);
 
 -- --------------------------------------------------------
 
@@ -167,14 +159,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `caminho` varchar(255) NOT NULL,
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `entrega_atividade`
---
-
-INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `natureza`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`) VALUES
-(55, '1', 'Modelagem de dados', 21, 'DADOS.jpg', 0, 'Em análise', 26, '../certificados/6678976f23e51.jpg');
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
