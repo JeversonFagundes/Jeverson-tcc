@@ -57,7 +57,8 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                         $_SESSION['aluno'][1] = $aluno['id_aluno'];
                         $_SESSION['aluno'][2] = $aluno['id_curso'];
 
-                        echo "A senha do aluno confere! <p><a href = \"logout.php\">Voltar</a></p>";
+                        echo "A senha  do aluno confere! <p><a href = \"logout.php\">Voltar</a></p>";
+
                     } else {
 
                         echo "A senha  do aluno não confere! <p><a href = \"logout.php\">Voltar</a></p>";

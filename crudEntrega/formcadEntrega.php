@@ -6,7 +6,7 @@ include ("../conecta.php");
 include ("../protecao.php");
 
 //selecionar os dados das atividades complementares cadastradas no sistema.
-$sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['id_curso'];
+$sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2] ;
 
 $resultado = mysqli_query($mysql, $sql);
 
@@ -59,7 +59,7 @@ echo '</table>'.'<br><br>';
 
 <?php
 
-       $sql = "SELECT natureza, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['id_curso'];
+       $sql = "SELECT natureza, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
        $resultado = mysqli_query($mysql, $sql);
     ?>
 

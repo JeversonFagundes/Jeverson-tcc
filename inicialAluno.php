@@ -1,7 +1,9 @@
 <?php
 
+//conectar com o banco de dados 
 include("conecta.php");
 
+//conectar na proteção.
 include("protecao.php");
 
 ?>
@@ -36,7 +38,7 @@ include("protecao.php");
     </header>
 
     <main>
-        <h2><?php echo $_SESSION['nome_aluno']; ?></h2>
+        <h2><?php echo $_SESSION['aluno'][0]; ?></h2>
 
         <p><a href="crudEntrega/formcadEntrega.php">Entregar atividade complementar</a></p>
 
@@ -46,7 +48,9 @@ include("protecao.php");
 
         <?php
 
-        $sql = " SELECT 
+
+
+       $sql = " SELECT 
 
 ac.descricao, 
 ea.natureza,
@@ -66,9 +70,9 @@ ON ea.natureza = ac.natureza
 
 INNER JOIN aluno a 
 
-ON a.id_curso = " . $_SESSION['id_curso']  . " AND ac.id_curso = " . $_SESSION['id_curso'] .
+ON a.id_curso = " . $_SESSION['aluno'][2]  . " AND ac.id_curso = " . $_SESSION['aluno'][2]  .
 
-            " WHERE a.id_aluno = " . $_SESSION['id_aluno'] . " AND ea.id_aluno = " . $_SESSION['id_aluno'];
+            " WHERE a.id_aluno = " . $_SESSION['aluno'][1]  . " AND ea.id_aluno = " . $_SESSION['aluno'][1] ;
 
 
         $resultado = mysqli_query($mysql, $sql);

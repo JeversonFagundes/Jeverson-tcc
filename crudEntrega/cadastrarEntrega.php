@@ -1,14 +1,12 @@
 <?php
 //conectar com o banco de dados.
-include ("../conecta.php");
+include("../conecta.php");
 
-include ("../protecao.php");
+include("../protecao.php");
 
-if (isset($_SESSION['id_aluno'])) {
+$id = $_SESSION['aluno'][1];
 
-    $id = $_SESSION['id_aluno'];
-}
-
+//receber os dados.
 $natureza = $_POST['natureza'];
 $titulo = $_POST['titulo'];
 $carga = $_POST['carga'];
@@ -16,60 +14,56 @@ $carga_deferida = $_POST['cargaDefe'];
 $status = $_POST['status'];
 $certificado = $_FILES['certificado'];
 
-if ($certificado['error']) {
-    
-    die ("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
+//verificar se deu erro no recebimento do arquivo.
+if ($certificado['error'] != 0) {
 
-}else {
-    
-    //pasta onde o arquivo vai ser armazenado.
+    die("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
+} else {
+
+    var_dump($certificado);
+
+    //pasta de destino.
     $pasta = "../certificados/";
 
-    //mudar o nome do arquivo, porque caso um usuário cadastrar um arquivo com o mesmo nome que outro arquivo já cadastrado no sistema, um dos arquivos vai acabar sendo substituido pelo novo.
+    //nome do arquivo.
     $nome_certificado = $certificado['name'];
 
+    //novo nome do arquivo.
     $novo_nome_certificado = uniqid();
 
-    //extrair a extenção do arquivo.
+    //estenção do certificado.
     $extencao = strtolower(pathinfo($nome_certificado, PATHINFO_EXTENSION));
 
-    //strtolower(); as vezes podemos salvar um arquivo das seguintes maneiras JPG ou jpg, então por isso usamos strtolower para converter tudo para minúsculo.
+    //verificar as extenções que são permitidas.
+    if (
+        $extencao != "png" and $extencao != "jpeg" and
 
-    //pathinfo($nome_certificado, PATHINFO_EXTENSION): quando fazemos o upload de arquivos, o mesmo tem um caminho entao usamos esse código para pegar desse caminho, a extenção.
+        $extencao != "gif" and $extencao != "jfif" and
 
-    //delimitar os tipos de arquivos, por questões de segurança.
-    if ($extencao != "jpg" and $extencao != "pdf") {
-        
-        die ("Este tipo de arquivo nao é aceito. <p><a href = \"formcadEntrega.php\">Voltar</a></p>");
+        $extencao != "svg" and $extencao != "pdf"
 
-    }else {
-        
-        $caminho = $pasta . $novo_nome_certificado . "." . $extencao;
-        $deu_certo = move_uploaded_file($certificado['tmp_name'], $caminho);
+    ) {
 
-        // o move_uploaded_file(); serve para mover um arquivo recebido para uma nova localização no projeto, no nosso caso é a pasta de certificado.
+        echo "Este tipo de arquivos" . " " . "|" . "." . $extencao . "|" . " " . "não é aceito <p><a href = \"formcadEntrega.php\">Voltar</a></p>";
+    } else {
 
-        if ($deu_certo) {
-            
-           //comando sql.
-           $sql = "INSERT INTO entrega_atividade (natureza, titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno)
+        //mover o arquivo.
+        $mover_certificado = move_uploaded_file($certificado['tmp_name'], $pasta . $novo_nome_certificado . "." . $extencao);
+
+        //verificar se deu certo mover certificado.
+        if ($mover_certificado) {
+
+            //criar o caminho.
+            $caminho = $pasta . $novo_nome_certificado . "." . $extencao;
+
+            //inserir no banco de dados.
+            $sql = "INSERT INTO entrega_atividade (natureza, titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno)
            
            VALUES ('$natureza', '$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status', $id)";
 
-           //excutar o comando sql acima.
-           mysqli_query($mysql, $sql);
+            $query = mysqli_query($mysql, $sql);
 
-           //caso dê erro.
-           if ($mysql->error) {
-            
-            die ("Falha ao cadastrar sua atividade complemntar no sistema!" . $mysql->error);
-
-           }else {
-            
-            header("location: ../inicialAluno.php");
-           }
+            echo "O arquivo " . "|" . $nome_certificado . "|" . " " . "foi cadastrado com sucesso!";
         }
     }
-
 }
-?>

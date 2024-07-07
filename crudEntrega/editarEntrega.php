@@ -15,7 +15,7 @@ $id = $_POST['id'];
 if ($certificado['size'] == 0) {
     
     //comando sql.
-    $sql = "UPDATE entrega_atividade SET natureza = '$natureza', titulo_certificado = '$titulo', carga_horaria_certificado = '$carga' WHERE id_entrega_atividade = $id ";
+    $sql = "UPDATE entrega_atividade SET natureza = '$natureza', titulo_certificado = '$titulo', carga_horaria_certificado = $carga WHERE id_entrega_atividade = $id ";
 
     //excutar como sql.
     mysqli_query($mysql, $sql);
