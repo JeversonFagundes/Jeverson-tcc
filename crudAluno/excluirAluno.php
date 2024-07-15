@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 //conectar com o banco de dados.
 include("../conecta.php");
 
-$sql1 = "SELECT * FROM entrega_atividade WHERE id_aluno = " . $_SESSION['id_aluno'];
+$sql1 = "SELECT * FROM entrega_atividade WHERE id_aluno = " . $_SESSION['aluno'][1];
 
 $query = mysqli_query($mysql, $sql1);
 
@@ -18,7 +18,7 @@ if ($quantidade != 0) {
     echo "Você não pode excluir esta conta! Pois há atividades cadastradas no sistema.<p><a href = \"../inicialAluno.php\">Voltar</a></p>";
 } else {
 
-    $sql = "DELETE FROM aluno WHERE id_aluno = " . $_SESSION['id_aluno'];
+    $sql = "DELETE FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
     mysqli_query($mysql, $sql);
 

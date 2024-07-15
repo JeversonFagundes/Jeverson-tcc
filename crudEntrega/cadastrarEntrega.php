@@ -13,6 +13,7 @@ $carga = $_POST['carga'];
 $carga_deferida = $_POST['cargaDefe'];
 $status = $_POST['status'];
 $certificado = $_FILES['certificado'];
+$comentarios = $_POST['comentarios'];
 
 //verificar se deu erro no recebimento do arquivo.
 if ($certificado['error'] != 0) {
@@ -20,10 +21,8 @@ if ($certificado['error'] != 0) {
     die("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
 } else {
 
-    var_dump($certificado);
-
     //pasta de destino.
-    $pasta = "../certificados/";
+    $pastaDestino = "../certificados/";
 
     //nome do arquivo.
     $nome_certificado = $certificado['name'];
@@ -40,7 +39,7 @@ if ($certificado['error'] != 0) {
 
         $extencao != "gif" and $extencao != "jfif" and
 
-        $extencao != "svg" and $extencao != "pdf"
+        $extencao != "svg" and $extencao != "pdf" and $extencao != "jpg"
 
     ) {
 
@@ -48,18 +47,18 @@ if ($certificado['error'] != 0) {
     } else {
 
         //mover o arquivo.
-        $mover_certificado = move_uploaded_file($certificado['tmp_name'], $pasta . $novo_nome_certificado . "." . $extencao);
+        $mover_certificado = move_uploaded_file($certificado['tmp_name'], $pastaDestino. $novo_nome_certificado . "." . $extencao);
 
         //verificar se deu certo mover certificado.
         if ($mover_certificado) {
 
             //criar o caminho.
-            $caminho = $pasta . $novo_nome_certificado . "." . $extencao;
+            $caminho = $novo_nome_certificado . "." . $extencao;
 
             //inserir no banco de dados.
-            $sql = "INSERT INTO entrega_atividade (natureza, titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno)
+            $sql = "INSERT INTO entrega_atividade (natureza, titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, comentarios, status, id_aluno)
            
-           VALUES ('$natureza', '$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status', $id)";
+           VALUES ('$natureza', '$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status','$comentarios', $id)";
 
             $query = mysqli_query($mysql, $sql);
 

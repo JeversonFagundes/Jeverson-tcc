@@ -25,9 +25,9 @@ if ($mysql->error) {
 
     session_start();
 
-    $_SESSION['nome_aluno'] = $nome;
+    $_SESSION['aluno'][0] = $nome;
 
-    $_SESSION['id_curso'] = $curso;
+    $_SESSION['aluno'][2] = $curso;
     
     header("location: perfil.php");
 }

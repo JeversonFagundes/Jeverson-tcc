@@ -21,7 +21,7 @@ include("protecao.php");
         .card {
             background-color: white;
             width: 40%;
-            height: 350px;
+            height: 380px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
     </style>
@@ -48,59 +48,54 @@ include("protecao.php");
 
         <?php
 
+        //listar as atividades cadastradas pelo a aluno no sistema.
+        $sql = "SELECT 
+        ac.descricao, 
+        ea.natureza,
+        ea.id_entrega_atividade,
+        ea.titulo_certificado, 
+        ea.carga_horaria_certificado,
+        ea.certificado, 
+        ea.carga_horaria_aprovada, 
+        ea.status,
+        ea.caminho, ea.comentarios 
+        FROM entrega_atividade ea 
+        INNER JOIN atividade_complementar ac 
+        ON ea.natureza = ac.natureza 
+        INNER JOIN aluno a 
+        ON a.id_aluno = ea.id_aluno
+        WHERE 
+        a.id_aluno = " . $_SESSION['aluno'][1];
 
-
-       $sql = " SELECT 
-
-ac.descricao, 
-ea.natureza,
-ea.id_entrega_atividade,
-ea.titulo_certificado, 
-ea.carga_horaria_certificado,
-ea.certificado, 
-ea.carga_horaria_aprovada, 
-ea.status,
-ea.caminho 
-
-FROM entrega_atividade ea 
-
-INNER JOIN atividade_complementar ac 
-
-ON ea.natureza = ac.natureza 
-
-INNER JOIN aluno a 
-
-ON a.id_curso = " . $_SESSION['aluno'][2]  . " AND ac.id_curso = " . $_SESSION['aluno'][2]  .
-
-            " WHERE a.id_aluno = " . $_SESSION['aluno'][1]  . " AND ea.id_aluno = " . $_SESSION['aluno'][1] ;
-
-
-        $resultado = mysqli_query($mysql, $sql);
+        $query = mysqli_query($mysql, $sql);
 
         if ($mysql->error) {
 
             die("Falha ao listar" . $mysql->error);
         } else {
 
-            $quantidade = $resultado->num_rows;
+            //verificar a quantidade de linhas que foram retornadas
+            $quantidade = $query->num_rows;
 
             if ($quantidade == 0) {
 
                 echo "Você não cadastrou nenhuma atividade no sistema ainda!";
+
+                die();
             } else {
 
-                while ($dados = mysqli_fetch_assoc($resultado)) {
+                while ($dados = mysqli_fetch_assoc($query)) {
 
-                    if ($dados['status'] != "Em análise") {
+                    if ($dados['status'] != "Em análise" or $dados['comentarios'] != "Sem Observações") {
 
                         echo '<div class="card">';
                         echo '<div class="card-body">';
                         echo '<h1 class="card-title">' . 'Titulo do certificado:' . '' . $dados['titulo_certificado'] . '</h1>';
                         echo '<p class="card-text">' . 'Natureza do seu certificado: ' . '' . $dados['natureza'] . '</p>';
                         echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
-                        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="jeverson-tcc/' . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+                        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
                         echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
-                        echo '<p class="card-text">' . 'Carga horaria deferida: ' . '' . $dados['carga_horaria_aprovada'] . '</p>';
+                        echo '<p class="card-text">' . 'Observações: ' . '' . $dados['comentarios'] . '</p>';
                         echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
                         echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
                         echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
@@ -113,7 +108,7 @@ ON a.id_curso = " . $_SESSION['aluno'][2]  . " AND ac.id_curso = " . $_SESSION['
                         echo '<h1 class="card-title">' . 'Titulo do certificado:' . '' . $dados['titulo_certificado'] . '</h1>';
                         echo '<p class="card-text">' . 'Natureza do seu certificado: ' . '' . $dados['natureza'] . '</p>';
                         echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
-                        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="jeverson-tcc/' . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+                        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
                         echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
                         echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
                         echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';

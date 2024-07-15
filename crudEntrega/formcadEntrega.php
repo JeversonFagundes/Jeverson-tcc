@@ -94,6 +94,8 @@ echo '</table>'.'<br><br>';
 
     <input type="hidden"  name="status" value="Em análise">
 
+    <input type="hidden"  name="comentarios" value="Sem Onservações">
+
     <label for="certi">Certificado:</label>
     <input type="file" id="certi" name="certificado"><br><br>
 

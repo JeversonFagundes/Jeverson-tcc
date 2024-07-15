@@ -6,6 +6,9 @@ include("../conecta.php");
 // receber os dados do formulário
 $id = $_GET['id'];
 
+//pasta de destino.
+$pastaDestino = "../certificados/";
+
 $sql2 = "SELECT caminho FROM entrega_atividade WHERE id_entrega_atividade = $id";
 
 $resultado = mysqli_query($mysql, $sql2);
@@ -20,14 +23,11 @@ $sql = "DELETE FROM entrega_atividade WHERE id_entrega_atividade = $id";
 mysqli_query($mysql, $sql);
 
 if ($mysql->error) {
-    
-    die ("Falha ao exckuir está atividade complementar entregue no sistema!");
 
-}else {
-    
-    unlink($caminho);
+    die("Falha ao exckuir está atividade complementar entregue no sistema!");
+} else {
+
+    unlink($pastaDestino . $caminho);
 
     header("location: ../inicialAluno.php");
-
 }
-?>

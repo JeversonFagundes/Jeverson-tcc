@@ -31,7 +31,7 @@ include("protecao.php");
     <main>
         <h1>Bem vindo!</h1>
 
-        <h2><?php echo $_SESSION['email']; ?></h2>
+        <h2><?php echo $_SESSION['administrador'][0]; ?></h2>
 
         <p><a href="crudCurso/formcadcurso.html">Cadastrar curso</a></p>
 

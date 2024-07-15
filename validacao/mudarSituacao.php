@@ -6,13 +6,12 @@ include ("../conecta.php");
 if ($_POST['deferir']) {
     
     //receber os dados.
-    $natureza = $_POST['natureza'];
     $id = $_POST['id_atividade'];
     $cargaDefe = $_POST['cargaDefe'];
     $situacao = "Deferido";
     $id_aluno = $_POST['aluno'];
 
-    $sql = "UPDATE entrega_atividade SET natureza = '$natureza', carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
+    $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
 
     mysqli_query($mysql, $sql);
 
@@ -37,7 +36,7 @@ if ($_POST['deferir']) {
     $situacao = "Indeferido";
     $id_aluno = $_POST['aluno'];
 
-    $sql = "UPDATE entrega_atividade SET natureza = '$natureza', carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
+    $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
 
     mysqli_query($mysql, $sql);
 

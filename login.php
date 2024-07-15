@@ -4,7 +4,7 @@
 session_start();
 
 //conectar com o banco de dados.
-include("conecta.php");
+require_once "conecta.php";
 
 if (isset($_POST['email']) and isset($_POST['senha'])) {
 
@@ -57,7 +57,9 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                         $_SESSION['aluno'][1] = $aluno['id_aluno'];
                         $_SESSION['aluno'][2] = $aluno['id_curso'];
 
-                        echo "A senha  do aluno confere! <p><a href = \"logout.php\">Voltar</a></p>";
+                        //echo "A senha  do aluno confere! <p><a href = \"logout.php\">Voltar</a></p>";
+
+                        header("location: inicialAluno.php");
 
                     } else {
 
@@ -80,7 +82,9 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                             $_SESSION['coordenador'][1] = $coordenador['id_coordenador'];
                             $_SESSION['coordenador'][2] = $coordenador['id_curso'];
 
-                            echo "A senha do coordenador confere! <p><a href = \"logout.php\">Voltar</a></p>";
+                            //echo "A senha do coordenador confere! <p><a href = \"logout.php\">Voltar</a></p>";
+
+                            header("location: inicialCoordenador.php");
                         } else {
                             echo "A senha do coordenador não confere! <p><a href = \"logout.php\">Voltar</a></p>";
                         }

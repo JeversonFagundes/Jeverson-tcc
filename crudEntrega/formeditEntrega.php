@@ -137,7 +137,7 @@ if ($mysql->error) {
 
  <input type="hidden" name="id" value=" <?php echo $entrega['id_entrega_atividade']; ?>">
 
- <input type="hidden" name="caminho" value=" <?php echo $entrega['caminho']; ?>">
+ <input type="hidden" name="caminho" value="<?php echo $entrega['caminho']; ?>">
 
  <label for="certi">Certificado:</label>
  <input type="file" name="certificado" id="certi"> <br><br>

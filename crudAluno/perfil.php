@@ -6,7 +6,7 @@ include("../conecta.php");
 include("../protecao.php");
 
 // Seleciona os dados da historia da tabela historia
-$sql = "SELECT * FROM aluno WHERE id_aluno = " . $_SESSION['id_aluno'];
+$sql = "SELECT * FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
 // Executa o Select
 $resultado = mysqli_query($mysql, $sql);

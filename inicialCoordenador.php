@@ -3,6 +3,7 @@
 //conectar com o bonco de dados.
 include("conecta.php");
 
+//conectar na proteção.
 include("protecao.php");
 ?>
 
@@ -38,7 +39,7 @@ include("protecao.php");
     </header>
 
     <main>
-        <h1><?php echo $_SESSION['nome_coordenador']; ?></h1>
+        <h1><?php echo $_SESSION['coordenador'][0]; ?></h1>
 
         <p><a href="crudAtividade/formcadAtividade.php">Cadastrar atividade complementar</a></p>
 
@@ -47,7 +48,7 @@ include("protecao.php");
         <?php
 
         //selecionar todos os itens da tebala de atividades complementares
-        $sql = "SELECT * FROM atividade_complementar WHERE id_curso = " . $_SESSION['id_curso'];
+        $sql = "SELECT * FROM atividade_complementar WHERE id_curso = " . $_SESSION['coordenador'][2];
 
         //excutar o comando sql acima.
         $resultado = mysqli_query($mysql, $sql);
@@ -95,7 +96,7 @@ include("protecao.php");
 
         $sql1 = "SELECT DISTINCT a.id_aluno, a.nome_aluno, a.matricula FROM aluno a
 INNER JOIN coordenador_curso cc 
-ON a.id_curso = " . $_SESSION['id_curso'] . " AND cc.id_curso = " . $_SESSION['id_curso'] . "
+ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
 INNER JOIN entrega_atividade ea 
 ON a.id_aluno = ea.id_aluno 
 ;";
@@ -107,16 +108,24 @@ ON a.id_aluno = ea.id_aluno
             die("Falha ao unir as informações! " . $mysql->error);
         } else {
 
+            $quantidade1 = $resultado1->num_rows;
 
+            if ($quantidade1 == 0) {
 
-            while ($dados1 = mysqli_fetch_assoc($resultado1)) {
+                echo "<p>Os alunos ainda não cadastraram atividade complementares para validação. </p>";
 
-                echo '<div class="card">';
-                echo '<div class="card-body">';
-                echo '<h1 class="card-title">' . '<a href="validacao/validar.php?id=' . $dados1['id_aluno'] . '">' . $dados1['nome_aluno'] . '</a>' . '</h1>';
-                echo '<p class="card-text">' . 'Matricula do aluno:' . ' ' . $dados1['matricula'] . '</p>';
-                echo '</div>';
-                echo '</div>';
+                echo "<p>Aguarde por favor!</p>";
+            } else {
+
+                while ($dados1 = mysqli_fetch_assoc($resultado1)) {
+
+                    echo '<div class="card">';
+                    echo '<div class="card-body">';
+                    echo '<h1 class="card-title">' . '<a href="validacao/validar.php?id=' . $dados1['id_aluno'] . '">' . $dados1['nome_aluno'] . '</a>' . '</h1>';
+                    echo '<p class="card-text">' . 'Matricula do aluno:' . ' ' . $dados1['matricula'] . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                }
             }
         }
         /*
