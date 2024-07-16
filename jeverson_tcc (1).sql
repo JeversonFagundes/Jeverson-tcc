@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 07-Jul-2024 às 19:29
+-- Tempo de geração: 16-Jul-2024 às 20:46
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -58,15 +58,15 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome_aluno`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(75, 'Jeverson', '2022311922', 'Jever@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Mmoud2wxZWo2U1N1RElnYw$lbvtxUE3Mj7dADdHvZOJ+0zOR5DvhJ5mC84hOEC13Tw', 9),
-(76, 'Victor Yan', '2022311870', 'vic@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Lkc0Y1EwZ0xuSnpMY1NRMg$LlLOujZbC/Y1VX/OLadtF6OskxhGSRmeIJJb21uXy9I', 9);
+(81, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeversonfagundes80@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$MllvWkpaYUhqVEVjTWtGbA$EeQS71gmjFsrFrKSBt3AVuZV9NVdl8NI83JbwPg/0Jc', 9),
+(83, 'Jeremias', '2000000000', 'Jever@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$cmpCVUlwTi9WU3pEL1Jnbg$6agrXLNQMU4b/LfOxys+XiWMI//Tm9VfK8rdQuyU1hQ', 9);
 
 -- --------------------------------------------------------
 
@@ -77,20 +77,21 @@ INSERT INTO `aluno` (`id_aluno`, `nome_aluno`, `matricula`, `email`, `senha`, `i
 DROP TABLE IF EXISTS `atividade_complementar`;
 CREATE TABLE IF NOT EXISTS `atividade_complementar` (
   `id_atividade_complementar` int NOT NULL AUTO_INCREMENT,
-  `natureza` char(2) DEFAULT NULL,
+  `natureza` int DEFAULT NULL,
   `descricao` text,
   `carga_horaria_maxima` int DEFAULT NULL,
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_atividade_complementar`),
   KEY `fk_curso_atividade_complementar` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `atividade_complementar`
 --
 
 INSERT INTO `atividade_complementar` (`id_atividade_complementar`, `natureza`, `descricao`, `carga_horaria_maxima`, `id_curso`) VALUES
-(12, '1', 'wswswsws', 23, 9);
+(1, 1, 'Curso ralacionados a área de informática', 30, 9),
+(2, 2, 'Curso relacinados à de programação', 21, 9);
 
 -- --------------------------------------------------------
 
@@ -107,14 +108,14 @@ CREATE TABLE IF NOT EXISTS `coordenador_curso` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_coordenador`),
   KEY `fk_curso_coordenador` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `coordenador_curso`
 --
 
 INSERT INTO `coordenador_curso` (`id_coordenador`, `nome_coordenador`, `email`, `senha`, `id_curso`) VALUES
-(14, 'Fabio', 'Fabio@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$aHZiSlR3Wm1aVmpYbTFnaA$yCaT8jjPWk3xfi+8sl/qBuO5U8ST20xQDBBbGFRigi4', 9);
+(18, 'Fabio', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$REN3U2Nicm9xZ3ljaTEuVg$Beg5WUSuZ1k29Vv5JMnJiyUWGuzhOn6cWv+lHwUmNhY', 9);
 
 -- --------------------------------------------------------
 
@@ -149,7 +150,7 @@ INSERT INTO `curso` (`id_curso`, `nome_curso`, `carga_horaria`) VALUES
 DROP TABLE IF EXISTS `entrega_atividade`;
 CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `id_entrega_atividade` int NOT NULL AUTO_INCREMENT,
-  `natureza` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `natureza` int DEFAULT NULL,
   `titulo_certificado` varchar(255) DEFAULT NULL,
   `carga_horaria_certificado` int DEFAULT NULL,
   `certificado` varchar(255) DEFAULT NULL,
@@ -159,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `caminho` varchar(255) NOT NULL,
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -170,7 +171,9 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
 DROP TABLE IF EXISTS `recuperar_senha`;
 CREATE TABLE IF NOT EXISTS `recuperar_senha` (
   `email` varchar(255) DEFAULT NULL,
-  `data_recuperacao` datetime DEFAULT NULL
+  `data_recuperacao` datetime DEFAULT NULL,
+  `token` char(100) NOT NULL,
+  `usado` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
