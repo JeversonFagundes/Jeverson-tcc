@@ -6,6 +6,8 @@ include ("../conecta.php");
 //conectar com a proteção.
 include ("../protecao.php");
 
+$pasta = "../certificados/";
+
 //selecionar as atividades complementares cadastradas no sistema.
 $sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2] ;
 
@@ -142,7 +144,7 @@ if ($mysql->error) {
  <label for="certi">Certificado:</label>
  <input type="file" name="certificado" id="certi"> <br><br>
 
- <a href=" <?php echo $entrega['caminho']; ?>"> <?php echo $entrega['certificado']; ?></a> <br><br>
+ <a href=" <?php echo $pasta. $entrega['caminho']; ?>"> <?php echo $entrega['certificado']; ?></a> <br><br>
 
  <input type="submit" value="Editar">
 

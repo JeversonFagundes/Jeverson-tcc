@@ -58,6 +58,7 @@ if ($certificado['error'] != 0) {
             $sql = "INSERT INTO entrega_atividade (natureza, titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno)
            
            VALUES ('$natureza', '$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status',$id)";
+           VALUES ('$natureza', '$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status',$id)";
 
             $query = mysqli_query($mysql, $sql);
 
