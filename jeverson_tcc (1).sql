@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 07-Jul-2024 às 19:29
+-- Tempo de geração: 18-Jul-2024 às 17:06
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -77,20 +77,13 @@ INSERT INTO `aluno` (`id_aluno`, `nome_aluno`, `matricula`, `email`, `senha`, `i
 DROP TABLE IF EXISTS `atividade_complementar`;
 CREATE TABLE IF NOT EXISTS `atividade_complementar` (
   `id_atividade_complementar` int NOT NULL AUTO_INCREMENT,
-  `natureza` char(2) DEFAULT NULL,
+  `natureza` int DEFAULT NULL,
   `descricao` text,
   `carga_horaria_maxima` int DEFAULT NULL,
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_atividade_complementar`),
   KEY `fk_curso_atividade_complementar` (`id_curso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `atividade_complementar`
---
-
-INSERT INTO `atividade_complementar` (`id_atividade_complementar`, `natureza`, `descricao`, `carga_horaria_maxima`, `id_curso`) VALUES
-(12, '1', 'wswswsws', 23, 9);
 
 -- --------------------------------------------------------
 
@@ -149,7 +142,7 @@ INSERT INTO `curso` (`id_curso`, `nome_curso`, `carga_horaria`) VALUES
 DROP TABLE IF EXISTS `entrega_atividade`;
 CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `id_entrega_atividade` int NOT NULL AUTO_INCREMENT,
-  `natureza` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `natureza` int DEFAULT NULL,
   `titulo_certificado` varchar(255) DEFAULT NULL,
   `carga_horaria_certificado` int DEFAULT NULL,
   `certificado` varchar(255) DEFAULT NULL,
@@ -159,7 +152,18 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `caminho` varchar(255) NOT NULL,
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `entrega_atividade`
+--
+
+INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `natureza`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`) VALUES
+(71, 1, '21', 121, 'UseCase Diagram1.png', 0, 'Em análise', 75, '66966fa990f9b.png'),
+(73, 1, '112321', 21, 'exercicios_reviso.pdf', 0, 'Em análise', 75, '66994705e8b8a.pdf'),
+(74, 1, '21', 21, 'exercicios_reviso.pdf', 0, 'Em análise', 75, '66994972572e7.pdf'),
+(75, 0, '33344445', 1, 'horas complementares tcc.pdf', 0, 'Em análise', 75, '66994a02e6c05.pdf'),
+(76, 1, '3', 1111111, '2911-7183-1-PB.pdf', 0, 'Em análise', 75, '66994a320ab5f.pdf');
 
 -- --------------------------------------------------------
 
