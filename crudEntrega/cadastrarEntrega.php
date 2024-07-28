@@ -7,7 +7,7 @@ include("../protecao.php");
 $id = $_SESSION['aluno'][1];
 
 //receber os dados.
-$natureza = $_POST['natureza'];
+$atividade_complementar = $_POST['atividade_complementar'];
 $titulo = $_POST['titulo'];
 $carga = $_POST['carga'];
 $carga_deferida = $_POST['cargaDefe'];
@@ -55,12 +55,12 @@ if ($certificado['error'] != 0) {
             $caminho = $novo_nome_certificado . "." . $extencao;
 
             //inserir no banco de dados.
-            $sql = "INSERT INTO entrega_atividade (natureza, titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno)           
-            VALUES ('$natureza', '$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status',$id)";
+            $sql = "INSERT INTO entrega_atividade (titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno,id_atividade_complementar)           
+            VALUES ('$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status',$id, $atividade_complementar)";
 
             $query = mysqli_query($mysql, $sql);
 
-            echo "O arquivo " . "|" . $nome_certificado . "|" . " " . "foi cadastrado com sucesso!";
+           header("location:../inicialAluno.php");
         }
     }
 }

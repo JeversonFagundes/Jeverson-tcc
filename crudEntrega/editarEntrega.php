@@ -4,7 +4,7 @@
 include("../conecta.php");
 
 //receber os dados.
-$natureza = $_POST['natureza'];
+$atividade_complementar = $_POST['atividade_complementar'];
 $titulo = $_POST['titulo'];
 $carga = $_POST['carga'];
 $caminho = $_POST['caminho'];
@@ -18,7 +18,7 @@ $pastaDestino = "../certificados/";
 if ($certificado['size'] == 0) {
 
     //comando sql.
-    $sql = "UPDATE entrega_atividade SET natureza = '$natureza', titulo_certificado = '$titulo', carga_horaria_certificado = $carga WHERE id_entrega_atividade = $id ";
+    $sql = "UPDATE entrega_atividade SET id_atividade_complementar= $atividade_complementar, titulo_certificado = '$titulo', carga_horaria_certificado = $carga WHERE id_entrega_atividade = $id ";
 
     //excutar como sql.
     mysqli_query($mysql, $sql);
@@ -70,7 +70,7 @@ if ($certificado['size'] == 0) {
             if ($deu_certo) {
 
                 //comando sql.
-                $sql = "UPDATE entrega_atividade SET natureza = '$natureza', titulo_certificado = '$titulo', carga_horaria_certificado = $carga, certificado = '$nome_certificado',caminho = '$caminho2' WHERE id_entrega_atividade = $id";
+                $sql = "UPDATE entrega_atividade SET id_atividade_complementar  = $atividade_complementar , titulo_certificado = '$titulo', carga_horaria_certificado = $carga, certificado = '$nome_certificado',caminho = '$caminho2' WHERE id_entrega_atividade = $id";
 
                 //excutar o comando sql acima.
                 mysqli_query($mysql, $sql);

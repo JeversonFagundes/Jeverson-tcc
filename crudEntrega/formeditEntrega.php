@@ -9,7 +9,7 @@ include ("../protecao.php");
 $pasta = "../certificados/";
 
 //selecionar as atividades complementares cadastradas no sistema.
-$sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2] ;
+$sql = "SELECT id_atividade_complementar, natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2] ;
 
 //excutar o comando sql acima.
 $resultado = mysqli_query($mysql, $sql);
@@ -98,7 +98,7 @@ if ($mysql->error) {
 
  <!--Abrir um campo select para a selção dos itens.-->
 
- <select name="natureza">
+ <select name="atividade_complementar">
 
  <?php
 
@@ -111,14 +111,14 @@ if ($mysql->error) {
 
     <?php
 
-    if ($entrega ['natureza'] == $atividade_complementar['natureza']) {
+    if ($entrega ['id_atividade_complementar'] == $atividade_complementar['id_atividade_complementar']) {
 
        echo "selected";
     
     }
        ?>
 
-       value = " <?php echo $atividade_complementar['natureza']; ?>">
+       value = " <?php echo $atividade_complementar['id_atividade_complementar']; ?>">
     
             <?php echo $atividade_complementar['descricao']; ?>
 

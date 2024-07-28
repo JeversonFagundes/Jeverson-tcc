@@ -53,17 +53,19 @@ $pasta = "certificados/";
         //listar as atividades cadastradas pelo a aluno no sistema.
         $sql = "SELECT 
         ac.descricao, 
-        ea.natureza,
+        ac.natureza,
+        ac.id_atividade_complementar,
         ea.id_entrega_atividade,
         ea.titulo_certificado, 
         ea.carga_horaria_certificado,
         ea.certificado, 
         ea.carga_horaria_aprovada, 
         ea.status,
-        ea.caminho
+        ea.caminho,
+        ea.id_atividade_complementar
         FROM entrega_atividade ea 
         INNER JOIN atividade_complementar ac 
-        ON ea.natureza = ac.natureza 
+        ON ea.id_atividade_complementar = ac.id_atividade_complementar
         INNER JOIN aluno a 
         ON a.id_aluno = ea.id_aluno
         WHERE 
@@ -93,7 +95,7 @@ $pasta = "certificados/";
                         echo '<div class="card">';
                         echo '<div class="card-body">';
                         echo '<h1 class="card-title">' . 'Titulo do certificado:' . '' . $dados['titulo_certificado'] . '</h1>';
-                        echo '<p class="card-text">' . 'Natureza do seu certificado: ' . '' . $dados['natureza'] . '</p>';
+                        echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['natureza'] . '</p>';
                         echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
                         echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' .$pasta.$dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
                         echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
@@ -107,7 +109,7 @@ $pasta = "certificados/";
                         echo '<div class="card">';
                         echo '<div class="card-body">';
                         echo '<h1 class="card-title">' . 'Titulo do certificado:' . '' . $dados['titulo_certificado'] . '</h1>';
-                        echo '<p class="card-text">' . 'Natureza do seu certificado: ' . '' . $dados['natureza'] . '</p>';
+                        echo '<p class="card-text">' . 'Natureza do certificado: ' . '' . $dados['natureza'] . '</p>';
                         echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
                         echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' .$pasta. $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
                         echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
