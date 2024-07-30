@@ -8,7 +8,7 @@ include("../conecta.php");
 
 $sql = "SELECT a.id_aluno, a.nome_aluno, a.matricula, a.email,
 
- ea.id_entrega_atividade, ea.natureza, 
+ ea.id_entrega_atividade, 
 
  ea.carga_horaria_certificado, ea.carga_horaria_aprovada, 
 
@@ -79,8 +79,6 @@ if ($mysql->error) {
         echo '<p class="card-text">' . 'Matricula: ' . '' . $dados['matricula'] . '</p>';
 
         echo '<p class="card-text">' . 'E-mail: ' . '' . $dados['email'] . '</p>';
-
-        echo '<p class="card-text">' . 'Natureza do certificado: ' . '' . $dados['natureza'] . '</p>';
 
         echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
 
