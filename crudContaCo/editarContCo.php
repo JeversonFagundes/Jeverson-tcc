@@ -7,10 +7,9 @@ $id = $_POST['id'];
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $curso = $_POST['curso'];
-$senha = $_POST['senha'];
 
 //comando sql.
-$sql = "UPDATE coordenador_curso SET nome_coordenador = '$nome',  email = '$email', senha = '$senha', id_curso = '$curso' WHERE id_coordenador = $id";
+$sql = "UPDATE coordenador_curso SET nome_coordenador = '$nome',  email = '$email', id_curso = '$curso' WHERE id_coordenador = $id";
 
 //excutar o comando sql acima.
 mysqli_query($mysql, $sql);
@@ -24,9 +23,12 @@ if ($mysql->error) {
 
     session_start();
 
-    $_SESSION['nome_coordenador'] = $nome;
+    $_SESSION['coordenador'][0] = $nome;
 
-    $_SESSION['id_curso'] = $curso;
+    $_SESSION['coordenador'][2] = $curso;
+
+    
+
     
     header("location: perfil.php");
 }

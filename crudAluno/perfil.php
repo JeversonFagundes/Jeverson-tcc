@@ -6,7 +6,7 @@ include("../conecta.php");
 include("../protecao.php");
 
 // Seleciona os dados da historia da tabela historia
-$sql = "SELECT * FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
+$sql = "SELECT nome_aluno, matricula, email, id_curso, id_aluno FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
 // Executa o Select
 $resultado = mysqli_query($mysql, $sql);
@@ -43,9 +43,6 @@ $aluno = mysqli_fetch_assoc($resultado);
 
             <label for="email">Email: </label>
             <input type="email" value="<?php echo $aluno['email']; ?>" name="email"><br><br>
-
-            <label for="senha">Senha: </label>
-            <input type="text" value="<?php echo $aluno['senha']; ?>" name="senha"><br><br>
 
             <?php
 

@@ -6,6 +6,8 @@ $id = $_GET['id'];
 //conecctar com o banco de dados.
 include("../conecta.php");
 
+$pastaDestino = "../certificados/";
+
 $sql = "SELECT a.id_aluno, a.nome_aluno, a.matricula, a.email,
 
  ea.id_entrega_atividade, 
@@ -80,7 +82,7 @@ if ($mysql->error) {
 
         echo '<p class="card-text">' . 'E-mail: ' . '' . $dados['email'] . '</p>';
 
-        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="'.$pastaDestino . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
 
         echo '<p class="card-text">' . 'Carga horaria do certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
 
