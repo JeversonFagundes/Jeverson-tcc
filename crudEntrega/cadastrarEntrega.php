@@ -1,8 +1,12 @@
 <?php
 //conectar com o banco de dados.
-include("../conecta.php");
+require_once "../conecta.php";
 
+//incluir a proteção.
 include("../protecao.php");
+
+//variável de conexão.
+$mysql = conectar();
 
 $id = $_SESSION['aluno'][1];
 
@@ -18,6 +22,7 @@ $certificado = $_FILES['certificado'];
 if ($certificado['error'] != 0) {
 
     die("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
+
 } else {
 
     //pasta de destino.
@@ -58,7 +63,7 @@ if ($certificado['error'] != 0) {
             $sql = "INSERT INTO entrega_atividade (titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno,id_atividade_complementar)           
             VALUES ('$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status',$id, $atividade_complementar)";
 
-            $query = mysqli_query($mysql, $sql);
+            $query = excutarSQL($mysql, $sql);
 
            header("location:../inicialAluno.php");
         }

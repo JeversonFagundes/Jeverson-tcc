@@ -1,6 +1,9 @@
 <?php
 //conectar com o banco de dados.
-include ("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 //receber os dados vindos do formulário de alteração de curso
 $id = $_POST['id'];
@@ -12,24 +15,12 @@ $curso = $_POST['curso'];
 $sql = "UPDATE coordenador_curso SET nome_coordenador = '$nome',  email = '$email', id_curso = '$curso' WHERE id_coordenador = $id";
 
 //excutar o comando sql acima.
-mysqli_query($mysql, $sql);
+excutarSQL($mysql, $sql);
 
-//caso dê algum erro.
-if ($mysql->error) {
-    
-    die ("Falha ao alterar este aluno no sistema!" . $mysql->error);
+session_start();
 
-}else {
+$_SESSION['coordenador'][0] = $nome;
 
-    session_start();
+$_SESSION['coordenador'][2] = $curso;
 
-    $_SESSION['coordenador'][0] = $nome;
-
-    $_SESSION['coordenador'][2] = $curso;
-
-    
-
-    
-    header("location: perfil.php");
-}
-?>
+header("location: perfil.php");

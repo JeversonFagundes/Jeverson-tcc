@@ -6,6 +6,9 @@ session_start();
 //conectar com o banco de dados.
 require_once "conecta.php";
 
+//veriável de conexão.
+$mysql = conectar();
+
 if (isset($_POST['email']) and isset($_POST['senha'])) {
 
     if (strlen($_POST['email']) == 0) {
@@ -24,15 +27,15 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
             $senha = $mysql->real_escape_string($_POST['senha']);
 
             // Verifica se o e-mail existe na tabela de alunos.
-            $consulta_alunos = mysqli_query($mysql, "SELECT COUNT(*) FROM aluno WHERE email = '$email'");
+            $consulta_alunos = excutarSQL($mysql, "SELECT COUNT(*) FROM aluno WHERE email = '$email'");
             $quantidade_alunos = mysqli_fetch_row($consulta_alunos)[0];
 
             // Verifica se o e-mail existe na tabela de coordenadores.
-            $consulta_coordenadores = mysqli_query($mysql, "SELECT COUNT(*) FROM coordenador_curso WHERE email = '$email'");
+            $consulta_coordenadores = excutarSQL($mysql, "SELECT COUNT(*) FROM coordenador_curso WHERE email = '$email'");
             $quantidade_coordenadores = mysqli_fetch_row($consulta_coordenadores)[0];
 
             // Verifica se o e-mail existe na tabela de administradores.
-            $consulta_administradores = mysqli_query($mysql, "SELECT COUNT(*) FROM administrador WHERE email = '$email'");
+            $consulta_administradores = excutarSQL($mysql, "SELECT COUNT(*) FROM administrador WHERE email = '$email'");
             $quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
 
             var_dump($quantidade_administradores);
@@ -47,7 +50,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                     $sql = "SELECT a.nome_aluno, a.id_curso, a.id_aluno, a.senha FROM aluno a WHERE email = '$email'";
 
-                    $query = mysqli_query($mysql, $sql);
+                    $query = excutarSQL($mysql, $sql);
 
                     $aluno = mysqli_fetch_assoc($query);
 
@@ -72,7 +75,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                         $sql2 = "SELECT cc.nome_coordenador, cc.senha, cc.id_coordenador, cc.id_curso FROM coordenador_curso cc
                         WHERE email = '$email'";
 
-                        $query2 = mysqli_query($mysql, $sql2);
+                        $query2 = excutarSQL($mysql, $sql2);
 
                         $coordenador = mysqli_fetch_assoc($query2);
 
@@ -94,7 +97,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                             $sql3 = "SELECT adm.email, adm.senha FROM administrador adm WHERE email = '$email'";
 
-                            $query3 = mysqli_query($mysql, $sql3);
+                            $query3 = excutarSQL($mysql, $sql3);
 
                             $administrador = mysqli_fetch_assoc($query3);
 

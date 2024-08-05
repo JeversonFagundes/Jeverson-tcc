@@ -1,26 +1,22 @@
 <?php
 
 //connectar com o banco de dados.
-include ("../conecta.php");
+require_once "../conecta.php";
 
 //conectar com a proteção.
-include ("../protecao.php");
+require_once "../protecao.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 $pasta = "../certificados/";
 
 //selecionar as atividades complementares cadastradas no sistema.
-$sql = "SELECT id_atividade_complementar, natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2] ;
+$sql = "SELECT id_atividade_complementar, natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
 
 //excutar o comando sql acima.
-$resultado = mysqli_query($mysql, $sql);
+$resultado = excutarSQL($mysql, $sql);
 
-//veriifcar se deu algum erro.
-if ($mysql->error) {
-    
-    die ("Falha ao listar as atividades complementares cadastradas no sistema! " . $mysql->error);
-
-}else {
-    
 //transformar o resultado da consulta no banco de dados em vetor.
 $atividades_complementares = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
@@ -41,7 +37,7 @@ echo '<table border = 4
 
 //percorre o vetor criado [$atividades_complementares]
 foreach ($atividades_complementares as $atividade_complementar) {
-    
+
     echo '<tr>';
 
     echo '<td>' . $atividade_complementar['natureza'] . '</td>';
@@ -49,10 +45,8 @@ foreach ($atividades_complementares as $atividade_complementar) {
     echo '<td>' . $atividade_complementar['descricao'] . '</td>';
 
     echo '<td>' . $atividade_complementar['carga_horaria_maxima'] . '</td>';
-    
-    echo '</tr>';
-}
 
+    echo '</tr>';
 }
 
 echo '</table>' . '<br><br>';
@@ -64,19 +58,10 @@ $id = $_GET['id'];
 $sql2 = "SELECT * FROM entrega_atividade WHERE id_entrega_atividade = $id";
 
 //excutar o comando sql acima.
-$resultado = mysqli_query($mysql, $sql2);
+$resultado = excutarSQL($mysql, $sql2);
 
-//varificar se houve algum erro.
-if ($mysql->error) {
-    
-    die ("Falha ao listar a entrega da atividade complementar no sistema! " . $mysql->error);
-
-}else {
-    
-    //gerar o vetor com os resultados.
-    $entrega = mysqli_fetch_assoc($resultado);
-}
-
+//gerar o vetor com os resultados.
+$entrega = mysqli_fetch_assoc($resultado);
 
 /**/
 
@@ -84,6 +69,7 @@ if ($mysql->error) {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 
     <meta charset="UTF-8">
@@ -94,65 +80,60 @@ if ($mysql->error) {
 
 <body>
 
-<form action="editarEntrega.php" method="post" enctype="multipart/form-data">
+    <form action="editarEntrega.php" method="post" enctype="multipart/form-data">
 
- <!--Abrir um campo select para a selção dos itens.-->
+        <!--Abrir um campo select para a selção dos itens.-->
 
- <label for="select">Escolha a natureza do certificado:</label>
- <select id="select" name="atividade_complementar">
+        <label for="select">Escolha a natureza do certificado:</label>
+        <select id="select" required name="atividade_complementar">
 
- <?php
+            <?php
 
-  //percorre o vetor
- foreach ($atividades_complementares as $atividade_complementar) {
+            //percorre o vetor
+            foreach ($atividades_complementares as $atividade_complementar) {
 
-    ?>
+            ?>
 
-    <option
+                <option <?php
 
-    <?php
+                        if ($entrega['id_atividade_complementar'] == $atividade_complementar['id_atividade_complementar']) {
 
-    if ($entrega ['id_atividade_complementar'] == $atividade_complementar['id_atividade_complementar']) {
+                            echo "selected";
+                        }
+                        ?> value=" <?php echo $atividade_complementar['id_atividade_complementar']; ?>">
 
-       echo "selected";
-    
-    }
-       ?>
+                    <?php echo $atividade_complementar['natureza']; ?>
 
-       value = " <?php echo $atividade_complementar['id_atividade_complementar']; ?>">
-    
-            <?php echo $atividade_complementar['natureza']; ?>
+                </option>
 
-      </option>
+            <?php
+            }
 
-      <?php
-    }
+            ?>
 
- ?>
+        </select><br><br>
 
- </select><br><br>
+        <label for="titulo">Titulo do certificado:</label>
+        <input type="text" name="titulo" id="titulo" value="<?php echo $entrega['titulo_certificado']; ?>"> <br><br>
 
- <label for="titulo">Titulo do certificado:</label>
- <input type="text" name="titulo" id="titulo" value="<?php echo $entrega['titulo_certificado']; ?>"> <br><br>
+        <label for="carga">Carga horaria do certificado:</label>
+        <input type="number" name="carga" id="carga" value="<?php echo $entrega['carga_horaria_certificado']; ?>"> <br><br>
 
- <label for="carga">Carga horaria do certificado:</label>
- <input type="number" name="carga" id="carga" value="<?php echo $entrega['carga_horaria_certificado']; ?>"> <br><br>
+        <input type="hidden" name="id" value=" <?php echo $entrega['id_entrega_atividade']; ?>">
 
- <input type="hidden" name="id" value=" <?php echo $entrega['id_entrega_atividade']; ?>">
+        <input type="hidden" name="caminho" value="<?php echo $entrega['caminho']; ?>">
 
- <input type="hidden" name="caminho" value="<?php echo $entrega['caminho']; ?>">
+        <label for="certi">Certificado:</label>
+        <input type="file" name="certificado" id="certi"> <br><br>
 
- <label for="certi">Certificado:</label>
- <input type="file" name="certificado" id="certi"> <br><br>
+        <a href=" <?php echo $pasta . $entrega['caminho']; ?>"> <?php echo $entrega['certificado']; ?></a> <br><br>
 
- <a href=" <?php echo $pasta. $entrega['caminho']; ?>"> <?php echo $entrega['certificado']; ?></a> <br><br>
+        <input type="submit" value="Editar">
 
- <input type="submit" value="Editar">
+    </form>
 
-</form>
+    <a href="../inicialAluno.php">Voltar</a>
 
-<a href="../inicialAluno.php">Voltar</a>
-    
 </body>
 
 </html>

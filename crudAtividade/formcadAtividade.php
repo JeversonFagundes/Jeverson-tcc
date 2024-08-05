@@ -1,12 +1,4 @@
 
-<?php 
-
-//conectar com o banco de dados.
-include ("../conecta.php");
-
-include ("../protecao.php");
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

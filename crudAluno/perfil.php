@@ -1,15 +1,19 @@
 <?php
 
 // Conectar ao BD
-include("../conecta.php");
+require_once "../conecta.php";
 
-include("../protecao.php");
+//conectar com a proteção
+require_once "../protecao.php";
+
+//variável de conexão.
+$mysql = conectar();
 
 // Seleciona os dados da historia da tabela historia
 $sql = "SELECT nome_aluno, matricula, email, id_curso, id_aluno FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
 // Executa o Select
-$resultado = mysqli_query($mysql, $sql);
+$resultado = excutarSQL($mysql, $sql);
 
 // Gera o vetor com os dados buscados
 $aluno = mysqli_fetch_assoc($resultado);
@@ -48,11 +52,13 @@ $aluno = mysqli_fetch_assoc($resultado);
 
             //selecionar os itens.
             $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
-            $resultado = mysqli_query($mysql, $sql);
+            $resultado = excutarSQL($mysql, $sql);
 
             ?>
 
-            <select name="curso">
+            <label for="curso">Selecione o seu curso</label>
+
+            <select id="curso" name="curso">
 
                 <?php
 

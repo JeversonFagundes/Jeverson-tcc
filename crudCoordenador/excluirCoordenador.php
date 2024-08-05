@@ -1,7 +1,10 @@
 <?php
 
 // Conectar ao BD
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 // receber os dados do formulário
 $id = $_GET['id'];
@@ -10,16 +13,6 @@ $id = $_GET['id'];
 $sql = "DELETE FROM coordenador_curso WHERE id_coordenador = $id";
 
 //excutar o comando sql acima.
-mysqli_query($mysql, $sql);
+excutarSQL($mysql, $sql);
 
-//caso de erro
-if ($mysql->error) {
-    
-    die ("Falha ao excluir este coordenador de curso no sistema!" . $mysql->error);
-
-}else {
-    
-    header("location: ../inicialAdmin.php");
-}
-
-?>
+header("location: ../inicialAdmin.php");

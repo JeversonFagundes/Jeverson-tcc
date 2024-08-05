@@ -1,7 +1,10 @@
 <?php
 
 // Conectar ao BD
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 // receber os dados do formulário
 $id = $_GET['id'];
@@ -10,16 +13,6 @@ $id = $_GET['id'];
 $sql = "DELETE FROM atividade_complementar WHERE id_atividade_complementar = $id";
 
 //excutar o comando sql acima.
-mysqli_query($mysql, $sql);
+excutarSQL($mysql, $sql);
 
-//caso de erro
-if ($mysql->error) {
-    
-    die ("Falha ao excluir esta atividade complementar no sistema!" . $mysql->error);
-
-}else {
-    
-    header("location: ../inicialCoordenador.php");
-}
-
-?>
+header("location: ../inicialCoordenador.php");

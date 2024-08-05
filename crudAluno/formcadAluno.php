@@ -1,6 +1,10 @@
 <?php
 
-include("../conecta.php");
+//conectar ao banco de dados.
+require_once "../conecta.php";
+
+//veriavél de conexão.
+$mysql = conectar();
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +34,7 @@ include("../conecta.php");
 
             //selecionar os itens.
             $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
-            $resultado = mysqli_query($mysql, $sql);
+            $resultado = excutarSQL($mysql, $sql);
             ?>
 
             <select name="curso">

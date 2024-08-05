@@ -1,11 +1,15 @@
 <?php
 
 //conectar com o banco de dados 
-include("conecta.php");
+require_once "conecta.php";
 
 //conectar na proteção.
-include("protecao.php");
+require_once "protecao.php";
 
+//variável de conexão.
+$mysql = conectar();
+
+//pasta de destino do certificado.
 $pasta = "certificados/";
 
 ?>
@@ -34,7 +38,7 @@ $pasta = "certificados/";
 
     <?php
 
-    include("boasPraticas/headerNav.php");
+    require_once "boasPraticas/headerNav.php";
 
     ?>
     </header>
@@ -63,6 +67,7 @@ $pasta = "certificados/";
         ea.status,
         ea.caminho,
         ea.id_atividade_complementar
+        
         FROM entrega_atividade ea 
         INNER JOIN atividade_complementar ac 
         ON ea.id_atividade_complementar = ac.id_atividade_complementar
@@ -71,59 +76,51 @@ $pasta = "certificados/";
         WHERE 
         a.id_aluno = " . $_SESSION['aluno'][1];
 
-        $query = mysqli_query($mysql, $sql);
+        $query = excutarSQL($mysql, $sql);
 
-        if ($mysql->error) {
+        //verificar a quantidade de linha retornadas.
+        $quantidade = $query->num_rows;
 
-            die("Falha ao listar" . $mysql->error);
+        //verificar a quantidade de linha retornadas.
+        if ($quantidade == 0) {
+
+            echo "Você não entregou nenhuma atividade complementar no sistema ainda!";
+
+            die();
         } else {
 
-            //verificar a quantidade de linhas que foram retornadas
-            $quantidade = $query->num_rows;
+            while ($dados = mysqli_fetch_assoc($query)) {
 
-            if ($quantidade == 0) {
-
-                echo "Você não cadastrou nenhuma atividade no sistema ainda!";
-
-                die();
-            } else {
-
-                while ($dados = mysqli_fetch_assoc($query)) {
-
-                    if ($dados['status'] != "Em análise") {
-
-                        echo '<div class="card">';
-                        echo '<div class="card-body">';
-                        echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
-                        echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['natureza'] . '</p>';
-                        echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
-                        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
-                        echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
-                        echo '<p class="card-text">' . 'Carga horaria deferida: ' . '' . $dados['carga_horaria_aprovada'] . '</p>';
-                        echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
-                        echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
-                        echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
-                        echo '</div>';
-                        echo '</div>';
-                    } else {
-
-                        echo '<div class="card">';
-                        echo '<div class="card-body">';
-                        echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
-                        echo '<p class="card-text">' . 'Natureza do certificado: ' . '' . $dados['natureza'] . '</p>';
-                        echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
-                        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
-                        echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
-                        echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
-                        echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
-                        echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+                if ($dados['status'] != "Em análise") {
+                    echo '<div class="card">';
+                    echo '<div class="card-body">';
+                    echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
+                    echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['natureza'] . '</p>';
+                    echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
+                    echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+                    echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
+                    echo '<p class="card-text">' . 'Carga horaria deferida: ' . '' . $dados['carga_horaria_aprovada'] . '</p>';
+                    echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
+                    echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
+                    echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
+                    echo '</div>';
+                    echo '</div>';
+                } else {
+                    echo '<div class="card">';
+                    echo '<div class="card-body">';
+                    echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
+                    echo '<p class="card-text">' . 'Natureza do certificado: ' . '' . $dados['natureza'] . '</p>';
+                    echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
+                    echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+                    echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
+                    echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
+                    echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
+                    echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
+                    echo '</div>';
+                    echo '</div>';
                 }
             }
         }
-
         ?>
 
     </main>

@@ -5,11 +5,14 @@ if (!isset($_SESSION)) {
 }
 
 //conectar com o banco de dados.
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variável de conexão.
+$mysql = conectar();
 
 $sql1 = "SELECT * FROM entrega_atividade WHERE id_aluno = " . $_SESSION['aluno'][1];
 
-$query = mysqli_query($mysql, $sql1);
+$query = excutarSQL($mysql, $sql1);
 
 $quantidade = $query->fetch_assoc();
 
@@ -20,13 +23,7 @@ if ($quantidade != 0) {
 
     $sql = "DELETE FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
-    mysqli_query($mysql, $sql);
+    excutarSQL($mysql, $sql);
 
-    if ($mysql->error) {
-
-        die("Falha ao excluir sua conta !" . $mysql->error);
-    } else {
-
-        header("location: ../logout.php");
-    }
+    header("location: ../logout.php");
 }

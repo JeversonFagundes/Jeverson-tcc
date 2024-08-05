@@ -1,7 +1,10 @@
 <?php
 
 //conectar com o banco de dados.
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 //receber os dados.
 $atividade_complementar = $_POST['atividade_complementar'];
@@ -21,16 +24,9 @@ if ($certificado['size'] == 0) {
     $sql = "UPDATE entrega_atividade SET id_atividade_complementar= $atividade_complementar, titulo_certificado = '$titulo', carga_horaria_certificado = $carga WHERE id_entrega_atividade = $id ";
 
     //excutar como sql.
-    mysqli_query($mysql, $sql);
+    excutarSQL($mysql, $sql);
 
-    //caso dê erro.
-    if ($mysql->error) {
-
-        die("Falha ao editar está atividade complementar entrega no sistema" . $mysql->error);
-    } else {
-
-        header("location: ../inicialAluno.php");
-    }
+    header("location: ../inicialAluno.php");
 } else {
 
     if ($certificado['error']) {
@@ -63,7 +59,7 @@ if ($certificado['size'] == 0) {
         } else {
 
             $caminho2 = $novo_nome_certificado . "." . $extencao;
-            $deu_certo = move_uploaded_file($certificado['tmp_name'],$pastaDestino . $caminho2);
+            $deu_certo = move_uploaded_file($certificado['tmp_name'], $pastaDestino . $caminho2);
 
             // o move_uploaded_file(); serve para mover um arquivo recebido para uma nova localização no projeto, no nosso caso é a pasta de certificado.
 
@@ -73,18 +69,11 @@ if ($certificado['size'] == 0) {
                 $sql = "UPDATE entrega_atividade SET id_atividade_complementar  = $atividade_complementar , titulo_certificado = '$titulo', carga_horaria_certificado = $carga, certificado = '$nome_certificado',caminho = '$caminho2' WHERE id_entrega_atividade = $id";
 
                 //excutar o comando sql acima.
-                mysqli_query($mysql, $sql);
+                excutarSQL($mysql, $sql);
 
-                //caso dê erro.
-                if ($mysql->error) {
+                unlink($pastaDestino . $caminho);
 
-                    die("Falha ao cadastrar sua atividade complemntar no sistema!" . $mysql->error);
-                } else {
-
-                    unlink($pastaDestino.$caminho);
-
-                    header("location: ../inicialAluno.php");
-                }
+                header("location: ../inicialAluno.php");
             }
         }
     }
