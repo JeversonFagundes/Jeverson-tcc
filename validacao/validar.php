@@ -4,7 +4,10 @@
 $id = $_GET['id'];
 
 //conecctar com o banco de dados.
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 $pastaDestino = "../certificados/";
 
@@ -24,7 +27,7 @@ ON a.id_aluno = $id AND ea.id_aluno = $id
 
 ";
 
-$resultado = mysqli_query($mysql, $sql);
+$resultado = excutarSQL($mysql, $sql);
 
 if ($mysql->error) {
 

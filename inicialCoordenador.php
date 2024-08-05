@@ -1,10 +1,13 @@
 <?php
 
 //conectar com o bonco de dados.
-include("conecta.php");
+require_once "conecta.php";
 
 //conectar na proteção.
-include("protecao.php");
+require_once "protecao.php";
+
+//variavel de conexão.
+$mysql = conectar();
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +33,7 @@ include("protecao.php");
 <body>
 
     <?php
-    include("boasPraticas/headerNav.php");
+    require_once "boasPraticas/headerNav.php";
 
     ?>
     <main>
@@ -97,7 +100,7 @@ include("protecao.php");
         ON a.id_aluno = ea.id_aluno 
         ;";
 
-        $resultado1 = mysqli_query($mysql, $sql1);
+        $resultado1 = excutarSQL($mysql, $sql1);
 
         if ($mysql->error) {
 

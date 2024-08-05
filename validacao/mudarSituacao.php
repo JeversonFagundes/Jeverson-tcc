@@ -1,7 +1,10 @@
 <?php
 
 //conectar com o banco de dados.
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 if ($_POST['deferir']) {
 
@@ -13,15 +16,9 @@ if ($_POST['deferir']) {
 
     $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
 
-    mysqli_query($mysql, $sql);
+    excutarSQL($mysql, $sql);
 
-    if ($mysql->error) {
-
-        die("Falha ao deferir esta atividade! " . $mysql->error);
-    } else {
-
-        header("location: validar.php?id=" . $id_aluno);
-    }
+    header("location: validar.php?id=" . $id_aluno);
 } else {
 
     if ($_POST['indeferir']) {
@@ -35,14 +32,8 @@ if ($_POST['deferir']) {
 
         $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
 
-        mysqli_query($mysql, $sql);
+        excutarSQL($mysql, $sql);
 
-        if ($mysql->error) {
-
-            die("Falha ao deferir esta atividade! " . $mysql->error);
-        } else {
-
-            header("location: validar.php?id=" . $id_aluno);
-        }
+        header("location: validar.php?id=" . $id_aluno);
     }
 }

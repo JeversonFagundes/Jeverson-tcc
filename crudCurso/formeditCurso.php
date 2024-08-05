@@ -3,13 +3,16 @@
 $id = $_GET['id'];
 
 // Conectar ao BD
-include("../conecta.php");
+require_once "../conecta.php";
+
+//variavel de conexão.
+$mysql = conectar();
 
 // Seleciona os dados da historia da tabela historia
 $sql = "SELECT * FROM curso WHERE id_curso = $id";
 
 // Executa o Select
-$resultado = mysqli_query($mysql,$sql);
+$resultado = excutarSQL($mysql,$sql);
 
 // Gera o vetor com os dados buscados
 $dados = mysqli_fetch_assoc($resultado);

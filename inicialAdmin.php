@@ -1,9 +1,13 @@
 <?php
 
 //conectar com o banco de dados.
-include("conecta.php");
+require_once "conecta.php";
 
-include("protecao.php");
+//incluir a proteção.
+require_once "protecao.php";
+
+//variavel de conexão.
+$mysql = conectar();
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@ include("protecao.php");
 
 <body>
 
-<?php include ("boasPraticas/headerNav.php"); ?>
+    <?php require_once "boasPraticas/headerNav.php"; ?>
     <main>
         <h1>Bem vindo!</h1>
 
@@ -35,7 +39,7 @@ include("protecao.php");
 
         $sql = "SELECT * FROM curso ORDER BY nome_curso ASC";
 
-        $resultado = mysqli_query($mysql, $sql);
+        $resultado = excutarSQL($mysql, $sql);
 
         if ($mysql->error) {
 
@@ -44,12 +48,12 @@ include("protecao.php");
 
             //Lista os itens
             echo '<table border=4;">
-<tr>
-<th>Nome do curso</th>
-<th>Carga horaria</th>
+            <tr>
+            <th>Nome do curso</th>
+            <th>Carga horaria</th>
 
-<th colspan=3>Opções</th>
-</tr>';
+            <th colspan=3>Opções</th>
+            </tr>';
 
             while ($dados = mysqli_fetch_assoc($resultado)) {
                 echo '<tr>';
@@ -70,15 +74,15 @@ include("protecao.php");
 
         $sql2 = "SELECT cc.id_coordenador, cc.nome_coordenador, cc.email, c.nome_curso FROM coordenador_curso cc
 
-INNER JOIN curso c
+        INNER JOIN curso c
 
-ON cc.id_curso = c.id_curso
+        ON cc.id_curso = c.id_curso
 
-ORDER BY cc.nome_coordenador ASC
+        ORDER BY cc.nome_coordenador ASC
 
-;";
+        ;";
 
-        $resultado2 = mysqli_query($mysql, $sql2);
+        $resultado2 = excutarSQL($mysql, $sql2);
 
         if ($mysql->error) {
 
@@ -87,13 +91,13 @@ ORDER BY cc.nome_coordenador ASC
 
             //Lista os itens
             echo '<table border=4;">
-<tr>
-<th>Nome do coordenador de curso</th>
-<th>Email</th>
-<th>Curso</th>
+            <tr>
+            <th>Nome do coordenador de curso</th>
+            <th>Email</th>
+            <th>Curso</th>
 
-<th colspan=3>Opções</th>
-</tr>';
+            <th colspan=3>Opções</th>
+            </tr>';
 
             while ($dados2 = mysqli_fetch_assoc($resultado2)) {
                 echo '<tr>';
