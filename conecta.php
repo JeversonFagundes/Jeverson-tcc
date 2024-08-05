@@ -10,7 +10,7 @@
 function conectar()
 {
 
-    require_once "config.php";
+    require_once "config2.php";
 
     $mysql = mysqli_connect(
 
