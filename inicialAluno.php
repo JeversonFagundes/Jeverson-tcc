@@ -32,11 +32,11 @@ $pasta = "certificados/";
 
 <body>
 
-    <header>
-        <nav>
-            <li><a href="crudAluno/perfil.php">Perfil</a></li>
-            <li><a href="logout.php">Sair</a></li>
-        </nav>
+    <?php
+
+    include("boasPraticas/headerNav.php");
+
+    ?>
     </header>
 
     <main>

@@ -98,7 +98,8 @@ if ($mysql->error) {
 
  <!--Abrir um campo select para a selção dos itens.-->
 
- <select name="atividade_complementar">
+ <label for="select">Escolha a natureza do certificado:</label>
+ <select id="select" name="atividade_complementar">
 
  <?php
 
@@ -120,7 +121,7 @@ if ($mysql->error) {
 
        value = " <?php echo $atividade_complementar['id_atividade_complementar']; ?>">
     
-            <?php echo $atividade_complementar['descricao']; ?>
+            <?php echo $atividade_complementar['natureza']; ?>
 
       </option>
 

@@ -29,15 +29,10 @@ include("protecao.php");
 
 <body>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a href="crudContaCo/perfil.php">Perfil</a></li>
-                <li><a href="logout.php">Sair</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php
+    include("boasPraticas/headerNav.php");
 
+    ?>
     <main>
         <h1><?php echo $_SESSION['coordenador'][0]; ?></h1>
 
@@ -47,7 +42,7 @@ include("protecao.php");
 
         <?php
 
-        //selecionar todos os itens da tebala de atividades complementares
+        /*//selecionar todos os itens da tebala de atividades complementares
         $sql = "SELECT * FROM atividade_complementar WHERE id_curso = " . $_SESSION['coordenador'][2];
 
         //excutar o comando sql acima.
@@ -68,13 +63,14 @@ include("protecao.php");
 
                 echo '<h3>Tabela de atividades complemenatres</h3>';
                 //Lista os itens
-                echo '<table border=1>
-<tr>
-<th>Natureza da atividade</th>
-<th>Descrição da atividade</th>
-<th>Carga horaria máxima</th>
-<th colspan=3>Opções</th>
-</tr>';
+                echo '<table border=1">
+
+                <tr>
+                <th>Natureza da atividade</th>
+                <th>Descrição da atividade</th>
+                <th>Carga horaria máxima</th>
+                <th colspan=3>Opções</th>
+                </tr>';
 
                 while ($dados = mysqli_fetch_assoc($resultado)) {
                     echo '<tr>';
@@ -90,16 +86,16 @@ include("protecao.php");
             }
         }
 
-        echo '<hr>';
-
+        echo '<hr>'; */
         echo '<h1>Lista de alunos que entregaram atividades complementares para validaçao no sistema </h1>';
 
         $sql1 = "SELECT DISTINCT a.id_aluno, a.nome_aluno, a.matricula FROM aluno a
-INNER JOIN coordenador_curso cc 
-ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
-INNER JOIN entrega_atividade ea 
-ON a.id_aluno = ea.id_aluno 
-;";
+
+        INNER JOIN coordenador_curso cc 
+        ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
+        INNER JOIN entrega_atividade ea 
+        ON a.id_aluno = ea.id_aluno 
+        ;";
 
         $resultado1 = mysqli_query($mysql, $sql1);
 
@@ -128,11 +124,11 @@ ON a.id_aluno = ea.id_aluno
                 }
             }
         }
-        /*
-    
-    */
+
         ?>
     </main>
+
+
 </body>
 
 </html>

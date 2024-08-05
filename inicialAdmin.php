@@ -19,15 +19,7 @@ include("protecao.php");
 
 <body>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a href="perfil.php">Perfil</a></li>
-                <li><a href="logout.php">Sair</a></li>
-            </ul>
-        </nav>
-    </header>
-
+<?php include ("boasPraticas/headerNav.php"); ?>
     <main>
         <h1>Bem vindo!</h1>
 

@@ -59,13 +59,14 @@ echo '</table>'.'<br><br>';
 
 <?php
 
-       $sql = "SELECT id_atividade_complementar, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
+       $sql = "SELECT id_atividade_complementar, natureza FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
        $resultado = mysqli_query($mysql, $sql);
     ?>
 
-    <select name="atividade_complementar">
+    <label for="select">Escolha a natureza do seu certificado:</label>
+    <select id="select" name="atividade_complementar">
 
-    <option selected disabled value="">Escolha a natureza do seu certificado</option>
+    <option selected disabled value="">Natureza</option>
     
     <?php 
     
@@ -74,7 +75,7 @@ echo '</table>'.'<br><br>';
         ?>
         <option value="<?php echo $dados['id_atividade_complementar'] ?>">
 
-            <?php echo $dados['descricao'] ?>
+            <?php echo $dados['natureza'] ?>
 
         </option>
     <?php 

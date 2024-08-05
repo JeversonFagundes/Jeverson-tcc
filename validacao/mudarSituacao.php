@@ -29,7 +29,7 @@ if ($_POST['deferir']) {
         //receber os dados.
         $natureza = $_POST['natureza'];
         $id = $_POST['id_atividade'];
-        $cargaDefe = $_POST['cargaDefe'];
+        $cargaDefe = 0;
         $situacao = "Indeferido";
         $id_aluno = $_POST['aluno'];
 
