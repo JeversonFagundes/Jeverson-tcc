@@ -52,7 +52,7 @@ $coordenador = mysqli_fetch_assoc($resultado);
 
         ?>
 
-        <label for="curso">Selecione o seu curso</label>
+        <label for="curso">Selecione o seu curso: </label>
         <select id="curso" name="curso" required>
 
             <?php

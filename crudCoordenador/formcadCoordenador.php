@@ -36,7 +36,7 @@ $mysql = conectar();
         <label for="curso">Selecione o seu curso:</label>
         <select id="curso" name="curso" required>
 
-            <option selected disabled value="">Escolha um curso</option>
+            <option selected disabled value="">Escolha um curso: </option>
 
             <?php
 

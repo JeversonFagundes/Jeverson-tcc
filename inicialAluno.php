@@ -125,6 +125,44 @@ $pasta = "certificados/";
 
     </main>
 
+    <?php
+
+    /*
+        ?>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Titulo do certificado</th>
+                        <th scope="col">Nome do arquivo</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col"colspan="3">Opções</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+            
+                <?php
+
+                while ($dados = mysqli_fetch_assoc($query)) {
+                    
+                    echo "<tr>"; 
+                    echo "<td>" .$dados['titulo_certificado'] . "</td>";
+                    echo "<td>" .$dados['certificado'] . "</td>";
+                    echo "<td>" .$dados['descricao'] . "</td>";
+                    echo '<td> <a> <img style = " width:30px;   heigth:20px;  " src = "icons/lapis.png"> </a> </td>';
+                    echo '<td> <a> <img style = " width:30px;   heigth:20px;  " src = "icons/lixeira.png"> </a> </td>';
+                    echo '<td> <a> <img style = " width:30px;   heigth:20px;  " src = "icons/visualizar.png"> </a> </td>';
+                    echo "</tr>";
+                }
+
+                ?>
+                </tbody>
+            </table>
+
+        <?php */
+    ?>
 </body>
 
 </html>
