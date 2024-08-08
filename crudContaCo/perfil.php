@@ -10,7 +10,7 @@ require_once "../protecao.php";
 $mysql = conectar();
 
 // Seleciona os dados da historia da tabela historia
-$sql = "SELECT nome_coordenador, email, id_curso, id_coordenador FROM coordenador_curso WHERE id_coordenador = " . $_SESSION['coordenador'][1];
+$sql = "SELECT nome, email, id_curso, id_coordenador FROM coordenador_curso WHERE id_coordenador = " . $_SESSION['coordenador'][1];
 
 // Executa o Select
 $resultado = excutarSQL($mysql, $sql);
@@ -39,7 +39,7 @@ $coordenador = mysqli_fetch_assoc($resultado);
     <form action="editarContCo.php" method="post">
 
         <label for="nome">Nome: </label>
-        <input type="text" value="<?php echo $coordenador['nome_coordenador']; ?>" name="nome"><br><br>
+        <input type="text" value="<?php echo $coordenador['nome']; ?>" name="nome"><br><br>
 
         <label for="email">Email: </label>
         <input type="email" value="<?php echo $coordenador['email']; ?>" name="email"><br><br>

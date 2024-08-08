@@ -72,13 +72,13 @@ $mysql = conectar();
 
         echo '</table>';
 
-        $sql2 = "SELECT cc.id_coordenador, cc.nome_coordenador, cc.email, c.nome_curso FROM coordenador_curso cc
+        $sql2 = "SELECT cc.id_coordenador, cc.nome, cc.email, c.nome_curso FROM coordenador_curso cc
 
         INNER JOIN curso c
 
         ON cc.id_curso = c.id_curso
 
-        ORDER BY cc.nome_coordenador ASC
+        ORDER BY cc.nome ASC
 
         ;";
 
@@ -101,7 +101,7 @@ $mysql = conectar();
 
             while ($dados2 = mysqli_fetch_assoc($resultado2)) {
                 echo '<tr>';
-                echo '<td>' . $dados2['nome_coordenador'] . '</td>';
+                echo '<td>' . $dados2['nome'] . '</td>';
                 echo '<td>' . $dados2['email'] . '</td>';
                 echo '<td>' . $dados2['nome_curso'] . '</td>';
 

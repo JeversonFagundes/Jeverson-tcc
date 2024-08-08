@@ -10,7 +10,7 @@ require_once "../protecao.php";
 $mysql = conectar();
 
 // Seleciona os dados da historia da tabela historia
-$sql = "SELECT nome_aluno, matricula, email, id_curso, id_aluno FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
+$sql = "SELECT nome, matricula, email, id_curso, id_aluno FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
 // Executa o Select
 $resultado = excutarSQL($mysql, $sql);
@@ -40,7 +40,7 @@ $aluno = mysqli_fetch_assoc($resultado);
         <form action="editarAluno.php" method="post">
 
             <label for="nome">Nome: </label>
-            <input type="text" value="<?php echo $aluno['nome_aluno']; ?>" name="nome"><br><br>
+            <input type="text" value="<?php echo $aluno['nome']; ?>" name="nome"><br><br>
 
             <label for="matricula">Matricula: </label>
             <input type="text" value="<?php echo $aluno['matricula']; ?>" name="matricula"><br><br>

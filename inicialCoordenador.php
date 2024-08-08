@@ -92,7 +92,7 @@ $mysql = conectar();
         echo '<hr>'; */
         echo '<h1>Lista de alunos que entregaram atividades complementares para validaçao no sistema </h1>';
 
-        $sql1 = "SELECT DISTINCT a.id_aluno, a.nome_aluno, a.matricula FROM aluno a
+        $sql1 = "SELECT DISTINCT a.id_aluno, a.nome, a.matricula FROM aluno a
 
         INNER JOIN coordenador_curso cc 
         ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
@@ -120,7 +120,7 @@ $mysql = conectar();
 
                     echo '<div class="card">';
                     echo '<div class="card-body">';
-                    echo '<h1 class="card-title">' . '<a href="validacao/validar.php?id=' . $dados1['id_aluno'] . '">' . $dados1['nome_aluno'] . '</a>' . '</h1>';
+                    echo '<h1 class="card-title">' . '<a href="validacao/validar.php?id=' . $dados1['id_aluno'] . '">' . $dados1['nome'] . '</a>' . '</h1>';
                     echo '<p class="card-text">' . 'Matricula do aluno:' . ' ' . $dados1['matricula'] . '</p>';
                     echo '</div>';
                     echo '</div>';

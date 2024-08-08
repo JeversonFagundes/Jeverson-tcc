@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 27-Jul-2024 às 22:29
+-- Tempo de geração: 08-Ago-2024 às 19:48
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -51,7 +51,7 @@ INSERT INTO `administrador` (`id_administrador`, `email`, `senha`) VALUES
 DROP TABLE IF EXISTS `aluno`;
 CREATE TABLE IF NOT EXISTS `aluno` (
   `id_aluno` int NOT NULL AUTO_INCREMENT,
-  `nome_aluno` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `matricula` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS `aluno` (
 -- Extraindo dados da tabela `aluno`
 --
 
-INSERT INTO `aluno` (`id_aluno`, `nome_aluno`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(75, 'Jeverson', '2022311922', 'Jever@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Mmoud2wxZWo2U1N1RElnYw$lbvtxUE3Mj7dADdHvZOJ+0zOR5DvhJ5mC84hOEC13Tw', 9);
+INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `id_curso`) VALUES
+(75, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$Ri9zMGc1YXpxNHdTcXFiTQ$qbBODrZ59SaGVeKQahXP7gIxlttsArmVi0RfIUw/mjY', 9);
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ INSERT INTO `atividade_complementar` (`id_atividade_complementar`, `natureza`, `
 DROP TABLE IF EXISTS `coordenador_curso`;
 CREATE TABLE IF NOT EXISTS `coordenador_curso` (
   `id_coordenador` int NOT NULL AUTO_INCREMENT,
-  `nome_coordenador` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
   `id_curso` int DEFAULT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `coordenador_curso` (
 -- Extraindo dados da tabela `coordenador_curso`
 --
 
-INSERT INTO `coordenador_curso` (`id_coordenador`, `nome_coordenador`, `email`, `senha`, `id_curso`) VALUES
+INSERT INTO `coordenador_curso` (`id_coordenador`, `nome`, `email`, `senha`, `id_curso`) VALUES
 (14, 'Fabio', 'Fabio@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$aHZiSlR3Wm1aVmpYbTFnaA$yCaT8jjPWk3xfi+8sl/qBuO5U8ST20xQDBBbGFRigi4', 9);
 
 -- --------------------------------------------------------
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -217,9 +217,20 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
 
 DROP TABLE IF EXISTS `recuperar_senha`;
 CREATE TABLE IF NOT EXISTS `recuperar_senha` (
+  `id_recuperar_senha` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) DEFAULT NULL,
-  `data_recuperacao` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `token` char(100) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL,
+  `usado` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id_recuperar_senha`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `recuperar_senha`
+--
+
+INSERT INTO `recuperar_senha` (`id_recuperar_senha`, `email`, `token`, `data_criacao`, `usado`) VALUES
+(11, 'jeverson.2022311922@aluno.iffar.edu.br', '918b80e08d217c48a34a5590cce1a3362b54f68677c2e4c0113025ce1c66df44cc4b3e6ba9aa4bd6a65be70a90556c838735', '2024-08-08 16:46:56', 1);
 
 --
 -- Restrições para despejos de tabelas
