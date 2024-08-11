@@ -13,7 +13,7 @@ $email = $_POST['email'];
 $curso = $_POST['curso'];
 
 //comando sql.
-$sql = "UPDATE aluno SET nome_aluno = '$nome', matricula = '$matricula', email = '$email', id_curso = '$curso' WHERE id_aluno = $id";
+$sql = "UPDATE aluno SET nome = '$nome', matricula = '$matricula', email = '$email', id_curso = '$curso' WHERE id_aluno = $id";
 
 //excutar o comando sql acima.
 excutarSQL($mysql, $sql);

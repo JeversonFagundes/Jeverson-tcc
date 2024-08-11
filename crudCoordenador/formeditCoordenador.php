@@ -37,7 +37,7 @@ $coordenador = mysqli_fetch_assoc($resultado);
     <form action="editarCoordenador.php" method="post">
 
         <label for="nome">Nome do coordenador de curso:</label>
-        <input type="text" value="<?php echo $coordenador['nome_coordenador']; ?>" name="nome"><br><br>
+        <input type="text" value="<?php echo $coordenador['nome']; ?>" name="nome"><br><br>
 
         <?php
 

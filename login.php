@@ -48,7 +48,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                 if ($quantidade_alunos != 0) {
 
-                    $sql = "SELECT a.nome_aluno, a.id_curso, a.id_aluno, a.senha FROM aluno a WHERE email = '$email'";
+                    $sql = "SELECT a.nome, a.id_curso, a.id_aluno, a.senha FROM aluno a WHERE email = '$email'";
 
                     $query = excutarSQL($mysql, $sql);
 
@@ -56,7 +56,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                     if (password_verify($senha, $aluno['senha'])) {
 
-                        $_SESSION['aluno'][0] = $aluno['nome_aluno'];
+                        $_SESSION['aluno'][0] = $aluno['nome'];
                         $_SESSION['aluno'][1] = $aluno['id_aluno'];
                         $_SESSION['aluno'][2] = $aluno['id_curso'];
 
@@ -72,7 +72,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                     if ($quantidade_coordenadores != 0) {
 
-                        $sql2 = "SELECT cc.nome_coordenador, cc.senha, cc.id_coordenador, cc.id_curso FROM coordenador_curso cc
+                        $sql2 = "SELECT cc.nome, cc.senha, cc.id_coordenador, cc.id_curso FROM coordenador_curso cc
                         WHERE email = '$email'";
 
                         $query2 = excutarSQL($mysql, $sql2);
@@ -81,7 +81,7 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                         if (password_verify($senha, $coordenador['senha'])) {
 
-                            $_SESSION['coordenador'][0] = $coordenador['nome_coordenador'];
+                            $_SESSION['coordenador'][0] = $coordenador['nome'];
                             $_SESSION['coordenador'][1] = $coordenador['id_coordenador'];
                             $_SESSION['coordenador'][2] = $coordenador['id_curso'];
 

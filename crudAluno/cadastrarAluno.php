@@ -43,7 +43,7 @@ if ($quantidade_alunos > 0 || $quantidade_coordenadores > 0 || $quantidade_admin
         echo "Essa matricula: " . " " . $matricula . " " . " já está cadastrada no sistema!<p><a href = \"formcadAluno.php\">Voltar</a></p>";
     } else {
 
-        $sql = "INSERT INTO aluno (nome_aluno, matricula, email, senha, id_curso)
+        $sql = "INSERT INTO aluno (nome, matricula, email, senha, id_curso)
         VALUES ('$nome', '$matricula', '$email', '$nova_senha', $curso)";
 
         $query = excutarSQL($mysql, $sql);

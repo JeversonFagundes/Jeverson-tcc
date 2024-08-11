@@ -14,7 +14,7 @@ $senha = $_POST['senha'];
 $id = $_POST['id'];
 
 //comando sql.
-$sql = "UPDATE coordenador_curso SET nome_coordenador = '$nome', email = '$email', senha = '$senha', id_curso = $curso WHERE id_coordenador = $id";
+$sql = "UPDATE coordenador_curso SET nome = '$nome', email = '$email', senha = '$senha', id_curso = $curso WHERE id_coordenador = $id";
 
 //excutar o comando sql acima.
 excutarSQL($mysql, $sql);

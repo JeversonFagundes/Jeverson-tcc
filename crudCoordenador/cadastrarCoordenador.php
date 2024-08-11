@@ -35,7 +35,7 @@ if ($quantidade_alunos > 0 || $quantidade_coordenadores > 0 || $quantidade_admin
     echo "E-mail: " . " " . $email . " " . " já está cadastrado no sistema!<p><a href = \"formcadCoordenador.php\">Voltar</a></p>";
 } else {
 
-    $sql = "INSERT INTO coordenador_curso (nome_coordenador, email, senha, id_curso)
+    $sql = "INSERT INTO coordenador_curso (nome, email, senha, id_curso)
     VALUES ('$nome', '$email', '$nova_senha', $curso)";
 
     $query = excutarSQL($mysql, $sql);

@@ -12,7 +12,7 @@ $email = $_POST['email'];
 $curso = $_POST['curso'];
 
 //comando sql.
-$sql = "UPDATE coordenador_curso SET nome_coordenador = '$nome',  email = '$email', id_curso = '$curso' WHERE id_coordenador = $id";
+$sql = "UPDATE coordenador_curso SET nome = '$nome',  email = '$email', id_curso = '$curso' WHERE id_coordenador = $id";
 
 //excutar o comando sql acima.
 excutarSQL($mysql, $sql);
