@@ -11,7 +11,7 @@ $mysql = conectar();
 
 $pastaDestino = "../certificados/";
 
-$sql = "SELECT a.id_aluno, a.nome_aluno, a.matricula, a.email,
+$sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.id_entrega_atividade, 
 
@@ -79,7 +79,7 @@ if ($mysql->error) {
 
         echo '<h1 class="card-title">' . 'Titulo do certificado:' . '' . $dados['titulo_certificado'] . '</h1>';
 
-        echo '<p class="card-text">' . 'Nome do aluno: ' . '' . $dados['nome_aluno'] . '</p>';
+        echo '<p class="card-text">' . 'Nome do aluno: ' . '' . $dados['nome'] . '</p>';
 
         echo '<p class="card-text">' . 'Matricula: ' . '' . $dados['matricula'] . '</p>';
 

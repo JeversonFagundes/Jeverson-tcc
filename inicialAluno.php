@@ -67,7 +67,6 @@ $pasta = "certificados/";
         ea.status,
         ea.caminho,
         ea.id_atividade_complementar
-        
         FROM entrega_atividade ea 
         INNER JOIN atividade_complementar ac 
         ON ea.id_atividade_complementar = ac.id_atividade_complementar
@@ -88,6 +87,9 @@ $pasta = "certificados/";
 
             die();
         } else {
+
+            echo "<a href=\"inicialAluno.php?pesquisa=Indeferido\">Indeferidos</a> <br><br>";
+            echo "<a href=\"inicialAluno.php?pesquisa=Deferido\">Deferidos</a>";
 
             while ($dados = mysqli_fetch_assoc($query)) {
 
@@ -130,7 +132,7 @@ $pasta = "certificados/";
     /*
         ?>
 
-            <table class="table">
+            <<table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Titulo do certificado</th>
