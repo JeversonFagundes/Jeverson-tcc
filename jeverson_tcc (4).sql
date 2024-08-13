@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 08-Ago-2024 às 19:48
+-- Tempo de geração: 13-Ago-2024 às 11:13
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `aluno` (
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(75, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$Ri9zMGc1YXpxNHdTcXFiTQ$qbBODrZ59SaGVeKQahXP7gIxlttsArmVi0RfIUw/mjY', 9);
+(75, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$UGNJR2FuaG5ULjZ2S05aOA$2KLKLDji4El/c7HJcXyvSV2n/ir8GvOfzyIo39KoWSY', 9);
 
 -- --------------------------------------------------------
 
@@ -204,10 +204,18 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   `id_aluno` int DEFAULT NULL,
   `caminho` varchar(255) NOT NULL,
   `id_atividade_complementar` int NOT NULL,
+  `observacoes` text NOT NULL,
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `entrega_atividade`
+--
+
+INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`, `id_atividade_complementar`, `observacoes`) VALUES
+(78, 'ew', 1111, 'OIP.jpg', 0, 'Em análise', 75, '66b6648ec506a.jpg', 14, '');
 
 -- --------------------------------------------------------
 
@@ -223,14 +231,15 @@ CREATE TABLE IF NOT EXISTS `recuperar_senha` (
   `data_criacao` datetime DEFAULT NULL,
   `usado` tinyint DEFAULT NULL,
   PRIMARY KEY (`id_recuperar_senha`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `recuperar_senha`
 --
 
 INSERT INTO `recuperar_senha` (`id_recuperar_senha`, `email`, `token`, `data_criacao`, `usado`) VALUES
-(11, 'jeverson.2022311922@aluno.iffar.edu.br', '918b80e08d217c48a34a5590cce1a3362b54f68677c2e4c0113025ce1c66df44cc4b3e6ba9aa4bd6a65be70a90556c838735', '2024-08-08 16:46:56', 1);
+(11, 'jeverson.2022311922@aluno.iffar.edu.br', '918b80e08d217c48a34a5590cce1a3362b54f68677c2e4c0113025ce1c66df44cc4b3e6ba9aa4bd6a65be70a90556c838735', '2024-08-08 16:46:56', 1),
+(12, 'jeverson.2022311922@aluno.iffar.edu.br', 'ee7adf432ec17dc3eb0a6a683457b5b87b7c5cc39838145ec6ebff29ae62112db759d40930149f8e999b731e25ac16b3ef44', '2024-08-09 15:40:45', 1);
 
 --
 -- Restrições para despejos de tabelas

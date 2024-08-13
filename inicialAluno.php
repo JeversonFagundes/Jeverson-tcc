@@ -87,10 +87,7 @@ $pasta = "certificados/";
 
             die();
         } else {
-
-            echo "<a href=\"inicialAluno.php?pesquisa=Indeferido\">Indeferidos</a> <br><br>";
-            echo "<a href=\"inicialAluno.php?pesquisa=Deferido\">Deferidos</a>";
-
+            
             while ($dados = mysqli_fetch_assoc($query)) {
 
                 if ($dados['status'] != "Em análise") {
