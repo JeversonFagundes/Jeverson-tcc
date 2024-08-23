@@ -102,10 +102,10 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                             $administrador = mysqli_fetch_assoc($query3);
 
                             if (password_verify($senha, $administrador['senha'])) {
-
+                                
                                 $_SESSION['administrador'][0] = $administrador['email'];
 
-                                echo "A senha do administrador confere! <p><a href = \"logout.php\">Voltar</a></p>";
+                               header("location: inicialAdmin.php");
                             }else {
                                 
                                 echo "A senha do administrador não confere! <p><a href = \"logout.php\">Voltar</a></p>";

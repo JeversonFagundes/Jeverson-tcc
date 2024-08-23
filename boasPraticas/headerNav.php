@@ -15,7 +15,7 @@ if ($pagina_corrente == 'inicialAluno.php') {
         $sair = '<li><a href="logout.php">Sair</a></li>';
     }else {
         
-        if ($pagina_corrente == 'inicialAdministrador.php') {
+        if ($pagina_corrente == 'inicialAdmin.php') {
             
             $perfil = '<li><a href="perfil.php">Perfil</a></li>';
             $sair = '<li><a href="logout.php">Sair</a></li>';
