@@ -17,7 +17,9 @@ $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.carga_horaria_certificado, ea.carga_horaria_aprovada, 
 
- ea.status, ea.certificado, ea.caminho, ea.titulo_certificado
+ ea.status, ea.certificado, ea.caminho, ea.titulo_certificado,
+
+ ea.observacoes
 
  FROM aluno a
 
@@ -92,6 +94,13 @@ if ($mysql->error) {
         echo '<p class="card-text">' . 'Carga horaria deferida: ' . '<input type = "number" value = "' . $dados['carga_horaria_aprovada'] . '" name = "cargaDefe">' . '</p>';
 
         echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
+
+        ?>
+
+        <label for="obser">Adicionar observações:</label><br>
+        <textarea name="observacoes" id="obser"><?php echo $dados['observacoes']; ?></textarea><br><br>
+
+        <?php
 
         echo '<input type = "hidden" value = "' . $dados['id_entrega_atividade'] . '" name = "id_atividade">';
 

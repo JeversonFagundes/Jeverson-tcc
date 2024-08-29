@@ -66,7 +66,8 @@ $pasta = "certificados/";
         ea.carga_horaria_aprovada, 
         ea.status,
         ea.caminho,
-        ea.id_atividade_complementar
+        ea.id_atividade_complementar,
+        ea.observacoes
         FROM entrega_atividade ea 
         INNER JOIN atividade_complementar ac 
         ON ea.id_atividade_complementar = ac.id_atividade_complementar
@@ -90,7 +91,7 @@ $pasta = "certificados/";
             
             while ($dados = mysqli_fetch_assoc($query)) {
 
-                if ($dados['status'] != "Em análise") {
+                if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
                     echo '<div class="card">';
                     echo '<div class="card-body">';
                     echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
@@ -100,6 +101,7 @@ $pasta = "certificados/";
                     echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
                     echo '<p class="card-text">' . 'Carga horaria deferida: ' . '' . $dados['carga_horaria_aprovada'] . '</p>';
                     echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
+                    echo '<p class="card-text">' . 'Observações:' . ' ' . $dados['observacoes'] . '</p>';
                     echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
                     echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
                     echo '</div>';

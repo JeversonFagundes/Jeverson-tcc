@@ -83,7 +83,7 @@ if ($recuperar == null) {
     if ($quantidade_coordenadores != 0) {
 
 
-        $sql2 = "UPDATE coordenador_curso SET senha='$senha' WHERE 
+        $sql2 = "UPDATE coordenador_curso SET senha='$nova_senha' WHERE 
          email='$email'";
         excutarSQL($mysql, $sql2);
 
@@ -94,6 +94,24 @@ if ($recuperar == null) {
         echo "Nova senha cadastrada com sucesso! Faça o login para 
       acessar o sistema.<br>";
         echo "<a href='index.php'>Acessar sistema</a>";
+
+        die();
+    }
+
+    if ($quantidade_administradores != 0) {
+
+
+        $sql3 = "UPDATE administrador SET senha='$nova_senha' WHERE 
+         email='$email'";
+        excutarSQL($mysql, $sql3);
+
+        $sql4 = "UPDATE recuperar_senha SET usado=1 WHERE 
+         email='$email' AND token='$token'";
+        excutarSQL($mysql, $sql4);
+
+        echo "Nova senha cadastrada com sucesso! Faça o login para 
+      acessar o sistema.<br>";
+        echo "<a href='../index.php'>Acessar sistema</a>";
 
         die();
     }

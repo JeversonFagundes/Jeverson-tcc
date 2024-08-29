@@ -13,8 +13,9 @@ if ($_POST['deferir']) {
     $cargaDefe = $_POST['cargaDefe'];
     $situacao = "Deferido";
     $id_aluno = $_POST['aluno'];
+    $observacoes = $_POST['observacoes'];
 
-    $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
+    $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao', observacoes = '$observacoes' WHERE id_entrega_atividade = $id";
 
     excutarSQL($mysql, $sql);
 
@@ -29,8 +30,9 @@ if ($_POST['deferir']) {
         $cargaDefe = 0;
         $situacao = "Indeferido";
         $id_aluno = $_POST['aluno'];
+        $observacoes = $_POST['observacoes'];
 
-        $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao' WHERE id_entrega_atividade = $id";
+        $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao', observacoes = '$observacoes' WHERE id_entrega_atividade = $id";
 
         excutarSQL($mysql, $sql);
 

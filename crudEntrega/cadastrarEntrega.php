@@ -17,6 +17,7 @@ $carga = $_POST['carga'];
 $carga_deferida = $_POST['cargaDefe'];
 $status = $_POST['status'];
 $certificado = $_FILES['certificado'];
+$observacoes = "Sem observações";
 
 //verificar se deu erro no recebimento do arquivo.
 if ($certificado['error'] != 0) {
@@ -60,8 +61,8 @@ if ($certificado['error'] != 0) {
             $caminho = $novo_nome_certificado . "." . $extencao;
 
             //inserir no banco de dados.
-            $sql = "INSERT INTO entrega_atividade (titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, id_aluno,id_atividade_complementar)           
-            VALUES ('$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status',$id, $atividade_complementar)";
+            $sql = "INSERT INTO entrega_atividade (titulo_certificado, carga_horaria_certificado, certificado, caminho, carga_horaria_aprovada, status, observacoes, id_aluno,id_atividade_complementar)           
+            VALUES ('$titulo', $carga, '$nome_certificado','$caminho', $carga_deferida, '$status', '$observacoes',$id, $atividade_complementar)";
 
             $query = excutarSQL($mysql, $sql);
 
