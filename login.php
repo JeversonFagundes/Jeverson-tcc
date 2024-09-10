@@ -63,7 +63,6 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                         //echo "A senha  do aluno confere! <p><a href = \"logout.php\">Voltar</a></p>";
 
                         header("location: inicialAluno.php");
-
                     } else {
 
                         echo "A senha  do aluno não confere! <p><a href = \"logout.php\">Voltar</a></p>";
@@ -102,12 +101,12 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
                             $administrador = mysqli_fetch_assoc($query3);
 
                             if (password_verify($senha, $administrador['senha'])) {
-                                
+
                                 $_SESSION['administrador'][0] = $administrador['email'];
 
-                               header("location: inicialAdmin.php");
-                            }else {
-                                
+                                header("location: inicialAdmin.php");
+                            } else {
+
                                 echo "A senha do administrador não confere! <p><a href = \"logout.php\">Voltar</a></p>";
                             }
                         }

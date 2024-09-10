@@ -1,4 +1,6 @@
 <?php
+
+//receber os dados
 $email = $_POST['email'];
 $token = $_POST['token'];
 $senha = $_POST['senha'];
@@ -8,45 +10,49 @@ require_once "../conecta.php";
 
 $mysql = conectar();
 
-$sql = "SELECT * FROM recuperar_senha WHERE email='$email' AND 
-        token='$token'";
+$sql = "SELECT * FROM recuperar_senha WHERE email='$email' AND token='$token'";
 
 $resultado = excutarSQL($mysql, $sql);
 
 $recuperar = mysqli_fetch_assoc($resultado);
 
 if ($recuperar == null) {
-    echo "Email ou token incorreto. Tente fazer um novo pedido 
-          de recuperação de senha.";
+
+    echo "Email ou token incorreto. Tente fazer um novo pedido de recuperação de senha.";
+
     die();
 } else {
+
     // verificar a validade do pedido (data_criacao)
-    // verificar se o link jah foi usado
+    // verificar se o link já foi usado
+
     date_default_timezone_set('America/Sao_Paulo');
+
     $agora = new DateTime('now');
-    $data_criacao = DateTime::createFromFormat(
-        'Y-m-d H:i:s',
-        $recuperar['data_criacao']
-    );
+
+    $data_criacao = DateTime::createFromFormat('Y-m-d H:i:s', $recuperar['data_criacao']);
+
     $umDia = DateInterval::createFromDateString('1 day');
+
     $dataExpiracao = date_add($data_criacao, $umDia);
 
     if ($agora > $dataExpiracao) {
-        echo "Essa solicitação de recuperação de senha expirou!
-              Faça um novo pedido de recuperação de senha.";
+
+        echo "Essa solicitação de recuperação de senha expirou! Faça um novo pedido de recuperação de senha.";
+
         die();
     }
 
     if ($recuperar['usado'] == 1) {
-        echo "Esse pedido de recuperação de senha já foi utilizado
-        anteriormente! Para recuperar a senha faça um novo pedido
-        de recuperação de senha.";
+
+        echo "Esse pedido de recuperação de senha já foi utilizadoanteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha.";
+
         die();
     }
     if ($senha != $repetirSenha) {
-        echo "A senha que você digitou é diferente da senha que
-              você digitou no repetir senha. Por favor tente 
-              novamente!";
+
+        echo "A senha que você digitou é diferente da senha que você digitou no repetir senha. Por favor tente novamente!";
+
         die();
     }
 
@@ -66,16 +72,14 @@ if ($recuperar == null) {
 
     if ($quantidade_alunos != 0) {
 
-        $sql2 = "UPDATE aluno SET senha='$nova_senha' WHERE 
-         email='$email'";
+        $sql2 = "UPDATE aluno SET senha='$nova_senha' WHERE email='$email'";
         excutarSQL($mysql, $sql2);
 
-        $sql3 = "UPDATE recuperar_senha SET usado=1 WHERE 
-         email='$email' AND token='$token'";
+        $sql3 = "UPDATE recuperar_senha SET usado=1 WHERE email='$email' AND token='$token'";
         excutarSQL($mysql, $sql3);
 
-        echo "Nova senha cadastrada com sucesso! Faça o login para 
-      acessar o sistema.<br>";
+        echo "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema.<br>";
+
         echo "<a href='../index.php'>Acessar sistema</a>";
 
         die();
@@ -83,16 +87,14 @@ if ($recuperar == null) {
     if ($quantidade_coordenadores != 0) {
 
 
-        $sql2 = "UPDATE coordenador_curso SET senha='$nova_senha' WHERE 
-         email='$email'";
+        $sql2 = "UPDATE coordenador_curso SET senha='$nova_senha' WHERE email='$email'";
         excutarSQL($mysql, $sql2);
 
-        $sql3 = "UPDATE recuperar_senha SET usado=1 WHERE 
-         email='$email' AND token='$token'";
+        $sql3 = "UPDATE recuperar_senha SET usado=1 WHERE email='$email' AND token='$token'";
         excutarSQL($mysql, $sql3);
 
-        echo "Nova senha cadastrada com sucesso! Faça o login para 
-      acessar o sistema.<br>";
+        echo "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema.<br>";
+
         echo "<a href='index.php'>Acessar sistema</a>";
 
         die();
@@ -101,16 +103,14 @@ if ($recuperar == null) {
     if ($quantidade_administradores != 0) {
 
 
-        $sql3 = "UPDATE administrador SET senha='$nova_senha' WHERE 
-         email='$email'";
+        $sql3 = "UPDATE administrador SET senha='$nova_senha' WHERE email='$email'";
         excutarSQL($mysql, $sql3);
 
-        $sql4 = "UPDATE recuperar_senha SET usado=1 WHERE 
-         email='$email' AND token='$token'";
+        $sql4 = "UPDATE recuperar_senha SET usado=1 WHERE email='$email' AND token='$token'";
         excutarSQL($mysql, $sql4);
 
-        echo "Nova senha cadastrada com sucesso! Faça o login para 
-      acessar o sistema.<br>";
+        echo "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema.<br>";
+
         echo "<a href='../index.php'>Acessar sistema</a>";
 
         die();

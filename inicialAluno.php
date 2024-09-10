@@ -88,7 +88,7 @@ $pasta = "certificados/";
 
             die();
         } else {
-            
+
             while ($dados = mysqli_fetch_assoc($query)) {
 
                 if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {

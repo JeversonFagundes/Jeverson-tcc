@@ -26,7 +26,7 @@
                 <li><a href="recuperarSenha/form-recuperar-senha.html">Esqueci minha senha</a></li>
                 <li><a href="crudAluno/formcadAluno.php">Não possui conta? Clique aqui!</a></li>
             </ul>
-            
+
             <button type="submit">Entrar</button>
         </form>
 

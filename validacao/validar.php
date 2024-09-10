@@ -87,7 +87,7 @@ if ($mysql->error) {
 
         echo '<p class="card-text">' . 'E-mail: ' . '' . $dados['email'] . '</p>';
 
-        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="'.$pastaDestino . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pastaDestino . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
 
         echo '<p class="card-text">' . 'Carga horaria do certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
 
@@ -95,12 +95,12 @@ if ($mysql->error) {
 
         echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
 
-        ?>
+    ?>
 
         <label for="obser">Adicionar observações:</label><br>
         <textarea name="observacoes" id="obser"><?php echo $dados['observacoes']; ?></textarea><br><br>
 
-        <?php
+    <?php
 
         echo '<input type = "hidden" value = "' . $dados['id_entrega_atividade'] . '" name = "id_atividade">';
 

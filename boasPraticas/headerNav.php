@@ -3,21 +3,23 @@
 $pagina_corrente = basename($_SERVER['SCRIPT_NAME']);
 
 if ($pagina_corrente == 'inicialAluno.php') {
-    
+
     $perfil = '<li><a href="crudAluno/perfil.php">Perfil</a></li>';
 
     $sair = '<li><a href="logout.php">Sair</a></li>';
-}else {
-    
+} else {
+
     if ($pagina_corrente == 'inicialCoordenador.php') {
-        
+
         $perfil = '<li><a href="crudContaCo/perfil.php">Perfil</a></li>';
+
         $sair = '<li><a href="logout.php">Sair</a></li>';
-    }else {
-        
+    } else {
+
         if ($pagina_corrente == 'inicialAdmin.php') {
-            
+
             $perfil = '<li><a href="perfil.php">Perfil</a></li>';
+
             $sair = '<li><a href="logout.php">Sair</a></li>';
         }
     }
@@ -25,10 +27,10 @@ if ($pagina_corrente == 'inicialAluno.php') {
 ?>
 
 <header>
-        <nav>
-            <ul>
-                <?php echo $perfil?>
-                <?php echo $sair?>
-            </ul>
-        </nav>
-    </header>
+    <nav>
+        <ul>
+            <?php echo $perfil ?>
+            <?php echo $sair ?>
+        </ul>
+    </nav>
+</header>

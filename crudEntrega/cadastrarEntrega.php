@@ -23,7 +23,6 @@ $observacoes = "Sem observações";
 if ($certificado['error'] != 0) {
 
     die("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
-
 } else {
 
     //pasta de destino.
@@ -52,7 +51,7 @@ if ($certificado['error'] != 0) {
     } else {
 
         //mover o arquivo.
-        $mover_certificado = move_uploaded_file($certificado['tmp_name'], $pastaDestino. $novo_nome_certificado . "." . $extencao);
+        $mover_certificado = move_uploaded_file($certificado['tmp_name'], $pastaDestino . $novo_nome_certificado . "." . $extencao);
 
         //verificar se deu certo mover certificado.
         if ($mover_certificado) {
@@ -66,7 +65,7 @@ if ($certificado['error'] != 0) {
 
             $query = excutarSQL($mysql, $sql);
 
-           header("location:../inicialAluno.php");
+            header("location:../inicialAluno.php");
         }
     }
 }

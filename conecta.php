@@ -15,10 +15,10 @@ function conectar()
     $mysql = mysqli_connect(
 
         $config['host'],
-        $config['user'], 
-        $config['password'], 
+        $config['user'],
+        $config['password'],
         $config['banco']
-    
+
     );
 
     if ($mysql === false) {
@@ -40,7 +40,7 @@ function excutarSQL($mysql, $sql)
 
         echo "Erro ao excutar o comando sql" . ' ' . mysqli_errno($mysql) . ' ' . ':' . ' ' . mysqli_error($mysql);
 
-        die ();
+        die();
     }
 
     return $resultado;

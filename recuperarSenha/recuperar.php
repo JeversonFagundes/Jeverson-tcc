@@ -128,8 +128,8 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
         }
     }
 
-    die ();
-    
+    die();
+
 
     //gerar um token unico
     $token = bin2hex(random_bytes(50));

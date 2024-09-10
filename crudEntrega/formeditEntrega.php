@@ -91,7 +91,7 @@ $entrega = mysqli_fetch_assoc($resultado);
 
             //percorre o vetor
             foreach ($atividades_complementares as $atividade_complementar) {
-                
+
             ?>
 
                 <option <?php
