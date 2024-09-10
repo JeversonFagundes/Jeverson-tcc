@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,7 +29,7 @@
 <label for="descricao">Descriçao</label><br>
 <textarea name="descricao" id="descricao"></textarea><br><br>
 
-<input type="hidden" value="<?php echo $_SESSION['coordenador'][2]; ?>" name="curso">
+<input type="hidden" value="<?php echo  $_SESSION['coordenador'][2]; ?>" name="curso">
 
 <input type="submit" value="Cadastrar"><br><br>
 </form>

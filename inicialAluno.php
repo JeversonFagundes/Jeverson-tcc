@@ -92,6 +92,7 @@ $pasta = "certificados/";
             while ($dados = mysqli_fetch_assoc($query)) {
 
                 if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
+
                     echo '<div class="card">';
                     echo '<div class="card-body">';
                     echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
