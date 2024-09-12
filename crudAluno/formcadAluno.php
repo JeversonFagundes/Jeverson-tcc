@@ -1,10 +1,13 @@
 <?php
 
-//conectar ao banco de dados.
+//FORCADALUNO.PHP
+
+//conectar ao banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//veriavél de conexão.
+//declarar a veriavél de conexão com o banco de dados jeverson-tcc. Essa veriavél vem do arquivo conecta.php.
 $mysql = conectar();
+
 ?>
 
 <!DOCTYPE html>
@@ -32,20 +35,31 @@ $mysql = conectar();
 
             <?php
 
-            //selecionar os itens.
+            //buscar pelos curso de exibi-los em ordem alfabética.
             $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+
+            //atribuir a veriavél resultado ($resultado) o valor da excução do comando sql ($sql).
             $resultado = excutarSQL($mysql, $sql);
             ?>
 
+            <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
+            <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
             <select name="curso">
 
+                <!--OPTION define cada opção dentro do menu suspenso.-->
                 <option selected disabled value="">Escolha um curso</option>
+
+                <!--selected é usado para definir uma opção como pré-selecionada quando a página é carregada.-->
+                <!--disabled é usado para tornar uma opção não selecionável.-->
 
                 <?php
 
+                //Dentro da tag select criamos uma estrutura de repetição que irá atribuir a veriavél dados ($dados) um array associativo com os resultado do comando sql ($sql) que repetirá enquanto houver valores.
                 while ($dados = mysqli_fetch_assoc($resultado)) {
 
                 ?>
+
+                    <!--o while ($dados = mysqli_fetch_assoc($resultado) irá impremir options com os valores do array associativo.-->
                     <option value="<?php echo $dados['id_curso'] ?>">
 
                         <?php echo $dados['nome_curso'] ?>

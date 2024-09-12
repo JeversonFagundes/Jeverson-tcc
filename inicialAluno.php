@@ -1,15 +1,17 @@
 <?php
 
-//conectar com o banco de dados 
+//INICIALALUNO.PHP
+
+//conectar com o banco de dados jeverson-tcc
 require_once "conecta.php";
 
-//conectar na proteção.
+//incluir o arquivo de proteção do sistema.
 require_once "protecao.php";
 
-//variável de conexão.
+//criar a variavél de conexão com o banco de dados jeverson-tcc. Esta variavél vem do arquivo conecta.php.
 $mysql = conectar();
 
-//pasta de destino do certificado.
+//pasta de destino para onde vão os certificados.
 $pasta = "certificados/";
 
 ?>
@@ -23,6 +25,7 @@ $pasta = "certificados/";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial</title>
 
+    <!--Estilização em formato de card para as informações que são exibidas para o aluno sobre as atividades que ele cadastrou no sistema.-->
     <style>
         .card {
             background-color: white;
@@ -36,14 +39,12 @@ $pasta = "certificados/";
 
 <body>
 
-    <?php
-
-    require_once "boasPraticas/headerNav.php";
-
-    ?>
-    </header>
+    <!--Para que não seja necessário criar toda vez um header com uma nav em todas as telas dos usuários, então aqui incluimos a pasta onde esta o arquivo onde está criado o header e o nav.-->
+    <?php require_once "boasPraticas/headerNav.php"; ?>
 
     <main>
+
+        <!--Sessão com o valor do nome aluno.-->
         <h2><?php echo $_SESSION['aluno'][0]; ?></h2>
 
         <p><a href="crudEntrega/formcadEntrega.php">Entregar atividade complementar</a></p>
@@ -54,7 +55,7 @@ $pasta = "certificados/";
 
         <?php
 
-        //listar as atividades cadastradas pelo a aluno no sistema.
+        //listar todas as atividades cadastradas pelo aluno que está logado no sistema. Para isso buscamos na tabela entrega_atividade unindo ela com a tabela atividade_complementar e aluno, para que seja possivél exibir as atividades cadastradas pelo aluno junto a com as informações da atividades complementar de curso que essa entrega está relacionada, como natureza, descricão etc.
         $sql = "SELECT 
         ac.descricao, 
         ac.natureza,
@@ -76,12 +77,13 @@ $pasta = "certificados/";
         WHERE 
         a.id_aluno = " . $_SESSION['aluno'][1];
 
+        //atribuir a variavél query ($query) a excução do comando sql ($sql).
         $query = excutarSQL($mysql, $sql);
 
-        //verificar a quantidade de linha retornadas.
+        //atribuir á variavél quantidade ($quantidade) a quantidade de linhas que foram retornadas no comando sql ($sql).
         $quantidade = $query->num_rows;
 
-        //verificar a quantidade de linha retornadas.
+        //com a quantidade de linhas em mãos agora é possivél fazer verificações com relação a isso.
         if ($quantidade == 0) {
 
             echo "Você não entregou nenhuma atividade complementar no sistema ainda!";
@@ -89,10 +91,11 @@ $pasta = "certificados/";
             die();
         } else {
 
+            //Se a quantidade for diferente de zero, atribuimos a variavél dados ($dados) um array associativo com os valores da excução query ($query) do comando sql ($sql) que será repetido enquanto houver dados. 
             while ($dados = mysqli_fetch_assoc($query)) {
 
+                //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
                 if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
-
                     echo '<div class="card">';
                     echo '<div class="card-body">';
                     echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
@@ -108,6 +111,8 @@ $pasta = "certificados/";
                     echo '</div>';
                     echo '</div>';
                 } else {
+
+                    //Se não for verdadeiro as informações de observações e carga horária aprovada não precisam aparecer para o aluno.
                     echo '<div class="card">';
                     echo '<div class="card-body">';
                     echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';

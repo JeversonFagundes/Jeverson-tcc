@@ -1,14 +1,17 @@
 <?php
 
-//iniciar a sessão.
+//LOGIN.PHP
+
+//iniciar as variaveis de sessão.
 session_start();
 
-//conectar com o banco de dados.
+//conectar com o banco de dados jeverson-tcc.
 require_once "conecta.php";
 
-//veriável de conexão.
+//declarar a veriável de conexão com o banco de dados jeverson-tcc. Esta variavélç vem do arquivo conecta.php.
 $mysql = conectar();
 
+//verificar se os campos de email e senha foram preenchidos corretamente.
 if (isset($_POST['email']) and isset($_POST['senha'])) {
 
     if (strlen($_POST['email']) == 0) {
@@ -21,20 +24,24 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
             echo "Preencha corretamente com a sua senha!";
         } else {
 
-            //Limpar os campos.
+            //Limpar os dados que foram colocados nos campos de email e senha.
+            //O real_escape_string() é usado para escapar caracteres especiais em uma string, tornando-a segura para ser usada em uma consulta SQL, evitando que caracteres especiais quebrem a excução do comando sql.
             $email = $mysql->real_escape_string($_POST['email']);
 
             $senha = $mysql->real_escape_string($_POST['senha']);
 
-            // Verifica se o e-mail existe na tabela de alunos.
+            //O comando COUNT(*) é usado para contar o número total de registros (linhas) em uma tabela sem retornar o valor dos registros.
+            //O comando sql mysqli_fetch_row() é usado para obter uma linha de dados de um conjunto de resultados e retorná-la como um array enumerado
+
+            // Verifica se o e-mail informado existe na tabela de alunos.
             $consulta_alunos = excutarSQL($mysql, "SELECT COUNT(*) FROM aluno WHERE email = '$email'");
             $quantidade_alunos = mysqli_fetch_row($consulta_alunos)[0];
 
-            // Verifica se o e-mail existe na tabela de coordenadores.
+            // Verifica se o e-mail informado existe na tabela de coordenadores.
             $consulta_coordenadores = excutarSQL($mysql, "SELECT COUNT(*) FROM coordenador_curso WHERE email = '$email'");
             $quantidade_coordenadores = mysqli_fetch_row($consulta_coordenadores)[0];
 
-            // Verifica se o e-mail existe na tabela de administradores.
+            // Verifica se o e-mail informado existe na tabela de administradores.
             $consulta_administradores = excutarSQL($mysql, "SELECT COUNT(*) FROM administrador WHERE email = '$email'");
             $quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
 
@@ -42,9 +49,14 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
             var_dump($quantidade_alunos);
             var_dump($quantidade_coordenadores);
 
+            //com a quantidade de cada uma das buscas nas tabelas podemos agora fazer as devidas verificações refentes a essas variaveis de quantidade.
             if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_administradores == 0) {
                 echo "E-mail: " . " " . $email . " " . " não está cadastrado no sistema!<p><a href = \"index.php\">Voltar</a></p>";
             } else {
+
+                //se uma das variaveis de quantidade for diferente de zero, quer dizer o email digitado existe em alguma tabela dentro do banco de dados e por devemos agora verificar de qual tabela é esse email informado e quem é esse usuário. 
+
+                //Depois achar a tabela e o usuário do email informado, devemos declarar um comendo sql que retorne as informações necessários do usuario como seu nome, id_curso, id_usuario e sua senha. Com isso em mãoes, agora para finalizar o validação do usuário, devemos verificar se a senha informada na tela de login confere com a senha que venho do banco de dados, se a senha não confere quer dizer que o usuário errou sua senha, se a senha confere, nós temos a informação da tebela onde está este usuário e consequentemente sabemos o nivél de acesso desse usuário, com isso podemos redirecionar ele para as respectivas páginas que ele tem acesso.
 
                 if ($quantidade_alunos != 0) {
 

@@ -1,13 +1,16 @@
 <?php
 
-//conectar com o bonco de dados.
+//INICIALCOORDENADOR.PHP
+
+//conectar com o bonco de dados jeverson-tcc.
 require_once "conecta.php";
 
-//conectar na proteção.
+//incluir o arquivo onde é feita a proteção do sistema.
 require_once "protecao.php";
 
-//variavel de conexão.
+//declarar a veriavél de conexão com o banco de dados jeverson-tcc. Esta variavél vem do arquivo conecta.php.
 $mysql = conectar();
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +22,7 @@ $mysql = conectar();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial do coordenador de curso</title>
 
+    <!--Estiização em formato de card da exibição dos nomes dos alunos que cadastraram atividades complementares de curso para á avaliação do coordenador-->
     <style>
         .card {
             background-color: white;
@@ -32,11 +36,12 @@ $mysql = conectar();
 
 <body>
 
-    <?php
-    require_once "boasPraticas/headerNav.php";
+    <!--Para que não seja necessário criar toda vez um header com uma nav em todas as telas dos usuários, então aqui incluimos a pasta onde esta o arquivo onde está criado o header e o nav.-->
+    <?php require_once "boasPraticas/headerNav.php"; ?>
 
-    ?>
     <main>
+
+        <!--Sessão com o valor do nome do coordenador de curso.-->
         <h1><?php echo $_SESSION['coordenador'][0]; ?></h1>
 
         <p><a href="crudAtividade/formcadAtividade.php">Cadastrar atividade complementar</a></p>
@@ -92,23 +97,31 @@ $mysql = conectar();
         echo '<hr>'; */
         echo '<h1>Lista de alunos que entregaram atividades complementares para validaçao no sistema </h1>';
 
-        $sql1 = "SELECT DISTINCT a.id_aluno, a.nome, a.matricula FROM aluno a
-
+        //buscar todos os alunos que cadastraram atividades complementares de curso para validação, unindo a tabela dos alunos com o coordenador de curso para seja possivél buscar apenas os alunos que tenham o mesmo curso que o coordenador de curso logado atualmente no sistema. Depois unimos os alunos que foram retornado com a tabela entrega_atividades para que seja possivél além de buscar alunos que tenham o mesmo curso que o coordenador de curso, agora fazemos uma filtragem para apenas os alunos que cadastraram atividades para a validação. Com tudo isso podemos buscar por dados duplicados, ou seja, um aluno pode ter cadastrado mais de uma atividade no sistema, então ele pode aparecer duas ou mais vezes, para resolver isso usamos o comando slq DISTINVT que é usada para eliminar valores duplicados em uma consulta, retornando apenas os registros únicos.
+        $sql1 = "SELECT DISTINCT 
+        a.id_aluno, 
+        a.nome, 
+        a.matricula 
+        FROM aluno a
         INNER JOIN coordenador_curso cc 
         ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
         INNER JOIN entrega_atividade ea 
         ON a.id_aluno = ea.id_aluno 
         ;";
 
+        //atribuir a variavél resultado1 ($resultado1) a execução do comando sql ($sql1).
         $resultado1 = excutarSQL($mysql, $sql1);
 
+        //verificar se houve algum erro com a conexão com o banco de dados jeverson-tcc
         if ($mysql->error) {
 
             die("Falha ao unir as informações! " . $mysql->error);
         } else {
 
+            //se deu certo, atribuimos a veriavel quantidade1, a quantidade de linhas que foram retornadas do banco de dados.
             $quantidade1 = $resultado1->num_rows;
 
+            //tendo em mãos a quantidade de linhas retornadas do banco de dados, agora podemos fazer verificações referentes a essa informção.
             if ($quantidade1 == 0) {
 
                 echo "<p>Os alunos ainda não cadastraram atividade complementares para validação. </p>";
@@ -116,6 +129,7 @@ $mysql = conectar();
                 echo "<p>Aguarde por favor!</p>";
             } else {
 
+                //se deu certo, atribuimos a variavél dados1 ($dados1) um array associativo com os dados dos alunos que foram buscados no banco de dados e seram repetidos e imprimidos na tela do coordenador de curso enqunanto houver dados dentro desse array.
                 while ($dados1 = mysqli_fetch_assoc($resultado1)) {
 
                     echo '<div class="card">';
