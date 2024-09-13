@@ -64,6 +64,8 @@ $mysql = conectar();
 
                         <?php echo $dados['nome_curso'] ?>
 
+                        <!--Um option que tem o valor do id_curso e tem em sua parte visivél o nome do curso.-->
+
                     </option>
                 <?php
                 }

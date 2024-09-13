@@ -1,21 +1,23 @@
 <?php
 
-// Conectar ao BD
+//PERFIL.PHP
+
+// Conectar ao banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//conectar com a proteção
+//conectar com a o arquivo onde é feita a proteção do sistema.
 require_once "../protecao.php";
 
-//variável de conexão.
+//declarar a variável de conexão com o banco de dados jeverson-tcc. Esta veriavél vem do arquivo conecta.php.
 $mysql = conectar();
 
-// Seleciona os dados da historia da tabela historia
+// atribuir a variavél sql ($sql) a busca pelos dados do aluno que estpa logado no sistema no momento.
 $sql = "SELECT nome, matricula, email, id_curso, id_aluno FROM aluno WHERE id_aluno = " . $_SESSION['aluno'][1];
 
-// Executa o Select
+//atribuir a variavél resultado ($resultado) o valor da execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-// Gera o vetor com os dados buscados
+//atribuir a variavél a aluno ($launo) o array associativo com os valores retornados da busca pelos dados do aluno.
 $aluno = mysqli_fetch_assoc($resultado);
 
 ?>
@@ -50,19 +52,22 @@ $aluno = mysqli_fetch_assoc($resultado);
 
             <?php
 
-            //selecionar os itens.
-            $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
-            $resultado = excutarSQL($mysql, $sql);
+            //atribuir a variavél sql2 ($sql2) a busca por todos os cursos cadastrados no sistema e ordená-los por ordem alfabéticaF
+            $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+
+            //atribuir a variavél resultado2 ($resultado2) a excução do comando sql2 ($sql2).
+            $resultado2 = excutarSQL($mysql, $sql2);
 
             ?>
 
             <label for="curso">Selecione o seu curso:</label>
 
+            
             <select id="curso" name="curso">
 
                 <?php
 
-                while ($dados = mysqli_fetch_assoc($resultado)) {
+                while ($dados = mysqli_fetch_assoc($resultado2)) {
 
                 ?>
                     <option <?php
