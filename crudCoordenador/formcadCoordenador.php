@@ -1,9 +1,11 @@
 <?php
 
-//conectar com o banco de dados.
+//FORMCADCOORDENADOR.PHP
+
+//conectar com o banco de dados jeverosn-tcc.
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 ?>
 
@@ -28,18 +30,24 @@ $mysql = conectar();
 
         <?php
 
-        //selecionar os itens.
+        //atribuir a variavél sql ($sql) a busca por todos os curso cadastrados no sistema e ordena-los em ordem alfabética.
         $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+
+        //atribuir a veriavél resultado ($resultado) a execução do comando sql ($sql).
         $resultado = excutarSQL($mysql, $sql);
         ?>
 
         <label for="curso">Selecione o seu curso:</label>
+
+        <!--declarar um campo de seleção.-->
         <select id="curso" name="curso" required>
 
+            <!--declarar o primeiro option com selecionado e dasabilitado.-->
             <option selected disabled value="">Escolha um curso: </option>
 
             <?php
 
+            //agora vamos declarar as outras opções de escolha de curso para cadastrar o coordenador de curso no sistema. Atribuimos a variavél dados ($dados) os valores do array associativo que gerado com a execução do comando sql ($sql) que serão repetidos enquanto houver dados.
             while ($dados = mysqli_fetch_assoc($resultado)) {
 
             ?>

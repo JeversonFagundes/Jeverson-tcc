@@ -1,18 +1,21 @@
 <?php
 
-// Conectar ao BD
+//EXCLUIRCURSO.PHP
+
+//conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
-// receber os dados do formulário
+//buscar da url os valores necessários para a exclusão do curso.
 $id = $_GET['id'];
 
-//comando sql.
+//atribuir a veriavél sql ($sql) o comando para deletar o curso do banco de dados.
 $sql = "DELETE FROM curso WHERE id_curso = $id";
 
-//excutar o comando sql acima.
+//excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
 
+//redirecionar o administrador para a sua tela inicial.
 header("location: ../inicialAdmin.php");

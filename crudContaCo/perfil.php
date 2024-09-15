@@ -1,21 +1,23 @@
 <?php
 
-// Conectar ao BD.
+//PERFIL.PHP
+
+//conectar com o banco de dados jeverson-tcc
 require_once "../conecta.php";
 
-//incluir a protação.
+//incluir o arquivo de onde é feita a proteção do sistema.
 require_once "../protecao.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
-// Seleciona os dados da historia da tabela historia
+//atribuir a variavél sql ($sql) a busca pelos dados do coordenador de curso.
 $sql = "SELECT nome, email, id_curso, id_coordenador FROM coordenador_curso WHERE id_coordenador = " . $_SESSION['coordenador'][1];
 
-// Executa o Select
+//atribuir a veriavél ressultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-// Gera o vetor com os dados buscados
+//atribuir a veriavél coordenador ($coordenador) os valores do array associativo gerado com a execução do comando sql.
 $coordenador = mysqli_fetch_assoc($resultado);
 
 ?>
@@ -46,22 +48,29 @@ $coordenador = mysqli_fetch_assoc($resultado);
 
         <?php
 
-        //selecionar os itens.
-        $sql = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
-        $resultado = excutarSQL($mysql, $sql);
+        //buscar por todos os curso cadastrados no sistema e ordena-los em ordem alfabética.
+        $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+
+        //atribuir a veriavél resultado2 ($resultado2) a execução do comando sql.
+        $resultado2 = excutarSQL($mysql, $sql2);
 
         ?>
 
         <label for="curso">Selecione o seu curso: </label>
+
+        <!--declarar o campo de selecção.-->
         <select id="curso" name="curso" required>
 
             <?php
 
-            while ($dados = mysqli_fetch_assoc($resultado)) {
+            //atribuir a veriavél dados ($dados) os valores gerados no array associativo pela execução do comando sql ($sql2) que será repetido enquanto houver dados.
+            while ($dados = mysqli_fetch_assoc($resultado2)) {
 
             ?>
+                <!--declarar as opções do compo de seleção. Os valores estão vendo da variavél dados ($dados).-->
                 <option <?php
 
+                        //aqui tendo em maões os valores vindos do coordenador de curso que esta logado nomomento e dos cursos cadastrados no sistema, verificamos qual é o curso do coordenador e exibimos com opção selecionada o curso dele. No caso essa condição sempre vai ser atendida porque o coordenador de curso, assim com o alno estão cadastrados no sistema e por possuem obrigratóriamente um curso em seu cadastro.
                         if ($coordenador['id_curso'] == $dados['id_curso']) {
 
                             echo "selected";

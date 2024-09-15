@@ -44,7 +44,7 @@ $mysql = conectar();
 
             <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
             <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
-            <select name="curso">
+            <select name="curso" required>
 
                 <!--OPTION define cada opção dentro do menu suspenso.-->
                 <option selected disabled value="">Escolha um curso</option>

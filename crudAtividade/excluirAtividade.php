@@ -1,18 +1,19 @@
 <?php
 
-// Conectar ao BD
+//conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declara a variavel de conexão com o banco de dados jeverson-tcc. Essa variavél vem do arquivo conecta.php.
 $mysql = conectar();
 
-// receber os dados do formulário
+//buscar da url o valor necessário para a exclusão da atividade_complementar. Esse valor vem do arquivo formeditatividade.php
 $id = $_GET['id'];
 
-//comando sql.
+//atribuir a veriavél sql ($sql) o comando para deletar a atividade_complementar do banco de dados.
 $sql = "DELETE FROM atividade_complementar WHERE id_atividade_complementar = $id";
 
-//excutar o comando sql acima.
+//excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
 
+//redirecionar o coordenador de curso novamente para a sua tela inicial.
 header("location: ../inicialCoordenador.php");

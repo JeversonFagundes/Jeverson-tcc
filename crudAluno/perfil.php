@@ -62,16 +62,20 @@ $aluno = mysqli_fetch_assoc($resultado);
 
             <label for="curso">Selecione o seu curso:</label>
 
-            
+            <!--Declarar um campo de selecão com as opções de curso que o aluno pode escolher para trocar o seu curso atual.-->
             <select id="curso" name="curso">
 
                 <?php
 
+                //dentro do campo de seleção atribuimos a veriavél dados ($dados) o array associativo com os valores do resultado da excução do comando sql2 ($sql2) que será repetido enquanto houver dados.
                 while ($dados = mysqli_fetch_assoc($resultado2)) {
 
                 ?>
+
+                    <!--declarar o option que nada mais é do que as opções do select. Este option tem os valores que queremos do array associativo dados ($dados).-->
                     <option <?php
 
+                            //aqui fazemos uma verificação de todos os cursos cadastrados no sistema, qual é o do aluno que está logado no momento e atribuimos o comando selected "seleciionado", ou  seja, a lista de opções já vai vir selecionada com o nome do curso do aluno que está logado no sistema. No caso está verificação sempre vai ser atendida, porque o aluno está logado no sistema, ou seja, ele está cadastrado no banco de dados e se ele esta cadastrado, ele tem que ter abrigatóriamente um curso
                             if ($aluno['id_curso'] == $dados['id_curso']) {
 
                                 echo "selected";

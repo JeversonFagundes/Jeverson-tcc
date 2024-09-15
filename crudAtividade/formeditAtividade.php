@@ -1,20 +1,20 @@
 <?php
-// Recebe o id da historia
+//buscar da url o valor necessário para buscar pela atividade que o coordenador de curso deseja alterar.
 $id = $_GET['id'];
 
-// Conectar ao BD
+//conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc. Essa variavél vem do arquivo conecta.php.
 $mysql = conectar();
 
-// Seleciona os dados da historia da tabela historia
+//atribuir a veriavél sql ($sql) a busca pelos dados do atividade_complementar que o coordenador de curso selecionou para á alteração.
 $sql = "SELECT * FROM atividade_complementar WHERE id_atividade_complementar = $id";
 
-// Executa o Select
+//atribuir a variavél resultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-// Gera o vetor com os dados buscados
+//atribuir a variavél dados ($dados) o array associativo com os valores gerados da execução do comando sql.
 $dados = mysqli_fetch_assoc($resultado);
 
 ?>

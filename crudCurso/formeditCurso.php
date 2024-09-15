@@ -1,20 +1,23 @@
 <?php
-// Recebe o id da historia
+
+//FORMEDITCURSO.PHP
+
+//buscar da url os valores necessários para buscar pelas informações do curso que se deseja alterar.
 $id = $_GET['id'];
 
-// Conectar ao BD
+//conectar com o banco de dados jeverson-tcc
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
-// Seleciona os dados da historia da tabela historia
+//atribuir a veriavél sql ($sql) a busca por todos os dados do curso.
 $sql = "SELECT * FROM curso WHERE id_curso = $id";
 
-// Executa o Select
+//atribuir a veriavél resultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-// Gera o vetor com os dados buscados
+//atribuir a variavél dados ($dados) os valores do array associativo gerado pela execução do comando sql ($sql).
 $dados = mysqli_fetch_assoc($resultado);
 
 ?>

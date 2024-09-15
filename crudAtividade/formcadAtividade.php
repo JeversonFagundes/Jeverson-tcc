@@ -1,5 +1,8 @@
 <?php
 
+//FORMCADATIVIDADE.PHP
+
+//iniciar as veriaveis de sessão para que possamos buscar da sessão o curso do coordenador de curso logado no sistema no momento.
 session_start();
 
 ?>

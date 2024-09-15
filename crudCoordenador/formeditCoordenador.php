@@ -1,20 +1,23 @@
 <?php
-// Recebe o id da historia
+
+//FORMEDITCOORDENADOR.PHP
+
+//buscar da url os valores necessários para buscar os dados do coordenador que se deseja alterar
 $id = $_GET['id'];
 
-// Conectar ao BD
+//conectar com o banco de dados jeverson-tcc
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
-// Seleciona os dados da historia da tabela historia
+//atribuir a variavél sql ($sql) a busca por todos os dados do coordenador de curso que se deseja alterar
 $sql = "SELECT * FROM coordenador_curso WHERE id_coordenador = $id";
 
-// Executa o Select
+//atribuir a variavél resultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-// Gera o vetor com os dados buscados
+//atribuir a veriavél coordenador ($coordenador) os valores do array associativo gerado na busca pelos da coordenador de curso.
 $coordenador = mysqli_fetch_assoc($resultado);
 
 ?>
@@ -41,22 +44,30 @@ $coordenador = mysqli_fetch_assoc($resultado);
 
         <?php
 
-        //selecionar os itens.
+        //atribuir a variavél sql2 ($sql2) a busca por todos os curso e ordena-los em ordem alfabética.
         $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+
+        //atribuir a variavél resulltado2 ($resultado2) a execução do comando sql2 ($sql2)
         $resultado2 = excutarSQL($mysql, $sql2);
 
         ?>
 
         <label for="curso">Selecione o seu curso:</label>
+
+        <!--declarar um campo de seleção.-->
         <select id="curso" name="curso" required>
 
             <?php
 
+            //atribuir a variavél dados ($dados) os valores do array associativo gerado na busca por todos os curso e repetir enquanto houver dados.
             while ($dados = mysqli_fetch_assoc($resultado2)) {
 
             ?>
+
+                <!--declarar as opções do campo, essas opções serão os curso que buscamos do banco de dados.-->
                 <option <?php
 
+                        //com as informações do coordenador de curso e do curso, podemos fazer a verificação de todos os cursos, qual é o do coordenador logado no momento e adicionar o comando selected que irá marcar o curso do coordenador como a opção selecionada.
                         if ($coordenador['id_curso'] == $dados['id_curso']) {
 
                             echo "selected";

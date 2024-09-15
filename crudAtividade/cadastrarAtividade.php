@@ -1,21 +1,22 @@
 <?php
 
-//conectar com o banco de dados.
+//conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc. Essa variavel vem do arquivo conecta.php..
 $mysql = conectar();
 
-//receber os dados.
+//receber os dados vindos do formulário de cadastro de atividades complementares de curso que está no arquivo formcadatividade.php.
 $natureza = $_POST['natureza'];
 $carga = $_POST['carga'];
 $descricao = $_POST['descricao'];
 $curso = $_POST['curso'];
 
-//comando sql.
+//atribuir a veriavél sql ($sql) o comando sql de inserção no banco de dados.
 $sql = "INSERT INTO atividade_complementar (natureza, descricao, carga_horaria_maxima, id_curso) VALUES ('$natureza', '$descricao', $carga, $curso)";
 
-//excutar o comando acima.
+//excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
 
+//redirecionar o coordenador de novamente para a sua tela inicial.
 header("location: ../inicialCoordenador.php");
