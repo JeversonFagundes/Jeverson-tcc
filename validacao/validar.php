@@ -1,16 +1,18 @@
 <?php
 
-//receber o id do aluno.
+//buscar da url o id do aluno.
 $id = $_GET['id'];
 
-//conecctar com o banco de dados.
+//conecctar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//variavel de conexão.
+//declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
+//declarar a pasta de destino dos arquivos.
 $pastaDestino = "../certificados/";
 
+//buscar pelos dados do aluno unindo com os dados da tabela entrega_atividade, que onde estão os dados da entrega das atividades que o aluno entregou no sistema.
 $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.id_entrega_atividade, 
@@ -29,12 +31,16 @@ ON a.id_aluno = $id AND ea.id_aluno = $id
 
 ";
 
+//executar o comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
+//verificar se houve algum arro na conexão.
 if ($mysql->error) {
 
     die("Falha ao ver os resultados! " . $mysql->error);
 } else {
+
+    //se não houve erro, não aconte nada.
 }
 ?>
 
@@ -47,6 +53,7 @@ if ($mysql->error) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização das atividade entregues por um aluno</title>
 
+    <!--estilização em formato de card para os dados que serão mostrados na tela de validação do coordenador de curso.-->
     <style>
         .card {
             background-color: white;
@@ -71,8 +78,10 @@ if ($mysql->error) {
 
     <?php
 
+    //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
     while ($dados = mysqli_fetch_assoc($resultado)) {
 
+        //abrir o formulário com os dados da variavél $dados.
         echo '<form action = "mudarSituacao.php" method = "post" >';
 
         echo '<div class="card">';
@@ -97,6 +106,9 @@ if ($mysql->error) {
 
     ?>
 
+        <!--"<textarea name="" id=""></textarea>" é utilizado para criar uma área de texto multilinha em um formulário, permitindo que os usuários insiram uma quantidade significativa de texto livre, como comentários ou feedback.-->
+
+        <!--declarar um text area para que o coordenador de curso possa cadastrar suas observações sobre o arquivo que ele está validando.-->
         <label for="obser">Adicionar observações:</label><br>
         <textarea name="observacoes" id="obser"><?php echo $dados['observacoes']; ?></textarea><br><br>
 

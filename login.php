@@ -66,6 +66,10 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
                     $aluno = mysqli_fetch_assoc($query);
 
+                    //password_verify() é utilizado para verificar se uma senha fornecida corresponde a um hash previamente gerado.
+
+                    //password_verify("senha que recebemos do formulário de loigin", "senha vinda do banco de dados")
+
                     if (password_verify($senha, $aluno['senha'])) {
 
                         $_SESSION['aluno'][0] = $aluno['nome'];
