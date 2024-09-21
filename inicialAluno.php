@@ -30,7 +30,7 @@ $pasta = "certificados/";
         .card {
             background-color: white;
             width: 40%;
-            height: 380px;
+            height: 400px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
     </style>

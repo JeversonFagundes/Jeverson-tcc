@@ -21,13 +21,17 @@ $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.status, ea.certificado, ea.caminho, ea.titulo_certificado,
 
- ea.observacoes
+ ea.observacoes, ac.descricao
 
  FROM aluno a
 
 INNER JOIN entrega_atividade ea 
 
 ON a.id_aluno = $id AND ea.id_aluno = $id
+
+INNER JOIN atividade_complementar ac
+
+ON ea.id_atividade_complementar = ac.id_atividade_complementar
 
 ";
 
@@ -97,6 +101,8 @@ if ($mysql->error) {
         echo '<p class="card-text">' . 'E-mail: ' . '' . $dados['email'] . '</p>';
 
         echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pastaDestino . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+
+        echo '<p class="card-text">' . 'Deescrição da atividade realizada: ' . '' . $dados['descricao'] . '</p>';
 
         echo '<p class="card-text">' . 'Carga horaria do certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
 
