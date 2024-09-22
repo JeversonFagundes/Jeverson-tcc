@@ -3,6 +3,15 @@
 
 <head>
 
+
+    <!--Import Google Icon Font-->
+    <!--
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+-->
+    <!--Import materialize.css-->
+    <!--
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de login</title>
@@ -11,9 +20,9 @@
 
 <body>
 
-                                 <!--INDEX.PHP-->
+    <!--INDEX.PHP-->
 
-<!--Esta é a tela de login dos usuários do sistema.-->
+    <!--Esta é a tela de login dos usuários do sistema.-->
 
     <main>
         <h1>Tela de login</h1>
@@ -33,8 +42,13 @@
 
             <button type="submit">Entrar</button>
         </form>
-
     </main>
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <!--
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+-->
 </body>
 
 </html>
