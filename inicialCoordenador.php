@@ -46,11 +46,13 @@ $mysql = conectar();
 
         <p><a href="crudAtividade/formcadAtividade.php">Cadastrar atividade complementar</a></p>
 
+        <!--<button onclick="gerar();">Gerar tabela de atividades complementares de curso</button>-->
+
         <hr>
 
         <?php
 
-        /*//selecionar todos os itens da tebala de atividades complementares
+        //selecionar todos os itens da tebala de atividades complementares
         $sql = "SELECT * FROM atividade_complementar WHERE id_curso = " . $_SESSION['coordenador'][2];
 
         //excutar o comando sql acima.
@@ -69,6 +71,37 @@ $mysql = conectar();
                 echo "Você não tem atividade complementar cadastradas no sistema!";
             } else {
 
+        ?>
+
+                <table border="1" id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Natureza da atividade</th>
+                            <th>Descriçãoda atividade</th>
+                            <th>Carga horaria máxima</th>
+                            <th colspan=3>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
+
+                        while ($dados = mysqli_fetch_assoc($resultado)) {
+                            echo '<tr>';
+                            echo '<td>' . $dados['natureza'] . '</td>';
+                            echo '<td>' . $dados['descricao'] . '</td>';
+                            echo '<td>' . $dados['carga_horaria_maxima'] . '</td>';
+                            echo '<td> <a href="crudAtividade/formeditAtividade.php?id=' . $dados['id_atividade_complementar'] . '"> Alterar </a> </td>';
+                            echo '<td> <a href="crudAtividade/excluirAtividade?id=' . $dados['id_atividade_complementar'] . '"> Excluir </a> </td>';
+                            echo '</tr>';
+                        }
+
+                        ?>
+
+                    </tbody>
+                </table>
+        <?php
+                /*echo '<div id="tabela">';
                 echo '<h3>Tabela de atividades complemenatres</h3>';
                 //Lista os itens
                 echo '<table border=1">
@@ -78,9 +111,9 @@ $mysql = conectar();
                 <th>Descrição da atividade</th>
                 <th>Carga horaria máxima</th>
                 <th colspan=3>Opções</th>
-                </tr>';
+                </tr>';*/
 
-                while ($dados = mysqli_fetch_assoc($resultado)) {
+                /*while ($dados = mysqli_fetch_assoc($resultado)) {
                     echo '<tr>';
                     echo '<td>' . $dados['natureza'] . '</td>';
                     echo '<td>' . $dados['descricao'] . '</td>';
@@ -88,13 +121,15 @@ $mysql = conectar();
                     echo '<td> <a href="crudAtividade/formeditAtividade.php?id=' . $dados['id_atividade_complementar'] . '"> Alterar </a> </td>';
                     echo '<td> <a href="crudAtividade/excluirAtividade?id=' . $dados['id_atividade_complementar'] . '"> Excluir </a> </td>';
                     echo '</tr>';
-                }
+                }*/
 
-                echo '</table>' . '<br><br>';
+                //echo '</table>' . '<br><br>';
+
+                //echo '</div>';
             }
         }
 
-        echo '<hr>'; */
+        echo '<hr>';
         echo '<h1>Lista de alunos que entregaram atividades complementares para validaçao no sistema </h1>';
 
         //buscar todos os alunos que cadastraram atividades complementares de curso para validação, unindo a tabela dos alunos com o coordenador de curso para seja possivél buscar apenas os alunos que tenham o mesmo curso que o coordenador de curso logado atualmente no sistema. Depois unimos os alunos que foram retornado com a tabela entrega_atividades para que seja possivél além de buscar alunos que tenham o mesmo curso que o coordenador de curso, agora fazemos uma filtragem para apenas os alunos que cadastraram atividades para a validação. Com tudo isso podemos buscar por dados duplicados, ou seja, um aluno pode ter cadastrado mais de uma atividade no sistema, então ele pode aparecer duas ou mais vezes, para resolver isso usamos o comando slq DISTINVT que é usada para eliminar valores duplicados em uma consulta, retornando apenas os registros únicos.
@@ -145,7 +180,13 @@ $mysql = conectar();
         ?>
     </main>
 
+    <script>
+        function gerar() {
+            let divs = document.getElementById('tabela');
 
+            divs.style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>

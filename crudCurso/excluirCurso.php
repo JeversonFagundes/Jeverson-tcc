@@ -36,7 +36,7 @@ if ($quantidade_alunos > 0 and $quantidade_coordenador > 0 and $quantidade_ativi
     echo "Esse curso não pode ser excluido do sistema, porque há coordenadores de curso, alunos  e atividades complementares de curso usando esse curso! <p><a href = \"../inicialAdmin.php\">Voltar para a tela inicial</a></p>";
 
     die();
-} 
+}
 if ($quantidade_alunos > 0) {
 
     echo "Esse curso não pode ser excluido do sistema, porque há alunos usando esse curso! <p><a href = \"../inicialAdmin.php\">Voltar para a tela inicial</a></p>";
@@ -44,7 +44,7 @@ if ($quantidade_alunos > 0) {
     die();
 }
 
-if ($quantidade_coordenador > 0 ) {
+if ($quantidade_coordenador > 0) {
 
     echo "Esse curso não pode ser excluido do sistema, porque há coordenadores de curso usando esse curso! <p><a href = \"../inicialAdmin.php\">Voltar para a tela inicial</a></p>";
 
@@ -56,7 +56,7 @@ if ($quantidade_atividade > 0) {
     echo "Esse curso não pode ser excluido do sistema, porque há atividades complementares de curso usando esse curso! <p><a href = \"../inicialAdmin.php\">Voltar para a tela inicial</a></p>";
 
     die();
-}else {
+} else {
 
     //se não houver nem alunos nem coordenadores de curso e nem atividades complementares de curso usando esse curso, podemos continuar com a exclusão.
 

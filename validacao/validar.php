@@ -62,9 +62,18 @@ if ($mysql->error) {
         .card {
             background-color: white;
             width: 40%;
-            height: 500px;
+            height: 520px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
             margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 450px;
+
+            height: 100px;
+
+            resize: none;
+
         }
     </style>
 
@@ -102,7 +111,7 @@ if ($mysql->error) {
 
         echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pastaDestino . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
 
-        echo '<p class="card-text">' . 'Deescrição da atividade realizada: ' . '' . $dados['descricao'] . '</p>';
+        echo '<p class="card-text">' . 'Descrição da atividade realizada: ' . '' . $dados['descricao'] . '</p>';
 
         echo '<p class="card-text">' . 'Carga horaria do certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
 

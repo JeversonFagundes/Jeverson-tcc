@@ -16,12 +16,12 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
 
     if (strlen($_POST['email']) == 0) {
 
-        echo "Preencha corretamente com o seu email!";
+        echo "Preencha corretamente com o seu email! <p><a href = \"index.php\">Voltar para a tela de login</a></p>";
     } else {
 
         if (strlen($_POST['senha']) == 0) {
 
-            echo "Preencha corretamente com a sua senha!";
+            echo "Preencha corretamente com a sua senha! <p><a href = \"index.php\">Voltar para a tela de login</a></p>";
         } else {
 
             //Limpar os dados que foram colocados nos campos de email e senha.

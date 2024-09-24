@@ -23,7 +23,7 @@ $quantidade = $query->fetch_assoc();
 //se a quantidade de valores retornados for diferente de zero, ou seja, maior do zero, então quer dizer que o aluno em questão entregou atividades no sistema (cadastrou atividades no sistema) e por isso ele não pode excluir a sua conta antes de excluir as suas entregas de atividades porque seão o banco de dados ficará INCONSISTENTE, ele ficará com atividades cadastradas em nome de aluno que não existe mais.
 if ($quantidade != 0) {
 
-    echo "Você não pode excluir esta conta! Pois há atividades cadastradas no sistema.<p><a href = \"../inicialAluno.php\">Voltar</a></p>";
+    echo "Você não pode excluir esta conta! Pois você entregou atividades no sistema.<p><a href = \"../inicialAluno.php\">Voltar</a></p>";
 } else {
 
     //se a quantidade for zero, antão quer dizer que não tem atividades cadastradas a por isso o aluno pode excluir do sistema a sua conta.
