@@ -23,6 +23,7 @@ $pasta = "certificados/";
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Tela inicial</title>
 
     <!--Estilização em formato de card para as informações que são exibidas para o aluno sobre as atividades que ele cadastrou no sistema.-->
@@ -124,7 +125,7 @@ $pasta = "certificados/";
 
                     //aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema
                     echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
-                    
+
                     echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
                     echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
                     echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
@@ -176,6 +177,10 @@ $pasta = "certificados/";
 
         <?php */
     ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 
 </html>

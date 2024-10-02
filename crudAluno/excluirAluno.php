@@ -37,3 +37,15 @@ if ($quantidade != 0) {
     //redirecionar o aluno para a página de logout onde aém de excluimos a sua conta do sistema, que foi o que acabamos de fazer, demos deloga-lo do sistema também.
     header("location: ../logout.php");
 }
+
+/*
+$sql = "SELECT * FROM entrega_atividade WHERE id_aluno =". $_SESSION['aluno'][1];
+$resultado = excutarSQL($mysql, $sql);
+
+while ($dados = mysqli_fetch_assoc($resultado)) {
+    
+    unlink($pastaDestino . $dados['caminho']);
+
+} 
+*/
+
