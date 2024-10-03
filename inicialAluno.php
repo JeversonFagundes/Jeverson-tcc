@@ -34,7 +34,7 @@ $pasta = "certificados/";
         .card {
             background-color: white;
             width: 40%;
-            height: 400px;
+            height: 500px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
     </style>
@@ -100,7 +100,27 @@ $pasta = "certificados/";
 
                 //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
                 if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
-                    echo '<div class="card">';
+        ?>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
+                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
+                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
+                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
+                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
+                            <p class="card-text">Carga horária deferida: <?php echo $dados['carga_horaria_aprovada']; ?></p>
+                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
+                            <p class="card-text">Observações: <?php echo $dados['observacoes']; ?></p>
+                            <button id="alterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                            <button id="excluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                        </div>
+                    </div>
+
+                <?php
+
+                    /*echo '<div class="card">';
                     echo '<div class="card-body">';
                     echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
                     echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['natureza'] . '</p>';
@@ -116,10 +136,28 @@ $pasta = "certificados/";
                     echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
                     echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
                     echo '</div>';
-                    echo '</div>';
+                    echo '</div>'; */
                 } else {
 
-                    //Se não for verdadeiro as informações de observações e carga horária aprovada não precisam aparecer para o aluno.
+                ?>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
+                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
+                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
+                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
+                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
+                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
+                            <button id="alterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                            <button id="excluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                        </div>
+                    </div>
+
+        <?php
+
+                    /*//Se não for verdadeiro as informações de observações e carga horária aprovada não precisam aparecer para o aluno.
                     echo '<div class="card">';
                     echo '<div class="card-body">';
                     echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
@@ -134,7 +172,7 @@ $pasta = "certificados/";
                     echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
                     echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
                     echo '</div>';
-                    echo '</div>';
+                    echo '</div>'; */
                 }
             }
         }
