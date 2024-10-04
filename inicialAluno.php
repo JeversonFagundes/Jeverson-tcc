@@ -34,7 +34,7 @@ $pasta = "certificados/";
         .card {
             background-color: white;
             width: 40%;
-            height: 500px;
+            height: 450px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
     </style>
@@ -113,7 +113,7 @@ $pasta = "certificados/";
                             <p class="card-text">Carga horária deferida: <?php echo $dados['carga_horaria_aprovada']; ?></p>
                             <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
                             <p class="card-text">Observações: <?php echo $dados['observacoes']; ?></p>
-                            <button class="alterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                            <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
                             <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
                         </div>
                     </div>
@@ -150,7 +150,7 @@ $pasta = "certificados/";
                             <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
                             <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
                             <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
-                            <button class="alterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                            <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
                             <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
                         </div>
                     </div>
@@ -228,10 +228,10 @@ $pasta = "certificados/";
         //.btnExcluir
         //#btnExcluir
 
-      //  <input id="btnexcluir">
-         //const bExcluir = document.querySelectorAll('#btnexcluir');
+        //  <input id="btnexcluir">
+        //const bExcluir = document.querySelectorAll('#btnexcluir');
 
-         // bExcluir.addEventListener('click', function() {
+        // bExcluir.addEventListener('click', function() {
         //bExcluir.foreach ( )
 
 
@@ -256,6 +256,21 @@ $pasta = "certificados/";
                     window.location.href = 'crudEntrega/excluirEntrega.php?id=' + valorBotao;
                 }
                 // Se o usuário cancelar, não faz nada
+            });
+
+        });
+
+        // Seleciona todos os botões com a classe 'btnAlterar'
+        const botoesAlterar = document.querySelectorAll('.btnAlterar');
+
+        // Adiciona um evento de clique a cada botão
+        botoesAlterar.forEach(botao => {
+
+            botao.addEventListener('click', function() {
+                // Captura o valor do botão
+                const valorBotaoAlterar = this.value;
+                window.location.href = 'crudEntrega/formeditEntrega.php?id=' + valorBotaoAlterar;
+
             });
 
         });
