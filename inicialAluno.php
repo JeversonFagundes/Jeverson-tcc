@@ -23,9 +23,9 @@ $pasta = "certificados/";
 
     <meta charset="UTF-8">
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial</title>
 
@@ -220,7 +220,7 @@ $pasta = "certificados/";
     ?>
 
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
 
     <script>
         // Seleciona todos os botões com a classe 'btnExcluir'
@@ -249,7 +249,7 @@ $pasta = "certificados/";
                 const valorBotao = this.value;
 
                 // Exibe a confirmação
-                let primeiraConfirmacao = confirm("Fique ciente de que realizar essa ação irá excluir todos os dados da sua conta e também as atividades que você entregou no sistema. Deseja excluir sua conta?");
+                let primeiraConfirmacao = confirm("Deseja excluir esse item?");
 
                 // Se o usuário confirmar, redireciona para a página de exclusão
                 if (primeiraConfirmacao) {
