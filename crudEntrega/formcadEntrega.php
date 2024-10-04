@@ -50,9 +50,9 @@ echo '</table>' . '<br><br>';
 
     <meta charset="UTF-8">
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de entrega de atividade complementar</title>
 
@@ -119,7 +119,7 @@ echo '</table>' . '<br><br>';
     <a href="../inicialAluno.php">Voltar</a>
 
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
 </body>
 
 </html>

@@ -30,9 +30,9 @@ $aluno = mysqli_fetch_assoc($resultado);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
     <title>Editar sua conta</title>
 
 
@@ -108,18 +108,16 @@ $aluno = mysqli_fetch_assoc($resultado);
     </main>
 
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
 
     <script>
-
-        let id_aluno = <?php echo $aluno['id_aluno']; ?>;
 
         document.getElementById('btnExcluir').addEventListener('click', function() {
             let primeiraConfirmacao = confirm("Fique ciente de que realizar essa ação irá excluir todos os dados da sua conta e também as atividades que você entregou no sistema. Deseja excluir sua conta?");
             if (primeiraConfirmacao) {
                 let segundaConfirmacao = confirm("Confirmar exclusão");
                 if (segundaConfirmacao) {
-                    window.location.href = 'excluirAluno.php?id=' + id_aluno;
+                    window.location.href = 'excluirAluno.php';
                 }
             }
         });

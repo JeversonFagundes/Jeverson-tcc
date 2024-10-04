@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 24-Set-2024 às 18:27
+-- Tempo de geração: 04-Out-2024 às 15:32
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -58,15 +58,14 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(75, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$SnlhN1kxTS9URkFiTDRsdA$CvkOIP9oGNYeigWY2URRiSuKxYB3GIqkmkJIn+sUsIQ', 9),
-(78, 'dededede', '0000000000', 'joao@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$YTlSa3Y3bjZCV0prSmZndQ$S/IHmCRaSvOmk9AyCExTVk+bSy1CUpjq/1sah4pXSq0', 12);
+(82, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$QmtyQnpsNmxLUjRRMjFhVA$xQyUufH3yaTTR7gcDTWHq2V/YJHP+I1svt0T/RIxzmQ', 9);
 
 -- --------------------------------------------------------
 
@@ -162,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `coordenador_curso` (
 --
 
 INSERT INTO `coordenador_curso` (`id_coordenador`, `nome`, `email`, `senha`, `id_curso`) VALUES
-(14, 'Fabio Dias da Silva', 'fabio@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$aHZiSlR3Wm1aVmpYbTFnaA$yCaT8jjPWk3xfi+8sl/qBuO5U8ST20xQDBBbGFRigi4', 9);
+(14, 'Michel Michelon', 'michel@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$aHZiSlR3Wm1aVmpYbTFnaA$yCaT8jjPWk3xfi+8sl/qBuO5U8ST20xQDBBbGFRigi4', 9);
 
 -- --------------------------------------------------------
 
@@ -209,14 +208,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `entrega_atividade`
---
-
-INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`, `id_atividade_complementar`, `observacoes`) VALUES
-(88, 'dededed', 12, 'Captura de Tela (5).png', 0, 'Indeferido', 75, '66f161fc310ef.png', 3, 'Indeferido porque você entregou um certificado que diz respeito com a informática, ou seja, não condiz com a natureza de monitoria!!');
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
