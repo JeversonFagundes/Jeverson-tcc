@@ -36,7 +36,8 @@ while ($dados = mysqli_fetch_assoc($query)) {
     unlink($pastaDestino . $dados['caminho']);
 }
 
-//excluir os valores da tabela de entrega_atividade.
+//esse comando serve para excluir registros da tabela entrega_atividade que correspondem a alunos que pertencem ao curso que vei ser excluido do sistema.
+//IN () é usado para verificar se um valor específico corresponde a qualquer valor em uma lista de valores ou em uma subconsulta.
 $sql = "DELETE FROM entrega_atividade
 WHERE id_aluno IN (
     SELECT id_aluno
