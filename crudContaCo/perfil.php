@@ -101,7 +101,7 @@ $coordenador = mysqli_fetch_assoc($resultado);
     <p>Deseja <a href="../inicialCoordenador.php">Voltar!</a></p>
 
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
 </body>
 
 </html>

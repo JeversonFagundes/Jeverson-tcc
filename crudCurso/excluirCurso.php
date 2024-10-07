@@ -11,6 +11,71 @@ $mysql = conectar();
 //buscar da url os valores necessários para a exclusão do curso.
 $id = $_GET['id'];
 
+//definir a pasta de destino dos certificados.
+$pastaDestino = "../certificados/";
+
+//listar os caminhos de todas as atividades complementares de curso que os alunos entregaram no sistema.
+$lsita_de_entregas = "SELECT 
+ea.caminho
+
+FROM aluno a 
+
+INNER JOIN entrega_atividade ea
+ON a.id_aluno = ea.id_aluno
+
+WHERE a.id_curso = $id";
+
+//excutar os comando de listagem dos caminhos das atividades complementares de curso que foram entregues no sistema.
+$query = excutarSQL($mysql, $lsita_de_entregas);
+
+//criar uma estrutura de repetição que lista os valores que vem do banco de dados, que no caso são os caminhos das atividades que o aluno entregou no sistema
+while ($dados = mysqli_fetch_assoc($query)) {
+
+    //unlink() é usada em PHP, para remover um arquivo do sistema de arquivos.
+    //aqui eu crio uma estrutura de repetição que pega a pasta de destino dos certificados, e limpo essa pasta com os valores que vem do banco de dados, que nesse caso são os caminhos das atividades que os aluno sentregaram no sistema.
+    unlink($pastaDestino . $dados['caminho']);
+}
+
+//excluir os valores da tabela de entrega_atividade.
+$sql = "DELETE FROM entrega_atividade
+WHERE id_aluno IN (
+    SELECT id_aluno
+    FROM aluno
+    WHERE id_curso = $id
+)";
+
+//excutar o comando de exclusão dos valores da tabela entrega_atividade
+excutarSQL($mysql, $sql);
+
+//excluir os alunos que pertencem a curso que está sendo excluido do sistema.
+$sql2 = "DELETE FROM aluno WHERE id_curso = $id";
+
+//excutar o comando de exclusão dos alunos.
+excutarSQL($mysql, $sql2);
+
+//excluir os coordenadores de curso que pertencem ao curso que está sendo excluido do sistema.
+$sql3 = "DELETE FROM coordenador_curso WHERE id_curso = $id";
+
+//excutar o comando de exclusão dos coordenadores de curso que pertencem ao curso que vei ser excluido do sistema.
+excutarSQL($mysql, $sql3);
+
+//excluir todos as atividades complementares de curso que pertencem ao curso que vei ser excluido do sistema.
+$sql4 = "DELETE FROM atividade_complementar WHERE id_curso = $id";
+
+//excutar o comando de exclusão das atividades complementares de curso que pertencem ao curso que vai ser excluido do sistema.
+excutarSQL($mysql, $sql4);
+
+//excluir o curso.
+$sql5 = "DELETE FROM curso WHERE id_curso = $id";
+
+//excutar o comando de exclusão do curso.
+excutarSQL($mysql, $sql5);
+
+//redirecionar o administrador para a sua tela inicial.
+header("location:../inicialAdmin.php");
+
+/*
+
 //verificar se existe alunos e coordenadores de curso no curso que se deseja excluir. Se houver não podemos deixar excluir..
 
 //O comando COUNT(*) é usado para contar o número total de registros (linhas) em uma tabela sem retornar o valor dos registros.
@@ -69,3 +134,5 @@ if ($quantidade_atividade > 0) {
     //redirecionar o administrador para a sua tela inicial.
     header("location: ../inicialAdmin.php");
 }
+
+*/
