@@ -8,6 +8,9 @@ require_once "../conecta.php";
 //declarar a variável de conexão coim o banco de dados jeverson-tcc. Esssa variavél vem do arquivo conecta.php.
 $mysql = conectar();
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //receber os dados vindos do formulário "formcadAluno.php".
 $nome = $_POST['nome'];
 $curso = $_POST['curso'];
@@ -68,5 +71,8 @@ if ($senha === $senha2) {
     }
 }else {
     
-    echo "Por favor repita as duas senhas. <p><a href = \"formcadAluno.php\">Voltar para o formulário de cadastro</a></p>";
+   notificacoes('A senha e a confirmação de senha, não tem o mesmo valor. Por favor repita o processo!');
+
+   header("location:formcadAluno.php");
+
 }
