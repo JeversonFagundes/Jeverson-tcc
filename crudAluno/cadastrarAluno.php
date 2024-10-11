@@ -71,7 +71,7 @@ if ($senha === $senha2) {
     }
 }else {
     
-   notificacoes('A senha e a confirmação de senha, não tem o mesmo valor. Por favor repita o processo!');
+   notificacoes(2,"A senha e a confirmação de senha, não tem o mesmo valor. Por favor repita o processo!");
 
    header("location:formcadAluno.php");
 

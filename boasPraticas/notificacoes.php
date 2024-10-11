@@ -12,9 +12,10 @@ session_start();
 //o comando session_regenerate_id(true) serve para gerar um novo ID para sessão, removendo a sessão antiga, ajudando a proteger contra possíveis ataques.
 session_regenerate_id(true);
 
-//criar a função que pega recebe as notificações do sistema.
-function notificacoes($notificacoes){
+//criar a função que recebe o tipo de notificação (de sucesso, erre etc) e a notificação (mensagem que aparece para o usuário que excutou a ação).
+function notificacoes($tipoNotificacao, $notificacao){
     
-    //tendo as notificações do sistema, atribuimos a notificação a uma sessão.
-    $_SESSION['notificacoes'] = $notificacoes;
+    //tendo o tipo de notificação e notificação em mãos, agora atribuimos esses valores a uma sesão.
+    $_SESSION['notificacoes'][0] = $tipoNotificacao;
+    $_SESSION['notificacoes'][1] = $notificacao;
 }
