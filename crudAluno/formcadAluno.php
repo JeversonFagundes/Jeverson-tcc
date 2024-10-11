@@ -5,9 +5,6 @@
 //conectar ao banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//inicluir com o arquivo das notificações do sistema.
-require_once "../boasPraticas/notificacoes.php";
-
 //declarar a veriavél de conexão com o banco de dados jeverson-tcc. Essa veriavél vem do arquivo conecta.php.
 $mysql = conectar();
 
@@ -42,7 +39,7 @@ $resultado = excutarSQL($mysql, $sql);
         <?php
 
         //inicluir o arquivo que exibe as notificações do sistema.
-        require_once "../boasPraticas/exibirNotificacao.php";
+        require_once "../boasPraticas/notificacoes.php";
         ?>
 
         <form action="cadastrarAluno.php" method="post">
