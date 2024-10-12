@@ -38,7 +38,10 @@ $resultado = excutarSQL($mysql, $sql);
 
         <?php
 
+        //chamar a função que exibe a notificação para o aluno.
         exibirNotificacoes();
+
+        //limpar a notificação de dentro da sessão.
         limpaNotificações();
         ?>
 

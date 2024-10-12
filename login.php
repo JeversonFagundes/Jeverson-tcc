@@ -37,7 +37,7 @@ $quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
 if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_administradores == 0) {
 
     //gerar a notificação de que o email informado não existe no sistema.
-    notificacoes(2, "O email não está cadastrado no sistema.");
+    notificacoes(2, "O email informado não está cadastrado no sistema.");
 
     //redirecionar para a tela de login.
     header("location: index.php");

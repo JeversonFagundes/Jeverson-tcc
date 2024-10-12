@@ -102,7 +102,12 @@ if ($certificado['size'] == 0) {
             $extencao != "svg" and $extencao != "pdf" and $extencao != "jpg"
         ) {
 
-            die("Este tipo de arquivo nao é aceito. <p><a href = \"formeditEntrega.php\">Voltar</a></p>");
+            die("Este tipo de arquivo nao é aceito. <p><a href = \"formeditEntrega.php?id\">Voltar</a></p>");
+
+            /*
+            //redirecionar o coordenador de curso para a tela validação
+            header("location: validar.php?id=" . $id_aluno);
+            */
         } else {
 
             //declarar o caminho do arquivo.
