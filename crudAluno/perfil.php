@@ -2,11 +2,11 @@
 
 //PERFIL.PHP
 
+//incluir o arquivo com as notificações do sistema para os alunos.
+require_once "../boasPraticas/notificacoes.php";
+
 // Conectar ao banco de dados jeverson-tcc.
 require_once "../conecta.php";
-
-//conectar com a o arquivo onde é feita a proteção do sistema.
-require_once "../protecao.php";
 
 //declarar a variável de conexão com o banco de dados jeverson-tcc. Esta veriavél vem do arquivo conecta.php.
 $mysql = conectar();
@@ -42,6 +42,15 @@ $aluno = mysqli_fetch_assoc($resultado);
 
     <main class="text-center">
         <h1>Informações da sua conta!</h1>
+
+        <?php
+
+        //chamar a função que exibe a notificação
+        exibirNotificacoes();
+
+        //chamar a função que limpa a notificação da sessão.
+        limpaNotificações();
+        ?>
 
         <form action="editarAluno.php" method="post">
 
@@ -111,7 +120,6 @@ $aluno = mysqli_fetch_assoc($resultado);
     <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
 
     <script>
-
         document.getElementById('btnExcluir').addEventListener('click', function() {
             let primeiraConfirmacao = confirm("Fique ciente de que realizar essa ação irá excluir todos os dados da sua conta e também as atividades que você entregou no sistema. Deseja excluir sua conta?");
             if (primeiraConfirmacao) {

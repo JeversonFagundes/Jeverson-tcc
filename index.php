@@ -4,10 +4,7 @@
 <head>
 
     <meta charset="UTF-8">
-    <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-    <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de login</title>
 
@@ -22,13 +19,22 @@
     <main>
         <h1>Tela de login</h1>
 
+        <?php
+
+        //incluir o arquivo que exibe as mensagens para o usuário
+        require_once "boasPraticas/notificacoes.php";
+        ?>
+
         <form action="login.php" method="post">
 
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email"><br><br>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+                <span class="helper-text" data-error="O campo deve ser preenchido no formato XXX.XXX.XXX-XX"></span>
+            </div>
 
             <label for="senha">Senha: </label>
-            <input type="password" name="senha" id="senha"><br>
+            <input type="password" name="senha" id="senha" required><br>
 
             <ul>
                 <li><a href="recuperarSenha/form-recuperar-senha.html">Esqueci minha senha</a></li>
@@ -41,8 +47,7 @@
 
     </main>
 
-    <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

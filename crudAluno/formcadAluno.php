@@ -2,6 +2,9 @@
 
 //FORCADALUNO.PHP
 
+//inicluir o arquivo que exibe as notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //conectar ao banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
@@ -22,10 +25,7 @@ $resultado = excutarSQL($mysql, $sql);
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-    <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />-->
+    <link rel="stylesheet" href="">
     <title>Tela de cadastro</title>
 
 </head>
@@ -38,8 +38,8 @@ $resultado = excutarSQL($mysql, $sql);
 
         <?php
 
-        //inicluir o arquivo que exibe as notificações do sistema.
-        require_once "../boasPraticas/notificacoes.php";
+        exibirNotificacoes();
+        limpaNotificações();
         ?>
 
         <form action="cadastrarAluno.php" method="post">

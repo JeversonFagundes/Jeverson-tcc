@@ -2,14 +2,14 @@
 
 //CADASTRARALUNO.PHP
 
+//incluir o arquivo de notificações do sistema. Dentro desse arquivo também inciamos a sessão (session_start()).
+require_once "../boasPraticas/notificacoes.php";
+
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
 //declarar a variável de conexão coim o banco de dados jeverson-tcc. Esssa variavél vem do arquivo conecta.php.
 $mysql = conectar();
-
-//incluir o arquivo de notificações do sistema.
-require_once "../boasPraticas/notificacoes.php";
 
 //receber os dados vindos do formulário "formcadAluno.php".
 $nome = $_POST['nome'];
@@ -43,36 +43,49 @@ if ($senha === $senha2) {
 
     //se ambas as consultas retornaram valores maiores de zero, então o email informado já está cadastrado no sistema.
     if ($quantidade_alunos > 0 || $quantidade_coordenadores > 0 || $quantidade_administradores > 0) {
-        echo "E-mail: " . " " . $email . " " . " já está cadastrado no sistema!<p><a href = \"formcadAluno.php\">Voltar</a></p>";
+
+        //gerar a notificação de que o email informado pelo a aluno já existe no sistema.
+        notificacoes(2, "O email informado já está em uso no sistema.");
+
+        //redirecionar o aluno para o formcadAluno.php
+        header("location:formcadAluno.php");
     } else {
 
-        //se as buscas a cima retornaram o valor zera, agora por se tratar de um aluno temos que buscar se a matricula informada já está cadastrado no banco de dados.
+        //se as buscas acima retornaram o valor zera, agora por se tratar de um aluno temos que buscar se a matricula informada já está cadastrado no banco de dados.
         $consulta_alunos_matricula = excutarSQL($mysql, "SELECT COUNT(*) FROM aluno WHERE matricula = '$matricula'");
         $quantidade_alunos_matricula = mysqli_fetch_row($consulta_alunos_matricula)[0];
 
         //se o comando ( $consulta_alunos_matricula) retornou um valor maior que zero, então a matricula já está cadastrado no sistema e por isso não devemos permitir o seu cadastro porque as matriculas do alunos é unica, ou seja, não pode ter contas de alunos com a mesma matricula no sistema
         if ($quantidade_alunos_matricula > 0) {
 
-            echo "Essa matricula: " . " " . $matricula . " " . " já está cadastrada no sistema!<p><a href = \"formcadAluno.php\">Voltar</a></p>";
+            //gerar a notificação de que a matricula informada pelo a aluno já existe no sistema.
+            notificacoes(2, "A matricula informada já está em uso no sistema.");
+
+            //redirecionar o aluno para o formcadAluno.php
+            header("location:formcadAluno.php");
         } else {
 
             //se o comando  $consulta_alunos_matricula retornou zero, então a metricula informada não está cadastrada no sistema e por isso podemos permitir o seu cadastro no banco de dados.
 
             //atribuir a variavél sql ($sql) o comando de inserção no banco de dados.
             $sql = "INSERT INTO aluno (nome, matricula, email, senha, id_curso)
-        VALUES ('$nome', '$matricula', '$email', '$nova_senha', $curso)";
+            VALUES ('$nome', '$matricula', '$email', '$nova_senha', $curso)";
 
             //excutar o comando sql ($sql).
             $query = excutarSQL($mysql, $sql);
+
+            //gerar a notificação de um novo aluno cadastrado no sistema.
+            notificacoes(1, "Cadastro realizado com sucesso");
 
             //redirecionar o aluno para a tela de login após o seu cadastro. Agora com as suas informações cadastradas no sistema, o aluno poderá realizar o seu login e acessar o sistema.
             header("location: ../index.php");
         }
     }
-}else {
-    
-   notificacoes(2,"A senha e a confirmação de senha, não tem o mesmo valor. Por favor repita o processo!");
+} else {
 
-   header("location:formcadAluno.php");
+    //gerar a notificação de que e senha que o aluno digitou no campo de senha e confirmar senha, não são as mesmas senhas.
+    notificacoes(2, "Você deve repetir a mesma senha nos campos de 'Senha' e 'Confimar senha'.");
 
+    //redirecior o aluno formcadAluno.php
+    header("location:formcadAluno.php");
 }

@@ -2,6 +2,9 @@
 
 //EDITARALUNO.PHP
 
+//inicluir o arquivo que exibe as notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
@@ -21,13 +24,13 @@ $sql = "UPDATE aluno SET nome = '$nome', matricula = '$matricula', email = '$ema
 //excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
 
-//iniciar as viriaveis de sessão.
-session_start();
-
 //com a sessão iniciada podemos atribuir os novos valores as posições do array da sessão aluno, sem precisar delogar o aluno.
 $_SESSION['aluno'][0] = $nome;
 
 $_SESSION['aluno'][2] = $curso;
+
+//gerar a notificação de alterações realizadas com sucesso.
+notificacoes(1, "Alterações realizadas com sucesso");
 
 //após as alterações redirecionamos o aluno para o arquivo do seu perfil onde apareceram as suas informações alteradas.
 header("location: perfil.php");
