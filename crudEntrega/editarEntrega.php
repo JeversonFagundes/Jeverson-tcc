@@ -5,6 +5,9 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarra a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -61,7 +64,12 @@ if ($certificado['size'] == 0) {
     //verificar se deu erro no recebimento do arquivo.
     if ($certificado['error']) {
 
-        die("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
+        //chamar a função que gera as notificações do sistema.
+        notificacoes(2, "Falha ao receber o arquivo!");
+
+        header("location:formeditEntrega.php?id=$id");
+
+        die();
     } else {
 
         //se nçao houve arro norecebimento do arquivo devemos processeguir com o uopload do arquivo e alterações no banco de dados.
@@ -102,8 +110,12 @@ if ($certificado['size'] == 0) {
             $extencao != "svg" and $extencao != "pdf" and $extencao != "jpg"
         ) {
 
-            die("Este tipo de arquivo nao é aceito. <p><a href = \"formeditEntrega.php?id\">Voltar</a></p>");
+            //chamar a função que gera as notificações do sistema.
+            notificacoes(2, "Esse tipo de extenção .'$extencao' não é aceito!");
 
+            header("location:formeditEntrega.php?id=$id");
+
+            die();
             /*
             //redirecionar o coordenador de curso para a tela validação
             header("location: validar.php?id=" . $id_aluno);

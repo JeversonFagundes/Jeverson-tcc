@@ -5,8 +5,8 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//incluir o arquivo onde é feita a proteção do sistema.
-require_once "../protecao.php";
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
 
 //declarar a variavel de conexão com o banco de dados.
 $mysql = conectar();
@@ -72,6 +72,15 @@ echo '</table>' . '<br><br>';
         $resultado2 = excutarSQL($mysql, $sql2);
         ?>
 
+        <?php
+
+        //exibir as notificações do sistema
+        exibirNotificacoes();
+
+        //limpar as notificações do sistema
+        limpaNotificações();
+
+        ?>
         <label for="select">Escolha a natureza do seu certificado:</label>
 
         <!--declarar um campo de seleção.-->

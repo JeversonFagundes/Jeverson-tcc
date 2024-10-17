@@ -5,8 +5,8 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
-//incluir o arquivo onde é feita a proteção do sistema.
-include("../protecao.php");
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
 
 //declarar a variável de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
@@ -40,7 +40,11 @@ array (size=5)
 //verificar se houve erro no recebimento do arquivo.
 if ($certificado['error'] != 0) {
 
-    die("Falha ao receber o certificado enviado! <p><a href = \"formcadEntrega.php\">Tentar de novo?</a></p>");
+    notificacoes(2, "Falha ao receber o arquivo!");
+
+    header("location:formcadEntrega.php");
+
+    die ();
 } else {
 
     //se não houve no recebimento do arquivo, devemos processeguir com o upload do arquivo.
@@ -85,7 +89,11 @@ if ($certificado['error'] != 0) {
 
     ) {
 
-        echo "Este tipo de arquivos" . " " . "|" . "." . $extencao . "|" . " " . "não é aceito <p><a href = \"formcadEntrega.php\">Voltar</a></p>";
+        notificacoes(2, "Esse tipo de extenção .'$extencao' não é aceito");
+
+        header("location:formcadEntrega.php");
+    
+        die ();
     } else {
 
         //se a extenção do arquivo faz parte das permitidas, devamos agora move-lo para a pasta onde vai ficar armazenado.
@@ -121,6 +129,9 @@ if ($certificado['error'] != 0) {
 
             //atribuir a variavél query ($query) a execução do comando sql ($sql).
             $query = excutarSQL($mysql, $sql);
+
+            //adicionar a mensagem de cadastro feito com sucesso.
+            notificacoes(1, "Entrega de atividade realizda com sucesso!");
 
             //redirecionar o aluno para a sua tela inicial.
             header("location:../inicialAluno.php");

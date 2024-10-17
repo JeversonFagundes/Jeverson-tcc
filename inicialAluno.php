@@ -5,8 +5,8 @@
 //conectar com o banco de dados jeverson-tcc
 require_once "conecta.php";
 
-//incluir o arquivo de proteção do sistema.
-require_once "protecao.php";
+//incluir o arquivo de notificações do sistema.
+require_once "boasPraticas/notificacoes.php";
 
 //criar a variavél de conexão com o banco de dados jeverson-tcc. Esta variavél vem do arquivo conecta.php.
 $mysql = conectar();
@@ -87,13 +87,21 @@ $pasta = "certificados/";
         //atribuir á variavél quantidade ($quantidade) a quantidade de linhas que foram retornadas no comando sql ($sql).
         $quantidade = $query->num_rows;
 
-        //com a quantidade de linhas em mãos agora é possivél fazer verificações com relação a isso.
+        //com a quantidade de linhas em mãos, agora é possivél fazer verificações com relação a isso.
         if ($quantidade == 0) {
 
             echo "Você não entregou nenhuma atividade complementar no sistema ainda!";
 
             die();
         } else {
+
+            //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
+
+            //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
+            exibirNotificacoes();
+
+            //limpar as notificações do sistema.
+            limpaNotificações();
 
             //Se a quantidade for diferente de zero, atribuimos a variavél dados ($dados) um array associativo com os valores da excução query ($query) do comando sql ($sql) que será repetido enquanto houver dados. 
             while ($dados = mysqli_fetch_assoc($query)) {

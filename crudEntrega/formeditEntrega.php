@@ -4,9 +4,9 @@
 
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
-
-//incluir o arquivo onde é feita proteção do sistema.
-require_once "../protecao.php";
+ 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
 
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
@@ -88,7 +88,17 @@ $entrega = mysqli_fetch_assoc($resultado2);
 <body>
 
     <!--(enctype="multipart/form-data") é utilizado em formulários HTML para especificar como os dados do formulário devem ser codificados ao serem enviados para o servidor. Este valor é essencial quando o formulário inclui uploads de arquivos, como imagens ou documentos-->
+
     <form action="editarEntrega.php" method="post" enctype="multipart/form-data">
+
+
+        <?php
+
+        exibirNotificacoes();
+
+        limpaNotificações();
+
+        ?>
 
         <label for="select">Escolha a natureza do certificado:</label>
 
