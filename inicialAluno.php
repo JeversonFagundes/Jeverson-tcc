@@ -103,6 +103,8 @@ $pasta = "certificados/";
             //limpar as notificações do sistema.
             limpaNotificações();
 
+            $total = 0;
+
             //Se a quantidade for diferente de zero, atribuimos a variavél dados ($dados) um array associativo com os valores da excução query ($query) do comando sql ($sql) que será repetido enquanto houver dados. 
             while ($dados = mysqli_fetch_assoc($query)) {
 

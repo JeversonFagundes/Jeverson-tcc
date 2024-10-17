@@ -67,8 +67,10 @@ if ($certificado['size'] == 0) {
         //chamar a função que gera as notificações do sistema.
         notificacoes(2, "Falha ao receber o arquivo!");
 
+        //redirecionar o aluno para a tela de entrega das atividades complementares de curso
         header("location:formeditEntrega.php?id=$id");
 
+        //matar o código daqui para baixo
         die();
     } else {
 
@@ -111,10 +113,12 @@ if ($certificado['size'] == 0) {
         ) {
 
             //chamar a função que gera as notificações do sistema.
-            notificacoes(2, "Esse tipo de extenção .'$extencao' não é aceito!");
+            notificacoes(2, "Esse tipo de extenção '.$extencao' não é aceito!");
 
+            //redirecionar o aluno para a tela de entrega de atividades complementares de curso
             header("location:formeditEntrega.php?id=$id");
 
+            //matar o código daqui para baixo
             die();
             /*
             //redirecionar o coordenador de curso para a tela validação
@@ -143,6 +147,9 @@ if ($certificado['size'] == 0) {
 
                 //se o processo chegou até aqui, quer dizer que o aluno colocou outro arquivo no lugar do atual e por isso devemos depois de alterar no banco de dados, excluir da pasta de destino o arquivo antigo que recebemos porque ele agora não vai ter mais nenhuma utilidade.
                 unlink($pastaDestino . $caminho);
+
+                //gerar a notificação de alterações realizadas com sucesso.
+                notificacoes(1, "Alterações realizadas com sucesso");
 
                 //redirecionar o aluno para a sua tela inicial.
                 header("location: ../inicialAluno.php");

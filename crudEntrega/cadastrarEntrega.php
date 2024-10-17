@@ -89,7 +89,7 @@ if ($certificado['error'] != 0) {
 
     ) {
 
-        notificacoes(2, "Esse tipo de extenção .'$extencao' não é aceito");
+        notificacoes(2, "Esse tipo de extenção '.$extencao' não é aceito");
 
         header("location:formcadEntrega.php");
     
