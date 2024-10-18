@@ -128,6 +128,68 @@ $resultado = excutarSQL($mysql, $sql);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    
+
+
+    //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
+                if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
+        ?>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
+                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
+                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
+                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
+                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
+                            <p class="card-text">Carga horária deferida: <?php echo $dados['carga_horaria_aprovada']; ?></p>
+                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
+                            <p class="card-text">Observações: <?php echo $dados['observacoes']; ?></p>
+                            <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                            <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                        </div>
+                    </div>
+
+                <?php
+
+                } else {
+
+                ?>
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
+                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
+                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
+                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
+                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
+                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
+                            <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                            <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                        </div>
+                    </div>
+
+        <?php
+                }
+
+
+
+                
+            //definir a variavél que irá armazenar o total de horas aprovadas do aluno.
+            $total = 0;
+
+            // Percorre todas as linhas do resultado da consulta sql do banco de dados jeverson_tcc. No caso esses valores são referentes ao que o aluno entregou no banco de dados e esse while apenas faz a soma total da carga horaria aprovada.
+            while ($entrega_atividades = mysqli_fetch_assoc($query)) {
+
+                //soma da carga horaria total aprovada.
+                $total = $total + $entrega_atividades['carga_horaria_aprovada'];
+
+                if ($total > $total_curso) {
+
+                    echo "Você completou as suas horas complementares de curso!";
+                }
+            }
 </body>
 
 </html>
