@@ -14,6 +14,25 @@ $mysql = conectar();
 //pasta de destino para onde vão os certificados.
 $pasta = "certificados/";
 
+//fazer uma verificação para definir a variavél que irá receber o total de horas do curso. Por exemplo "a carga horaria obrigatório do curso de informática é 60 horas".
+
+if ($_SESSION['aluno'][2] == 9) {
+
+    $total_curso = 60;
+} else {
+
+    if ($_SESSION['aluno'][2] == 11 or $_SESSION['aluno'][2] == 13) {
+
+        $total_curso = 40;
+    } else {
+
+        if ($_SESSION['aluno'][2] == 12) {
+
+            $total_curso = 50;
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -103,9 +122,28 @@ $pasta = "certificados/";
             //limpar as notificações do sistema.
             limpaNotificações();
 
+            //definir a variavél que irá receber a soma total de horas das atividades aprovadas pelo coordenador de curso.
             $total = 0;
 
-            //Se a quantidade for diferente de zero, atribuimos a variavél dados ($dados) um array associativo com os valores da excução query ($query) do comando sql ($sql) que será repetido enquanto houver dados. 
+            //definir a estrutura de repetição que será responsável por pegar o valor das horas do banco de dados jeverson_tcc e soma-las.
+            while ($entrega_atividades = mysqli_fetch_assoc($query)) {
+
+                //aqui  ocorre a soma das horas que foram aprovadas pelo coordenador de curso.
+                $total = $total +  $entrega_atividades['carga_horaria_aprovada'];
+
+                //aqui eu faço uma verificação de que o aluno já concluiu as suas horas complementares de curso aprovadas
+                if ($total > $total_curso) {
+                    echo "Você completou as suas horas complementares de curso!";
+                }
+            }
+            echo "Total de horas aprovadas: " . $total . " " . "/" . " " . $total_curso; // Imprimir o total após o while
+
+            //para que o proximo while funcione corretamente, pricisamos redefinir o ponteiro de dados no resultado de uma consulta para uma linha específica
+            mysqli_data_seek($query, 0); // Reseta o ponteiro de dados do query
+
+            //mysqli_data_seek(); redefine o ponteiro de dados no resultado de uma consulta para uma linha específica
+
+            //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
             while ($dados = mysqli_fetch_assoc($query)) {
 
                 //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
@@ -130,23 +168,7 @@ $pasta = "certificados/";
 
                 <?php
 
-                    /*echo '<div class="card">';
-                    echo '<div class="card-body">';
-                    echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
-                    echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['natureza'] . '</p>';
-                    echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
 
-                    //aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema
-                    echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
-
-                    echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
-                    echo '<p class="card-text">' . 'Carga horaria deferida: ' . '' . $dados['carga_horaria_aprovada'] . '</p>';
-                    echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
-                    echo '<p class="card-text">' . 'Observações:' . ' ' . $dados['observacoes'] . '</p>';
-                    echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
-                    echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
-                    echo '</div>';
-                    echo '</div>'; */
                 } else {
 
                 ?>
@@ -167,22 +189,7 @@ $pasta = "certificados/";
 
         <?php
 
-                    /*//Se não for verdadeiro as informações de observações e carga horária aprovada não precisam aparecer para o aluno.
-                    echo '<div class="card">';
-                    echo '<div class="card-body">';
-                    echo '<h1 class="card-title">' . 'Titulo do certificado:' . ' ' . $dados['titulo_certificado'] . '</h1>';
-                    echo '<p class="card-text">' . 'Natureza do certificado: ' . '' . $dados['natureza'] . '</p>';
-                    echo '<p class="card-text">' . 'Descrição da natureza: ' . '' . $dados['descricao'] . '</p>';
 
-                    //aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema
-                    echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pasta . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
-
-                    echo '<p class="card-text">' . 'Carga horaria do seu certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
-                    echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
-                    echo '<p class = "editar"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '"> Alterar</a> </p>';
-                    echo '<p class  = "excluir"> <a href="crudEntrega/excluirEntrega?id=' . $dados['id_entrega_atividade'] . '"> Excluir </a> </p>';
-                    echo '</div>';
-                    echo '</div>'; */
                 }
             }
         }

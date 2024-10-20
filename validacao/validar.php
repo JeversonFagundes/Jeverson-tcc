@@ -137,6 +137,16 @@ if ($mysql->error) {
 
         echo '<input type = "hidden" value = "' . $dados['id_aluno'] . '" name = "aluno">';
 
+        echo '<input type = "hidden" value = "' . $dados['nome'] . '" name = "nome">';
+
+        echo '<input type = "hidden" value = "' . $dados['matricula'] . '" name = "matricula">';
+
+        echo '<input type = "hidden" value = "' . $dados['email'] . '" name = "email">';
+
+        echo '<input type = "hidden" value = "' . $dados['titulo_certificado'] . '" name = "certificado">';
+
+        echo '<input type = "hidden" value = "' . $dados['descricao'] . '" name = "descricao">';
+
         echo '<input type = "submit" value = "Deferir" name = "deferir">';
 
         echo '<input type = "submit" value = "Indeferir" name = "indeferir">';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 04-Out-2024 às 15:32
+-- Tempo de geração: 20-Out-2024 às 21:53
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -58,14 +58,15 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `id_curso`) VALUES
-(82, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$QmtyQnpsNmxLUjRRMjFhVA$xQyUufH3yaTTR7gcDTWHq2V/YJHP+I1svt0T/RIxzmQ', 9);
+(88, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$WkxBZW51SndSV2kyMTlDNg$j9KbjdPQ1t4tJZwN6ro2gsq4xeB0izipE4vDg1yPl/g', 9),
+(89, 'Victor Yan', '2022311870', 'jeversonfagundes80@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$UFR0R1lXSlcxeDZmZ1AuVw$YimoXeyOcSAMNpeqjnVFjHrbs7PLTswTApvM5kyM0TY', 12);
 
 -- --------------------------------------------------------
 
@@ -154,14 +155,17 @@ CREATE TABLE IF NOT EXISTS `coordenador_curso` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_coordenador`),
   KEY `fk_curso_coordenador` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `coordenador_curso`
 --
 
 INSERT INTO `coordenador_curso` (`id_coordenador`, `nome`, `email`, `senha`, `id_curso`) VALUES
-(14, 'Michel Michelon', 'michel@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$aHZiSlR3Wm1aVmpYbTFnaA$yCaT8jjPWk3xfi+8sl/qBuO5U8ST20xQDBBbGFRigi4', 9);
+(14, 'Michel Michelon', 'michel@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$TjEuYi5ZNHFhbEpJRnBjbg$q1q9jiJVQgbwSxZFUjpHX4SSb0BJMwUUVoa4GFogr2A', 9),
+(15, 'Jeremias', 'jeremias@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$TWUueWowN0JBRC9rNVNycg$ZLovdN91kVRvzroVdJYKulsmk5k9ue16avKtWyjVyh8', 12),
+(16, 'Jeverson', 'jeverson@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$WlE1TDI3a2pCQlY5T2NwaQ$y/QoHK5lIkwzNOdMIzochnuWp8b3hAs2MsoFbBRzFd4', 13),
+(17, 'Joceanny', 'joceanny@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$dDVveGthRVkzSkN5TVhsTQ$wk9L9LQ7qcha8/E0aNdb3+1U0rX3AzDE6dCXloy+eS4', 11);
 
 -- --------------------------------------------------------
 
@@ -208,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -225,15 +229,6 @@ CREATE TABLE IF NOT EXISTS `recuperar_senha` (
   `usado` tinyint DEFAULT NULL,
   PRIMARY KEY (`id_recuperar_senha`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `recuperar_senha`
---
-
-INSERT INTO `recuperar_senha` (`id_recuperar_senha`, `email`, `token`, `data_criacao`, `usado`) VALUES
-(11, 'jeverson.2022311922@aluno.iffar.edu.br', '918b80e08d217c48a34a5590cce1a3362b54f68677c2e4c0113025ce1c66df44cc4b3e6ba9aa4bd6a65be70a90556c838735', '2024-08-08 16:46:56', 1),
-(12, 'jeverson.2022311922@aluno.iffar.edu.br', 'ee7adf432ec17dc3eb0a6a683457b5b87b7c5cc39838145ec6ebff29ae62112db759d40930149f8e999b731e25ac16b3ef44', '2024-08-09 15:40:45', 1),
-(29, 'fabio@yopmail.com', '8aadefd643bf0c6398d794003e5c159dcfbecc96517c596af1b4a731e579f4a6ffe2ccb955994f5b1ef060a69325165c38bb', '2024-09-24 15:25:03', 0);
 
 --
 -- Restrições para despejos de tabelas

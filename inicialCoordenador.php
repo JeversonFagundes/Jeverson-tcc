@@ -5,8 +5,8 @@
 //conectar com o bonco de dados jeverson-tcc.
 require_once "conecta.php";
 
-//incluir o arquivo onde é feita a proteção do sistema.
-require_once "protecao.php";
+//incluir o arquivo onde é feitas as notificações do sistema.
+require_once "boasPraticas/notificacoes.php";
 
 //declarar a veriavél de conexão com o banco de dados jeverson-tcc. Esta variavél vem do arquivo conecta.php.
 $mysql = conectar();
