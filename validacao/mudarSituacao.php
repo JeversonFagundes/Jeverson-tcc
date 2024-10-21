@@ -3,6 +3,7 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo que envia o email para o aluno quando a atividade é deferida ou indeferida.
 require_once "funcaoEmail.php";
 
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
