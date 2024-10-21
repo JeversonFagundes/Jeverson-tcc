@@ -54,16 +54,16 @@ function email($nome, $status, $email, $carga_horaria_aprovada, $descricao, $mat
             $mail->isHTML(true);  // Define que o formato do email será HTML.
             $mail->Subject = 'Atividade deferida no sistema';  // Define o assunto do email.
             $mail->Body = 'Olá!<br>
-                Informamos que a sua atividade <strong>"' . $certificado . '"</strong> foi deferida no sistema.<br><br>
+                Informamos que a sua atividade <strong>' . $certificado . '</strong> foi deferida no sistema.<br><br>
                 Informações:<br><br>
-                <p>Nome do aluno: "' . $nome . '"</p>
-                <p>Matricula: "' . $matricula . '"</p>
-                <p>Email : "' . $email . '"</p>
-                <p>Atividade deferida: "' . $certificado . '"</p>
-                <p>Descrição: "' . $descricao . '"</p>
-                <p>Carga horária deferida: "' . $carga_horaria_aprovada . '"</p>
-                <p>Status: "' . $status . '"</p>
-                <p>Observações: "' . $observacoes . '"</p><br><br>
+                <p>Nome do aluno: ' . $nome . '</p>
+                <p>Matricula: ' . $matricula . '</p>
+                <p>Email : ' . $email . '</p>
+                <p>Atividade deferida: ' . $certificado . '</p>
+                <p>Descrição: ' . $descricao . '</p>
+                <p>Carga horária deferida: ' . $carga_horaria_aprovada . ' horas</p>
+                <p>Status: ' . $status . '</p>
+                <p>Observações: ' . $observacoes . '</p><br><br>
                 Para acessar o sistema, clique no link abaixo:<br>
                 <a href="http://' . $_SERVER['SERVER_NAME'] . '/jeverson-tcc/index.php">Clique aqui para acessar a sua conta!</a><br>
                 <br>
@@ -114,14 +114,14 @@ function email($nome, $status, $email, $carga_horaria_aprovada, $descricao, $mat
                 $mail->Body = 'Olá!<br>
                 Informamos que a sua atividade <strong>"' . $certificado . '"</strong> foi indeferida no sistema.<br><br>
                 Informações:<br><br>
-                <p>Nome do aluno: "' . $nome . '"</p>
-                <p>Matricula: "' . $matricula . '"</p>
-                <p>Email : "' . $email . '"</p>
-                <p>Atividade indeferida: "' . $certificado . '"</p>
-                <p>Descrição: "' . $descricao . '"</p>
-                <p>Carga horária deferida: "' . $carga_horaria_aprovada . '"</p>
-                <p>Status: "' . $status . '"</p>
-                <p>Observações: "' . $observacoes . '"</p><br><br>
+                <p>Nome do aluno: ' . $nome . '</p>
+                <p>Matricula: ' . $matricula . '</p>
+                <p>Email : ' . $email . '</p>
+                <p>Atividade indeferida: ' . $certificado . '</p>
+                <p>Descrição: ' . $descricao . '</p>
+                <p>Carga horária deferida: ' . $carga_horaria_aprovada . 'horas</p>
+                <p>Status: ' . $status . '</p>
+                <p>Observações: ' . $observacoes . '</p><br><br>
                 Para acessar o sistema, clique no link abaixo:<br>
                 <a href="http://' . $_SERVER['SERVER_NAME'] . '/jeverson-tcc/index.php">Clique aqui para acessar a sua conta!</a><br>
                 <br>
