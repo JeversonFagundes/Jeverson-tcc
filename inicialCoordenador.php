@@ -75,6 +75,11 @@ $mysql = conectar();
                 echo "Você não tem atividade complementar cadastradas no sistema!";
             } else {
 
+                //chamar a função que imprime a notificação para o usuário.
+                exibirNotificacoes();
+
+                //chamar a função que limpa a notificação de dentro da sessão.
+                limpaNotificacoes();
         ?>
 
                 <table border="1" id="tabela">

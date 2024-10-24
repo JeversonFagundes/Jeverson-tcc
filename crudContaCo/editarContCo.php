@@ -5,6 +5,9 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -20,13 +23,12 @@ $sql = "UPDATE coordenador_curso SET nome = '$nome',  email = '$email', id_curso
 //excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
 
-//iniciar as variaveis de sessão.
-session_start();
-
 //com as variaveis de sessão inicadas podemos alterar os valores da variavel de sessão do coordenador de curso sem precisar desloga-lo do sistema.
 $_SESSION['coordenador'][0] = $nome;
 
 $_SESSION['coordenador'][2] = $curso;
+
+notificacoes(1, "Alterações realizadas com sucesso!");
 
 //após todas as alterações redirecionamos o coordenador de curso para a tela do seu perfil, onde estarão todas as informações já alteradas.
 header("location: perfil.php");

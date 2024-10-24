@@ -30,7 +30,7 @@ require_once "boasPraticas/notificacoes.php";
         exibirNotificacoes();
 
         //chamar a função que limpa a notificação de dentro da sessão.
-        limpaNotificações();
+        limpaNotificacoes();
 
         ?>
         <form action="login.php" method="post">
@@ -42,7 +42,7 @@ require_once "boasPraticas/notificacoes.php";
             <input type="password" name="senha" id="senha" required><br>
 
             <ul>
-                <li><a href="recuperarSenha/form-recuperar-senha.html">Esqueci minha senha</a></li>
+                <li><a href="recuperarSenha/form-recuperar-senha.php">Esqueci minha senha</a></li>
                 <li><a href="crudAluno/formcadAluno.php">Não possui conta? Clique aqui!</a></li>
             </ul>
 

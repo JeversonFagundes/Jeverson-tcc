@@ -5,8 +5,8 @@
 //conectar com o banco de dados jeverson-tcc
 require_once "../conecta.php";
 
-//incluir o arquivo de onde é feita a proteção do sistema.
-require_once "../protecao.php";
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
 
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
@@ -42,6 +42,14 @@ $coordenador = mysqli_fetch_assoc($resultado);
 
     <h1>Informações da sua conta!</h1>
 
+    <?php
+    //chamar a função que imprime a notificação para o usuário.
+    exibirNotificacoes();
+
+    //chamar a função que limpa a notificação de dentro da sessão.
+    limpaNotificacoes();
+    ?>
+    
     <form action="editarContCo.php" method="post">
 
         <label for="nome">Nome: </label>

@@ -5,6 +5,9 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -34,13 +37,13 @@ $quantidade_coordenadores = mysqli_fetch_row($consulta_coordenadores)[0];
 $consulta_administradores = excutarSQL($mysql, "SELECT COUNT(*) FROM administrador WHERE email = '$email'");
 $quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
 
-var_dump($quantidade_alunos);
-var_dump($quantidade_coordenadores);
-var_dump($quantidade_administradores);
-
 //o número de linhas que foram efetadas com busca pelo respectivo email, podemos agora fazer as devidas verificações com relação a ele.
 if ($quantidade_alunos > 0 || $quantidade_coordenadores > 0 || $quantidade_administradores > 0) {
-    echo "E-mail: " . " " . $email . " " . " já está cadastrado no sistema!<p><a href = \"formcadCoordenador.php\">Voltar</a></p>";
+
+    notificacoes(2, "O email $email já está em uso no sistema!");
+
+    header("location: formcadCoordenador.php");
+
 } else {
 
     //se o email informado não existe em nenhuma das três tabelas de usuários, quer dizer que o emial não está cadastrado no sistema e por isso podemos permitir o seu cadastro.
@@ -52,6 +55,8 @@ if ($quantidade_alunos > 0 || $quantidade_coordenadores > 0 || $quantidade_admin
     //atribuir a variavél query ($query) a execução do comando sql ($sql).
     $query = excutarSQL($mysql, $sql);
 
+    notificacoes(1, "Coordenador de curso cadastrado com sucesso!");
+    
     //redirecionar para a tela de login.
     header("location: ../inicialAdmin.php");
 }

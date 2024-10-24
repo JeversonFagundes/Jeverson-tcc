@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 20-Out-2024 às 21:53
+-- Tempo de geração: 24-Out-2024 às 18:42
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
@@ -66,7 +66,9 @@ CREATE TABLE IF NOT EXISTS `aluno` (
 
 INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `id_curso`) VALUES
 (88, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$WkxBZW51SndSV2kyMTlDNg$j9KbjdPQ1t4tJZwN6ro2gsq4xeB0izipE4vDg1yPl/g', 9),
-(89, 'Victor Yan', '2022311870', 'jeversonfagundes80@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$UFR0R1lXSlcxeDZmZ1AuVw$YimoXeyOcSAMNpeqjnVFjHrbs7PLTswTApvM5kyM0TY', 12);
+(89, 'Victor Yan', '2022311870', 'jeversonfagundes80@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$UFR0R1lXSlcxeDZmZ1AuVw$YimoXeyOcSAMNpeqjnVFjHrbs7PLTswTApvM5kyM0TY', 12),
+(92, 'Luiz Guilherme', '1111111111', 'luiz.2022310970@email.com', '$argon2id$v=19$m=65536,t=4,p=1$TGVLLndBMllYMkFTWXhweg$snwqkwOp6dGlhJBDkZQafbaUFtDx/SemU4I5vkBZPkU', 11),
+(93, 'Roberto Graziadei', '0000000000', 'roberto@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$VnVWZmlheWJvdEN0SFZaZw$EAuFEm2FidFJi2b/h5e5jFNOs71slRJW1pJs8gFNkuU', 13);
 
 -- --------------------------------------------------------
 
@@ -212,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 

@@ -120,7 +120,7 @@ if ($_SESSION['aluno'][2] == 9) {
             exibirNotificacoes();
 
             //limpar as notificações do sistema.
-            limpaNotificações();
+            limpaNotificacoes();
 
             //definir a variavél que irá receber a soma total de horas das atividades aprovadas pelo coordenador de curso.
             $total = 0;
@@ -292,48 +292,6 @@ if ($_SESSION['aluno'][2] == 9) {
 
         });
 
-        /*
-        
-        // Seleciona todos os botões com a classe 'btnExcluir'
-const botoesExcluir = document.querySelectorAll('.btnExcluir');
-Descrição: Esta linha seleciona todos os elementos do documento que possuem a classe btnExcluir e os armazena na constante botoesExcluir. querySelectorAll retorna uma lista de todos esses elementos.
-JavaScript
-
-// Adiciona um evento de clique a cada botão
-botoesExcluir.forEach(botao => {
-Descrição: Esta linha inicia um loop que percorre cada botão na lista botoesExcluir. Para cada botão, ele executa a função fornecida.
-JavaScript
-
-    botao.addEventListener('click', function() {
-Descrição: Para cada botão, esta linha adiciona um “ouvinte” de evento de clique. Isso significa que quando o botão é clicado, a função fornecida será executada.
-JavaScript
-
-        // Captura o valor do botão
-        const valorBotao = this.value;
-Código gerado por IA. Examine e use com cuidado. Mais informações em perguntas frequentes.
-Descrição: Dentro da função de clique, esta linha captura o valor do botão que foi clicado. this refere-se ao botão que foi clicado, e this.value obtém o valor desse botão.
-JavaScript
-
-        // Exibe a confirmação
-        let primeiraConfirmacao = confirm("Fique ciente de que realizar essa ação irá excluir todos os dados da sua conta e também as atividades que você entregou no sistema. Deseja excluir sua conta?");
-Código gerado por IA. Examine e use com cuidado. Mais informações em perguntas frequentes.
-Descrição: Esta linha exibe uma caixa de diálogo de confirmação para o usuário com a mensagem especificada. A função confirm retorna true se o usuário clicar em “OK” e false se clicar em “Cancelar”.
-JavaScript
-
-        // Se o usuário confirmar, redireciona para a página de exclusão
-        if (primeiraConfirmacao) {
-            window.location.href = 'crudEntrega/excluirEntrega.php?id=' + valorBotao;
-        }
-Código gerado por IA. Examine e use com cuidado. Mais informações em perguntas frequentes.
-Descrição: Se o usuário clicar em “OK” na caixa de confirmação, esta linha redireciona o navegador para a URL especificada, incluindo o valor do botão como um parâmetro de consulta (id). Isso geralmente é usado para passar informações para o servidor.
-JavaScript
-
-        // Se o usuário cancelar, não faz nada
-    });
-});
-Código gerado por IA. Examine e use com cuidado. Mais informações em perguntas frequentes.
-Descrição: Se o usuário clicar em “Cancelar” na caixa de confirmação, o código dentro do bloco if não será executado, e nada acontecerá.
-        */
     </script>
 </body>
 

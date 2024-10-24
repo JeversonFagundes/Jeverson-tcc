@@ -5,6 +5,9 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavál de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -20,6 +23,9 @@ $sql = "UPDATE atividade_complementar SET natureza = '$natureza', carga_horaria_
 
 //excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
+
+//gerar a notificação de um novo aluno cadastrado no sistema.
+notificacoes(1, "Alterações na atividade complementar realizada com sucesso!");
 
 //redirecionar o coordenador de curso novamente para a sua tela inicial.
 header("location: ../inicialCoordenador.php");

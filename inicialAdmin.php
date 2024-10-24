@@ -44,6 +44,12 @@ $mysql = conectar();
         <hr>
 
         <?php
+        
+        //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
+        exibirNotificacoes();
+
+        //limpar as notificações do sistema.
+        limpaNotificacoes();
 
         //Buscar todos os cursos cadastrados no sistema e lista-los em ordem alfabética.
         $sql = "SELECT * FROM curso ORDER BY nome_curso ASC";

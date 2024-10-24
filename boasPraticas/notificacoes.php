@@ -45,7 +45,7 @@ function exibirNotificacoes()
     }
 }
 
-function limpaNotificações()
+function limpaNotificacoes()
 {
 
     //unset() é usado para destruir variáveis específicas. Basicamente, ele remove a variável e a memória associada a ela. Funciona com variáveis normais, variáveis de sessão, e até elementos de arrays.

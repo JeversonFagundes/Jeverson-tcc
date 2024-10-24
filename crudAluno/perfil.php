@@ -49,7 +49,7 @@ $aluno = mysqli_fetch_assoc($resultado);
         exibirNotificacoes();
 
         //chamar a função que limpa a notificação da sessão.
-        limpaNotificações();
+        limpaNotificacoes();
         ?>
 
         <form action="editarAluno.php" method="post">

@@ -27,7 +27,7 @@ $mysql = conectar();
 <body>
 
     <h1>Cdastrar coordenador de curso</h1>
-
+    
     <form action="cadastrarCoordenador.php" method="post">
         <label for="nome"> Nome do coordenador de curso: </label>
         <input type="text" name="nome" id="nome"><br><br>

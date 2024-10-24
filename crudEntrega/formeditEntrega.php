@@ -96,7 +96,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
 
         exibirNotificacoes();
 
-        limpaNotificações();
+        limpaNotificacoes();
 
         ?>
 

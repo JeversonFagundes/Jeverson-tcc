@@ -40,7 +40,7 @@ $coordenador = mysqli_fetch_assoc($resultado);
 <body>
 
     <h1>Formulário de alteração de um coordenador!</h1>
-
+    
     <form action="editarCoordenador.php" method="post">
 
         <label for="nome">Nome do coordenador de curso:</label>

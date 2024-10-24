@@ -42,7 +42,7 @@ $resultado = excutarSQL($mysql, $sql);
         exibirNotificacoes();
 
         //limpar a notificação de dentro da sessão.
-        limpaNotificações();
+        limpaNotificacoes();
         ?>
 
         <form action="cadastrarAluno.php" method="post">

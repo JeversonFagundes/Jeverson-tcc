@@ -2,8 +2,8 @@
 
 //EXCLUIR ALUNO.PHP
 
-//iniciar as variaveis de sessão.
-session_start();
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
 
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";

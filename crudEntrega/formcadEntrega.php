@@ -78,7 +78,7 @@ echo '</table>' . '<br><br>';
         exibirNotificacoes();
 
         //limpar as notificações do sistema
-        limpaNotificações();
+        limpaNotificacoes();
 
         ?>
         <label for="select">Escolha a natureza do seu certificado:</label>

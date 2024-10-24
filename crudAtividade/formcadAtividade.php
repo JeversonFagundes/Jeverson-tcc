@@ -2,8 +2,9 @@
 
 //FORMCADATIVIDADE.PHP
 
-//iniciar as veriaveis de sessão para que possamos buscar da sessão o curso do coordenador de curso logado no sistema no momento.
-session_start();
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 
 ?>
 

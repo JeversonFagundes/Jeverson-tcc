@@ -5,6 +5,9 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -71,6 +74,8 @@ $sql5 = "DELETE FROM curso WHERE id_curso = $id";
 
 //excutar o comando de exclusão do curso.
 excutarSQL($mysql, $sql5);
+
+notificacoes(1, "Curso excluido com sucesso!");
 
 //redirecionar o administrador para a sua tela inicial.
 header("location:../inicialAdmin.php");

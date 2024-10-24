@@ -6,6 +6,9 @@ require_once "../conecta.php";
 //incluir o arquivo que envia o email para o aluno quando a atividade é deferida ou indeferida.
 require_once "funcaoEmail.php";
 
+//incluir o arquivo de notificações do sistema. Dentro desse arquivo também inciamos a sessão (session_start()).
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -34,6 +37,8 @@ if ($_POST['deferir']) {
 
     // Agora você pode chamar a função email
     email($nome, $situacao, $email, $cargaDefe, $descricao, $matricula, $certificado, $observacoes, 1);
+
+    notificacoes(1,"Atividade deferida com sucesso!");
 
     //redirecionar o coordenador de curso para a tela validação
     header("location: validar.php?id=" . $id_aluno);
@@ -64,6 +69,8 @@ if ($_POST['deferir']) {
         // Agora você pode chamar a função email
         email($nome, $situacao, $email, $cargaDefe, $descricao, $matricula, $certificado, $observacoes, 2);
 
+        notificacoes(1,"Atividade indeferida com sucesso!");
+        
         //redirecionar o coordenador de curso para a tela de validação.
         header("location: validar.php?id=" . $id_aluno);
     }

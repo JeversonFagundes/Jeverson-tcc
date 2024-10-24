@@ -6,6 +6,9 @@ $id = $_GET['id'];
 //conecctar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema. Dentro desse arquivo também inciamos a sessão (session_start()).
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -94,6 +97,12 @@ if ($mysql->error) {
     <h1>Informações da atividade complementar entregue no sistema para validação</h1>
 
     <?php
+
+    //chamar a função que exibe a notificação
+    exibirNotificacoes();
+
+    //chamar a função que limpa a notificação da sessão.
+    limpaNotificacoes();
 
     //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
     while ($dados = mysqli_fetch_assoc($resultado)) {

@@ -5,6 +5,9 @@
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
@@ -18,6 +21,8 @@ $sql = "UPDATE curso SET nome_curso = '$nome', carga_horaria = $carga WHERE id_c
 
 //excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
+
+notificacoes(1, "Alterações no curso feitas com sucesso!");
 
 //redirecionar o administrador para a sua tel inicial.
 header("location: ../inicialAdmin.php");
