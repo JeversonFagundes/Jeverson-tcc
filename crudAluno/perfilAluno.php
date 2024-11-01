@@ -33,6 +33,7 @@ $aluno = mysqli_fetch_assoc($resultado);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <title>Editar sua conta</title>
 
 
@@ -45,9 +46,9 @@ $aluno = mysqli_fetch_assoc($resultado);
     require_once "../boasPraticas/headerNav.php";
     ?>
 
-    <main class="text-center">
-        <h1>Informações da sua conta!</h1>
+    <main class="container">
 
+        <h1 class="center-align">Informações da sua conta!</h1>
         <?php
 
         //chamar a função que exibe a notificação
@@ -59,71 +60,94 @@ $aluno = mysqli_fetch_assoc($resultado);
 
         <form action="editarAluno.php" method="post">
 
-            <label for="nome">Nome: </label>
-            <input type="text" value="<?php echo $aluno['nome']; ?>" name="nome"><br><br>
+            <div class="card-panel">
 
-            <label for="matricula">Matricula: </label>
-            <input type="text" value="<?php echo $aluno['matricula']; ?>" name="matricula"><br><br>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">person_outline</i>
+                    <input placeholder="Digite o seu nome" value="<?php echo $aluno['nome']; ?>" id="nome" name="nome" type="text" class="validate" pattern="^.+$" required>
+                    <label for="nome">Nome</label>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                </div>
 
-            <label for="email">Email: </label>
-            <input type="email" value="<?php echo $aluno['email']; ?>" name="email"><br><br>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">confirmation_number</i>
+                    <input placeholder="Digite sua matricula" value="<?php echo $aluno['matricula']; ?>" id="matricula" type="text" class="validate" pattern="^[0-9]{10}$" required>
+                    <label for="mat">Matricula</label>
+                    <span class="helper-text" data-error="A sua matricula deve conter 10 caracteres númericos"></span>
+                </div>
 
-            <?php
-
-            //atribuir a variavél sql2 ($sql2) a busca por todos os cursos cadastrados no sistema e ordená-los por ordem alfabéticaF
-            $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
-
-            //atribuir a variavél resultado2 ($resultado2) a excução do comando sql2 ($sql2).
-            $resultado2 = excutarSQL($mysql, $sql2);
-
-            ?>
-
-            <label for="curso">Selecione o seu curso:</label>
-
-            <!--Declarar um campo de selecão com as opções de curso que o aluno pode escolher para trocar o seu curso atual.-->
-            <select id="curso" name="curso">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <input placeholder="Digite o seu email" value="<?php echo $aluno['email']; ?>" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                    <label for="email">Email</label>
+                    <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                </div>
 
                 <?php
 
-                //dentro do campo de seleção atribuimos a veriavél dados ($dados) o array associativo com os valores do resultado da excução do comando sql2 ($sql2) que será repetido enquanto houver dados.
-                while ($dados = mysqli_fetch_assoc($resultado2)) {
+                //atribuir a variavél sql2 ($sql2) a busca por todos os cursos cadastrados no sistema e ordená-los por ordem alfabéticaF
+                $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+
+                //atribuir a variavél resultado2 ($resultado2) a excução do comando sql2 ($sql2).
+                $resultado2 = excutarSQL($mysql, $sql2);
 
                 ?>
 
-                    <!--declarar o option que nada mais é do que as opções do select. Este option tem os valores que queremos do array associativo dados ($dados).-->
-                    <option <?php
+                <label>Qual é o seu curso?</label>
+                <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
+                <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
+                <select name="curso" class="browser-default">
+                    <?php
 
-                            //aqui fazemos uma verificação de todos os cursos cadastrados no sistema, qual é o do aluno que está logado no momento e atribuimos o comando selected "seleciionado", ou  seja, a lista de opções já vai vir selecionada com o nome do curso do aluno que está logado no sistema. No caso está verificação sempre vai ser atendida, porque o aluno está logado no sistema, ou seja, ele está cadastrado no banco de dados e se ele esta cadastrado, ele tem que ter abrigatóriamente um curso
-                            if ($aluno['id_curso'] == $dados['id_curso']) {
+                    //dentro do campo de seleção atribuimos a veriavél dados ($dados) o array associativo com os valores do resultado da excução do comando sql2 ($sql2) que será repetido enquanto houver dados.
+                    while ($dados = mysqli_fetch_assoc($resultado2)) {
 
-                                echo "selected";
-                            }
-                            ?> value="<?php echo $dados['id_curso'] ?>">
-                        <?php echo $dados['nome_curso'] ?>
-                    </option>
-                <?php
-                }
-                ?>
+                    ?>
 
-            </select><br><br>
+                        <!--declarar o option que nada mais é do que as opções do select. Este option tem os valores que queremos do array associativo dados ($dados).-->
+                        <option <?php
+
+                                //aqui fazemos uma verificação de todos os cursos cadastrados no sistema, qual é o do aluno que está logado no momento e atribuimos o comando selected "seleciionado", ou  seja, a lista de opções já vai vir selecionada com o nome do curso do aluno que está logado no sistema. No caso está verificação sempre vai ser atendida, porque o aluno está logado no sistema, ou seja, ele está cadastrado no banco de dados e se ele esta cadastrado, ele tem que ter abrigatóriamente um curso
+                                if ($aluno['id_curso'] == $dados['id_curso']) {
+
+                                    echo "selected";
+                                }
+                                ?> value="<?php echo $dados['id_curso'] ?>">
+                            <?php echo $dados['nome_curso'] ?>
+                        </option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+
 
             <input type="hidden" value="<?php echo $aluno['id_aluno']; ?>" name="id">
 
-            <input type="submit" value="Editar"><br><br>
-
+            <div class="row">
+                <div class="col s12">
+                    <p class="center-align">
+                        <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="action">Editar conta
+                            <i class="material-icons right">create</i> </button>
+                    </p>
+                </div>
+                <div class="col s12">
+                    <p class="center-align">
+                        <button class="btn waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3" type="submit" name="action">Excluir conta
+                            <i class="material-icons right">delete</i> </button>
+                    </p>
+                </div>
+            </div>
 
 
         </form>
 
         <button id="btnExcluir" class="btn-excluir">Excluir sua conta</button>
 
-        <p>Deseja <a href="../inicialAluno.php">Voltar!</a></p>
-
     </main>
 
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="../meterialize/js/materialize.min.js"></script>
-
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
     <script>
         document.getElementById('btnExcluir').addEventListener('click', function() {
             let primeiraConfirmacao = confirm("Fique ciente de que realizar essa ação irá excluir todos os dados da sua conta e também as atividades que você entregou no sistema. Deseja excluir sua conta?");

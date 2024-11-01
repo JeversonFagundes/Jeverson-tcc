@@ -71,8 +71,6 @@ if ($_SESSION['aluno'][2] == 9) {
         <!--Sessão com o valor do nome aluno.-->
         <h2><?php echo $_SESSION['aluno'][0]; ?></h2>
 
-        <p><a href="crudEntrega/formcadEntrega.php">Entregar atividade complementar</a></p>
-
         <hr>
 
         <h1>Minhas atividade complementares de curso</h1>

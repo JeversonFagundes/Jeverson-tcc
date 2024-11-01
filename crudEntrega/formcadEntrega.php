@@ -8,6 +8,8 @@ require_once "../conecta.php";
 //incluir o arquivo de notificações do sistema.
 require_once "../boasPraticas/notificacoes.php";
 
+require_once "../boasPraticas/headerNav.php";
+
 //declarar a variavel de conexão com o banco de dados.
 $mysql = conectar();
 
@@ -50,9 +52,9 @@ echo '</table>' . '<br><br>';
 
     <meta charset="UTF-8">
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de entrega de atividade complementar</title>
 
@@ -125,10 +127,8 @@ echo '</table>' . '<br><br>';
 
     </form>
 
-    <a href="../inicialAluno.php">Voltar</a>
-
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 </body>
 
 </html>

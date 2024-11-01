@@ -33,4 +33,4 @@ $_SESSION['aluno'][2] = $curso;
 notificacoes(1, "Alterações realizadas com sucesso");
 
 //após as alterações redirecionamos o aluno para o arquivo do seu perfil onde apareceram as suas informações alteradas.
-header("location: perfil.php");
+header("location: perfilAluno.php");

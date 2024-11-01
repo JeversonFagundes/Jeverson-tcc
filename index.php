@@ -74,7 +74,6 @@ require_once "boasPraticas/notificacoes.php";
             </div>
         </form>
 
-
     </main>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
