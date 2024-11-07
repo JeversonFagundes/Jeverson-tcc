@@ -71,7 +71,7 @@ $aluno = mysqli_fetch_assoc($resultado);
 
                 <div class="input-field col s12">
                     <i class="material-icons prefix">confirmation_number</i>
-                    <input placeholder="Digite sua matricula" value="<?php echo $aluno['matricula']; ?>" id="matricula" type="text" class="validate" pattern="^[0-9]{10}$" required>
+                    <input placeholder="Digite sua matricula" value="<?php echo $aluno['matricula']; ?>" id="matricula" name="matricula" type="text" class="validate" pattern="^[0-9]{10}$" required>
                     <label for="mat">Matricula</label>
                     <span class="helper-text" data-error="A sua matricula deve conter 10 caracteres númericos"></span>
                 </div>
@@ -133,7 +133,7 @@ $aluno = mysqli_fetch_assoc($resultado);
                 </div>
                 <div class="col s12">
                     <p class="center-align">
-                        <button class="btn waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3" type="submit" name="action">Excluir conta
+                        <button i class="btn waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3" type="submit" name="action">Excluir conta
                             <i class="material-icons right">delete</i> </button>
                     </p>
                 </div>
@@ -141,8 +141,6 @@ $aluno = mysqli_fetch_assoc($resultado);
 
 
         </form>
-
-        <button id="btnExcluir" class="btn-excluir">Excluir sua conta</button>
 
     </main>
 

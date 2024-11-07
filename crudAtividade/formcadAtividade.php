@@ -4,8 +4,6 @@
 
 //incluir o arquivo de notificações do sistema.
 require_once "../boasPraticas/notificacoes.php";
-
-
 ?>
 
 <!DOCTYPE html>
@@ -15,15 +13,17 @@ require_once "../boasPraticas/notificacoes.php";
 
     <meta charset="UTF-8">
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de atividade complementar</title>
 
 </head>
 
 <body>
+
+    <?php require_once "../boasPraticas/headerNav.php"; ?>
 
     <h1>Formulário de cadastro de atividade complementar.</h1>
 
@@ -43,10 +43,8 @@ require_once "../boasPraticas/notificacoes.php";
         <input type="submit" value="Cadastrar"><br><br>
     </form>
 
-    <a href="../inicialCoordenador.php">Voltar</a>
-
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 </body>
 
 </html>

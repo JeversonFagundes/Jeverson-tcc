@@ -19,30 +19,6 @@ $sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_compleme
 //atribuir a variavél resultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-echo '<h1>Formulário de entrega de atividades complementares.</h1>';
-
-echo '<h3>Tabela de atividades complementares.</h3>';
-
-//listar as atividades complementares de curso retornadas na busca $sql, dentro de uma tabela.
-echo '<table border=4;">
-<tr>
-<th>Natureza</th>
-<th>Descrição</th>
-<th>Carga horaria máxima</th>
-</tr>';
-
-//atribuir a variavél dados ($dados) os valores do array associativo gerado na busca por todas as atividades complementares de curso. Esses dados serão repetidos enquanto houver dados.
-while ($dados = mysqli_fetch_assoc($resultado)) {
-    echo '<tr>';
-    echo '<td>' . $dados['natureza'] . '</td>';
-    echo '<td>' . $dados['descricao'] . '</td>';
-    echo '<td>' . $dados['carga_horaria_maxima'] . '</td>';
-
-    echo '</tr>';
-}
-
-echo '</table>' . '<br><br>';
-
 ?>
 
 <!DOCTYPE html>
@@ -62,73 +38,144 @@ echo '</table>' . '<br><br>';
 
 <body>
 
-    <!--(enctype="multipart/form-data") é utilizado em formulários HTML para especificar como os dados do formulário devem ser codificados ao serem enviados para o servidor. Este valor é essencial quando o formulário inclui uploads de arquivos, como imagens ou documentos-->
-    <form action="cadastrarEntrega.php" method="post" enctype="multipart/form-data">
+    <h1 class="center-align">Formulário de entrega de atividades complementares.</h1>
 
-        <?php
+    <h3 class="center-align">Tabela de atividades complementares.</h3>
 
-        //atribuir a variavél sql2 ($sql2) a busca pelo id e natureza das atividades complementares de curso relacionadas ao curso do aluno que está logado no momento.
-        $sql2 = "SELECT id_atividade_complementar, natureza FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
+    <main class="container">
 
-        //atribuir a variavél resultado2 ($resultado2) a execução do comando sql2 ($sql2).
-        $resultado2 = excutarSQL($mysql, $sql2);
-        ?>
+        <div class="card-panel">
 
-        <?php
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Natureza</th>
+                        <th>Descrição</th>
+                        <th>Carga Horária Máxima</th>
+                    </tr>
+                </thead>
 
-        //exibir as notificações do sistema
-        exibirNotificacoes();
+                <tbody>
 
-        //limpar as notificações do sistema
-        limpaNotificacoes();
+                    <?php
 
-        ?>
-        <label for="select">Escolha a natureza do seu certificado:</label>
+                    while ($dados = mysqli_fetch_assoc($resultado)) {
+                        echo '<tr>';
+                        echo '<td>' . $dados['natureza'] . '</td>';
+                        echo '<td>' . $dados['descricao'] . '</td>';
+                        echo '<td>' . $dados['carga_horaria_maxima'] . '</td>';
 
-        <!--declarar um campo de seleção.-->
-        <select id="select" required name="atividade_complementar">
+                        echo '</tr>';
+                    }
 
-            <!--a primeira opção da lista de opções que o aluno pode escolhar estará selecionada e dasabilitada. Ela mostra "Natureza".-->
-            <option selected disabled value="">Natureza</option>
+                    ?>
+                </tbody>
+            </table>
 
-            <?php
+            <br>
 
-            //atribuir a variavél dados ($dados) os valores do array associativo gerado no busca do comando sql2 ($sql2). Essa variavél será repetida enquanto houver dados.
-            while ($dados = mysqli_fetch_assoc($resultado2)) {
+            <!--(enctype="multipart/form-data") é utilizado em formulários HTML para especificar como os dados do formulário devem ser codificados ao serem enviados para o servidor. Este valor é essencial quando o formulário inclui uploads de arquivos, como imagens ou documentos-->
+            <form action="cadastrarEntrega.php" method="post" enctype="multipart/form-data">
 
-            ?>
-                <!--declarar o resto das opções da lista de seleção. Agora essas opções tem os valores vindos do banco de dados que estão dentro da variavél dados ($dados) acima.-->
-                <option value="<?php echo $dados['id_atividade_complementar'] ?>">
+                <?php
 
-                    <?php echo $dados['natureza'] ?>
+                //atribuir a variavél sql2 ($sql2) a busca pelo id e natureza das atividades complementares de curso relacionadas ao curso do aluno que está logado no momento.
+                $sql2 = "SELECT id_atividade_complementar, natureza FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
 
-                </option>
-            <?php
-            }
-            ?>
+                //atribuir a variavél resultado2 ($resultado2) a execução do comando sql2 ($sql2).
+                $resultado2 = excutarSQL($mysql, $sql2);
+                ?>
 
-        </select><br><br>
+                <?php
 
+                //exibir as notificações do sistema
+                exibirNotificacoes();
 
-        <label for="titulo">Titulo do certificado:</label>
-        <input type="text" id="titulo" name="titulo"><br><br>
+                //limpar as notificações do sistema
+                limpaNotificacoes();
 
-        <label for="carga">Carga horaria do certificado:</label>
-        <input type="number" id="carga" name="carga"><br><br>
+                ?>
 
-        <input type="hidden" name="cargaDefe" value="0">
+                <label>Qual é a natureza do seu certificado?</label>
+                <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
+                <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
+                <select equired id="select" name="atividade_complementar" class="browser-default">
+                    <?php
 
-        <input type="hidden" name="status" value="Em análise">
+                    //atribuir a variavél dados ($dados) os valores do array associativo gerado no busca do comando sql2 ($sql2). Essa variavél será repetida enquanto houver dados.
+                    while ($dados = mysqli_fetch_assoc($resultado2)) {
 
-        <label for="certi">Certificado:</label>
-        <input type="file" id="certi" name="certificado"><br><br>
+                    ?>
+                        <!--declarar o resto das opções da lista de seleção. Agora essas opções tem os valores vindos do banco de dados que estão dentro da variavél dados ($dados) acima.-->
+                        <option value="<?php echo $dados['id_atividade_complementar'] ?>">
 
-        <input type="submit" value="Enviar">
+                            <?php echo $dados['natureza'] ?>
 
-    </form>
+                        </option>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <br>
+
+                <div class="input-field col s12">
+                    <!--<i class="material-icons prefix">person_outline</i>-->
+                    <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^.+$" required>
+                    <label for="titulo">Titulo certificado</label>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                </div>
+
+                <div class="input-field col s12">
+                    <!--<i class="material-icons prefix">person_outline</i>-->
+                    <input placeholder="Digite a carga horária do seu certificado" id="carga" name="carga" type="text" class="validate" pattern="^\d{2}$" required>
+                    <label for="tcarga">Carga horaria do certificado</label>
+                    <span class="helper-text" data-error="Este campo deve ser preenchido com dois dígitos numéricos"></span>
+                </div>
+
+                <input type="hidden" name="cargaDefe" value="0">
+                <input type="hidden" name="status" value="Em análise">
+
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Certificado</span>
+                        <input type="file" id="certi" name="certificado" required>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align">
+                            <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="action">Entregar atividade
+                                <i class="material-icons right">send</i> </button>
+                        </p>
+                    </div>
+                </div>
+
+        </div>
+
+        </form>
+
+        </div>
+
+    </main>
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, options);
+        });
+
+        // Or with jQuery
+
+        $(document).ready(function() {
+            $('select').formSelect();
+        });
+    </script>
 </body>
 
 </html>

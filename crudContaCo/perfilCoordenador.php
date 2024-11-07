@@ -30,15 +30,17 @@ $coordenador = mysqli_fetch_assoc($resultado);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
     <title>Editar sua conta</title>
 
 
 </head>
 
 <body>
+
+    <?php require_once "../boasPraticas/headerNav.php"; ?>
 
     <h1>Informações da sua conta!</h1>
 
@@ -49,7 +51,7 @@ $coordenador = mysqli_fetch_assoc($resultado);
     //chamar a função que limpa a notificação de dentro da sessão.
     limpaNotificacoes();
     ?>
-    
+
     <form action="editarContCo.php" method="post">
 
         <label for="nome">Nome: </label>
@@ -106,10 +108,8 @@ $coordenador = mysqli_fetch_assoc($resultado);
 
     <button><a href="excluirContCo.php">Excluir sua conta!</a></button><br><br>
 
-    <p>Deseja <a href="../inicialCoordenador.php">Voltar!</a></p>
-
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 </body>
 
 </html>
