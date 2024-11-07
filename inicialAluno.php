@@ -73,7 +73,7 @@ if ($_SESSION['aluno'][2] == 9) {
 
         <hr>
 
-        <h1>Minhas atividade complementares de curso</h1>
+        <h1 class="center-align">Minhas atividade complementares de curso</h1>
 
         <?php
 
@@ -108,18 +108,19 @@ if ($_SESSION['aluno'][2] == 9) {
         //com a quantidade de linhas em mãos, agora é possivél fazer verificações com relação a isso.
         if ($quantidade == 0) {
 
-            echo "Você não entregou nenhuma atividade complementar no sistema ainda!";
+        ?>
+
+            <div class="container">
+                <p class="center-align">Você não entregou nenhuma atividade complementar no sistema ainda!</p><br>
+
+                <a href='crudEntrega/formcadEntrega.php' class="brown lighten-3 waves-effect waves-light btn"><i class="material-icons right">add</i>Inserir</a>
+            </div>
+            <?php
 
             die();
         } else {
 
-            //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
-
-            //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
-            exibirNotificacoes();
-
-            //limpar as notificações do sistema.
-            limpaNotificacoes();
+            echo "<a href='forminsere.php' class=\"brown lighten-3 waves-effect waves-light btn\"><i class=\"material-icons right\">add</i>Inserir</a> <br><br>";
 
             //definir a variavél que irá receber a soma total de horas das atividades aprovadas pelo coordenador de curso.
             $total = 0;
@@ -132,39 +133,49 @@ if ($_SESSION['aluno'][2] == 9) {
 
                 //aqui eu faço uma verificação de que o aluno já concluiu as suas horas complementares de curso aprovadas
                 if ($total > $total_curso) {
-                    echo "Você completou as suas horas complementares de curso!";
+                    echo "Você completou as suas horas complementares de curso! <br>";
                 }
             }
-            echo "Total de horas aprovadas: " . $total . " " . "/" . " " . $total_curso; // Imprimir o total após o while
+            echo "Total de horas aprovadas: " . $total . " " . "/" . " " . $total_curso . '<br>'; // Imprimir o total após o while
 
             //para que o proximo while funcione corretamente, pricisamos redefinir o ponteiro de dados no resultado de uma consulta para uma linha específica
             mysqli_data_seek($query, 0); // Reseta o ponteiro de dados do query
 
             //mysqli_data_seek(); redefine o ponteiro de dados no resultado de uma consulta para uma linha específica
 
+            //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
+
+            //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
+            exibirNotificacoes();
+
+            //limpar as notificações do sistema.
+            limpaNotificacoes();
+
             //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
             while ($dados = mysqli_fetch_assoc($query)) {
 
                 //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
                 if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
-        ?>
+            ?>
 
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="card-panel">
 
-                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
-                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
-                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
-                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
-                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-                            <p class="card-text">Carga horária deferida: <?php echo $dados['carga_horaria_aprovada']; ?></p>
-                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
-                            <p class="card-text">Observações: <?php echo $dados['observacoes']; ?></p>
-                            <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
-                            <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                        <div class="card">
+                            <div class="card-body">
+
+                                <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
+                                <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
+                                <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
+                                <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
+                                <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
+                                <p class="card-text">Carga horária deferida: <?php echo $dados['carga_horaria_aprovada']; ?></p>
+                                <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
+                                <p class="card-text">Observações: <?php echo $dados['observacoes']; ?></p>
+                                <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                                <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                            </div>
                         </div>
                     </div>
-
                 <?php
 
 
@@ -172,17 +183,19 @@ if ($_SESSION['aluno'][2] == 9) {
 
                 ?>
 
-                    <div class="card">
-                        <div class="card-body">
+                    <div class="card-panel">
+                        <div class="card">
+                            <div class="card-body">
 
-                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
-                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
-                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
-                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
-                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
-                            <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
-                            <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                                <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
+                                <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
+                                <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
+                                <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
+                                <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
+                                <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
+                                <button class="btnAlterar" value="<?php echo $dados['id_entrega_atividade']; ?>">Alterar</button>
+                                <button class="btnExcluir" value="<?php echo $dados['id_entrega_atividade']; ?>">Excluir</button>
+                            </div>
                         </div>
                     </div>
 

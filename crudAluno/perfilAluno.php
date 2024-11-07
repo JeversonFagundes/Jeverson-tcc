@@ -146,17 +146,7 @@ $aluno = mysqli_fetch_assoc($resultado);
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-    <script>
-        document.getElementById('btnExcluir').addEventListener('click', function() {
-            let primeiraConfirmacao = confirm("Fique ciente de que realizar essa ação irá excluir todos os dados da sua conta e também as atividades que você entregou no sistema. Deseja excluir sua conta?");
-            if (primeiraConfirmacao) {
-                let segundaConfirmacao = confirm("Confirmar exclusão");
-                if (segundaConfirmacao) {
-                    window.location.href = 'excluirAluno.php';
-                }
-            }
-        });
-    </script>
+
 </body>
 
 </html>

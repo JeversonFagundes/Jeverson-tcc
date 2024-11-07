@@ -127,9 +127,9 @@ $resultado = excutarSQL($mysql, $sql);
 
                 <div class="input-field col s12">
                     <!--<i class="material-icons prefix">person_outline</i>-->
-                    <input placeholder="Digite a carga horária do seu certificado" id="carga" name="carga" type="text" class="validate" pattern="^\d{2}$" required>
+                    <input placeholder="Digite a carga horária do seu certificado" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,2}$" required>
                     <label for="tcarga">Carga horaria do certificado</label>
-                    <span class="helper-text" data-error="Este campo deve ser preenchido com dois dígitos numéricos"></span>
+                    <span class="helper-text" data-error="Este campo deve ser preenchido com no máximo dois digitos numericos"></span>
                 </div>
 
                 <input type="hidden" name="cargaDefe" value="0">

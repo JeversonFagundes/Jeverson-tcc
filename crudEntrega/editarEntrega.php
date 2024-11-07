@@ -43,6 +43,8 @@ if ($certificado['size'] == 0) {
     //excutar como sql ($sql).
     excutarSQL($mysql, $sql);
 
+    notificacoes(1, "Alterações realizadas com sucesso!");
+    
     //redirecionar o aluno para a sua tela inicial.
     header("location: ../inicialAluno.php");
 } else {

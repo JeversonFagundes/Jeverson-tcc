@@ -29,16 +29,6 @@ if (isset($_SESSION['aluno'])) {
                         <!-- Se a página atual não for inicialAluno.php, define o atributo href para redirecionar para inicialAluno.php. Caso contrário, não faz nada. -->
                     </li>
 
-                    <li <?php if ($paginaCorrente == 'formcadEntrega.php') {
-                            echo 'class="active"';
-                        } ?>>
-                        <!-- Verifica se a página atual é inicialAluno.php e, se for, adiciona a classe "active" ao item da lista. -->
-                        <a class="black-text" <?php if ($paginaCorrente != 'formcadEntrega.php') {
-                                                    echo 'href="/jeverson-tcc/crudEntrega/formcadEntrega.php"';
-                                                } ?>>Entregar Atividade</a>
-                        <!-- Se a página atual não for inicialAluno.php, define o atributo href para redirecionar para inicialAluno.php. Caso contrário, não faz nada. -->
-                    </li>
-
                     <li <?php if ($paginaCorrente == 'perfilAluno.php') {
                             echo 'class="active"';
                         } ?>>
