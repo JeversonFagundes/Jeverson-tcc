@@ -86,16 +86,6 @@ $resultado = excutarSQL($mysql, $sql);
                 $resultado2 = excutarSQL($mysql, $sql2);
                 ?>
 
-                <?php
-
-                //exibir as notificações do sistema
-                exibirNotificacoes();
-
-                //limpar as notificações do sistema
-                limpaNotificacoes();
-
-                ?>
-
                 <label>Qual é a natureza do seu certificado?</label>
                 <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
                 <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
@@ -120,9 +110,9 @@ $resultado = excutarSQL($mysql, $sql);
 
                 <div class="input-field col s12">
                     <!--<i class="material-icons prefix">person_outline</i>-->
-                    <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^.+$" required>
+                    <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^[^']+$" required>
                     <label for="titulo">Titulo certificado</label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo corretamente, não se deve usar aspas simples"></span>
                 </div>
 
                 <div class="input-field col s12">

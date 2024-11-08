@@ -5,11 +5,14 @@
 //conectar com o banco de dados jeverson-tcc
 require_once "../conecta.php";
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //declarara a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
 //buscar da url os valores necessários para a exclução do arquivo do banco de dados.
-$id = $_GET['id'];
+$id = $_POST['id'];
 
 //declarar a pasta de destino.
 $pastaDestino = "../certificados/";
@@ -37,5 +40,8 @@ excutarSQL($mysql, $sql2);
 //excluir da pasta destino o arquivo que acabou de ser excluido do banco de dados.
 unlink($pastaDestino . $caminho);
 
+//chamar a função que gera as notificações do sistema.
+notificacoes(1, "Exclusão realizada com sucesso!");
+
 //redirecionar o aluno para a sua tela inicial.
-header("location: ../inicialAluno.php");
+header("location:../inicialAluno.php");
