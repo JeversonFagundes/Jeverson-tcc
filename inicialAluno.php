@@ -130,124 +130,42 @@ if ($_SESSION['aluno'][2] == 9) {
 
             <div class="container">
 
-                <?php
-                echo "<a href='crudEntrega/formcadEntrega.php' class=\"brown lighten-3 waves-effect waves-light btn\"><i class=\"material-icons right\">add</i>Inserir</a> <br><br>";
+            <?php
+            echo "<a href='crudEntrega/formcadEntrega.php' class=\"brown lighten-3 waves-effect waves-light btn\"><i class=\"material-icons right\">add</i>Inserir</a> <br><br>";
 
-                //definir a variavél que irá receber a soma total de horas das atividades aprovadas pelo coordenador de curso.
-                $total = 0;
+            //definir a variavél que irá receber a soma total de horas das atividades aprovadas pelo coordenador de curso.
+            $total = 0;
 
-                //definir a estrutura de repetição que será responsável por pegar o valor das horas do banco de dados jeverson_tcc e soma-las.
-                while ($entrega_atividades = mysqli_fetch_assoc($query)) {
+            //definir a estrutura de repetição que será responsável por pegar o valor das horas do banco de dados jeverson_tcc e soma-las.
+            while ($entrega_atividades = mysqli_fetch_assoc($query)) {
 
-                    //aqui  ocorre a soma das horas que foram aprovadas pelo coordenador de curso.
-                    $total = $total +  $entrega_atividades['carga_horaria_aprovada'];
+                //aqui  ocorre a soma das horas que foram aprovadas pelo coordenador de curso.
+                $total = $total +  $entrega_atividades['carga_horaria_aprovada'];
 
-                    //aqui eu faço uma verificação de que o aluno já concluiu as suas horas complementares de curso aprovadas
-                    if ($total > $total_curso) {
-                        echo "Você completou as suas horas complementares de curso! <br>";
-                    }
-                }
-                echo "Total de horas aprovadas: " . $total . " " . "/" . " " . $total_curso . '<br>'; // Imprimir o total após o while
-
-                //para que o proximo while funcione corretamente, pricisamos redefinir o ponteiro de dados no resultado de uma consulta para uma linha específica
-                mysqli_data_seek($query, 0); // Reseta o ponteiro de dados do query
-
-                //mysqli_data_seek(); redefine o ponteiro de dados no resultado de uma consulta para uma linha específica
-
-                //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
-
-                //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
-                exibirNotificacoes();
-
-                //limpar as notificações do sistema.
-                limpaNotificacoes();
-
-                //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
-                while ($dados = mysqli_fetch_assoc($query)) {
-
-                    //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
-                    if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
-                ?>
-
-                        <div class="card-panel">
-                            <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?> </h1>
-                            <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
-                            <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
-                            <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
-                            <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-                            <p class="card-text">Carga horária deferida: <?php echo $dados['carga_horaria_aprovada']; ?></p>
-                            <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
-                            <p class="card-text">Observações: <?php echo $dados['observacoes']; ?></p>
-                            <a href="#modal<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>
-
-                            <a href="crudEntrega/formeditEntrega.php?id=<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">create</i></a>
-
-                            <!-- Modal Structure -->
-                            <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
-                                <div class="modal-content">
-                                    <h2> Atenção! </h2>
-                                    <p>Você confirma a exclusão dessa atividade?: <?php echo $dados['titulo_certificado']; ?> </p>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                        <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
-
-                                        <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
-                                            Excluir </button>
-
-                                        <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
-                                            Cancelar </button>
-                                </div>
-
-                            </div>
-                        <?php
-
-
-                    } else {
-
-                        ?>
-
-                            <div class="card-panel">
-
-
-                                <h1 class="card-titla">Titulo do certificado: <?php echo $dados['titulo_certificado']; ?></h1>
-                                <p class="card-text">Natureza do certificado: <?php echo $dados['natureza']; ?></p>
-                                <p class="card-text">Descrição da natureza: <?php echo $dados['descricao']; ?></p>
-                                <p class="card-text">O certificado: <a href="<?php echo $pasta . $dados['caminho']; ?>"><?php echo $dados['certificado']; ?></a></p>
-                                <p class="card-text">Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-                                <p class="card-text">Situação: <?php echo $dados['status']; ?></p>
-
-                                <a href="#modal<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>
-
-                                <a href="crudEntrega/formeditEntrega.php?id=<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">create</i></a>
-
-                                <!-- Modal Structure -->
-                                <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
-                                    <div class="modal-content">
-                                        <h2> Atenção! </h2>
-                                        <p>Você confirma a exclusão dessa atividade?: <?php echo $dados['titulo_certificado']; ?> </p>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                            <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
-
-                                            <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
-                                                Excluir </button>
-
-                                            <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
-                                                Cancelar </button>
-                                    </div>
-
-                        <?php
-
-
-                    }
+                //aqui eu faço uma verificação de que o aluno já concluiu as suas horas complementares de curso aprovadas
+                if ($total > $total_curso) {
+                    echo "Você completou as suas horas complementares de curso! <br>";
                 }
             }
-                        ?>
-                                </div>
+            echo "Total de horas aprovadas: " . $total . " " . "/" . " " . $total_curso . '<br>'; // Imprimir o total após o while
+
+            //para que o proximo while funcione corretamente, pricisamos redefinir o ponteiro de dados no resultado de uma consulta para uma linha específica
+            mysqli_data_seek($query, 0); // Reseta o ponteiro de dados do query
+
+            //mysqli_data_seek(); redefine o ponteiro de dados no resultado de uma consulta para uma linha específica
+
+            //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
+
+            //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
+            exibirNotificacoes();
+
+            //limpar as notificações do sistema.
+            limpaNotificacoes();
+
+            
+        }
+            ?>
+            </div>
     </main>
 
     <!--Import jQuery before materialize.js-->
