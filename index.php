@@ -74,6 +74,37 @@ require_once "boasPraticas/notificacoes.php";
             </div>
         </form>
 
+        <p><strong>Alunos</strong></p>
+
+        <p> nome: Jeverson Miguel Rios Fagundes - email: jeverson.2022311922@aluno.iffar.edu.br - senha: Gremista123@ - curso: Informática</p>
+
+        <p> nome: Victor Yan - email: victor@yopmail.com - senha: Gremista123@ - curso: Curso de Manutenção e Suporte em Informática (MSI)</p>
+
+        <p> nome: Luiz Guilherme - email: luiz@yopmail.com - senha: Gremista123@ - curso: Curso Técnico Integrado em Administração</p>
+
+        <p> nome: Roberto Graziadei - email: roberto@yopmail.com - senha: Gremista123@ - curso: Curso de Markiting Subsequente</p>
+
+        <p><strong>Coordenadores de curso</strong></p>
+
+        <p> nome: Michel Michelon - email: michel@yopmail.com - senha: Gremista123@ - curso: Informática</p>
+
+        <p> nome: Jeremias - email: jeremias@yopmail.com - senha: Gremista123@ - curso: Curso de Manutenção e Suporte em Informática (MSI)</p>
+
+        <p> nome: Jeverson - email: jeverson@yopmail.com - senha: Gremista123@ - curso: Curso de Markiting Subsequente</p>
+
+        <p> nome: Joceanny - email: joceanny@yopmail.com - senha: Gremista123@ - curso: Curso Técnico Integrado em Administração</p>
+
+        <p><strong>Administrador</strong></p>
+
+        <p>email: pablo@yopmail.com - senha: Gremista123@</p>
+
+        <?php
+
+        $senha = "Gremista123@"; 
+        $hash = password_hash($senha, PASSWORD_ARGON2ID);
+        echo $hash;
+
+        ?>
     </main>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
