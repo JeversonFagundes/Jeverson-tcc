@@ -74,6 +74,7 @@ if ($certificado['size'] == 0) {
 
         //matar o código daqui para baixo
         die();
+
     } else {
 
         //se nçao houve arro norecebimento do arquivo devemos processeguir com o uopload do arquivo e alterações no banco de dados.
@@ -118,7 +119,7 @@ if ($certificado['size'] == 0) {
             notificacoes(2, "Esse tipo de extenção '.$extencao' não é aceito!");
 
             //redirecionar o aluno para a tela de entrega de atividades complementares de curso
-            header("location:formeditEntrega.php?id=$id");
+            header("location: formeditEntrega.php?id=$id");
 
             //matar o código daqui para baixo
             die();
