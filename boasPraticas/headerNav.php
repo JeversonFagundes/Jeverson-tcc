@@ -1,3 +1,5 @@
+
+
 <?php
 $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
 // Obtém o nome do arquivo atual e o armazena na variável $paginaCorrente.
@@ -9,7 +11,7 @@ if (isset($_SESSION['aluno'])) {
 
     <div class="navbar-fixed">
         <!-- Cria um contêiner fixo para a barra de navegação. -->
-        <nav class="brown  lighten-3">
+        <nav class="#ffffff white">
             <!-- Define a barra de navegação com uma cor marrom clara. -->
             <div class="nav-wrapper container">
                 <!-- Cria um contêiner para o conteúdo da navegação. -->
@@ -49,6 +51,13 @@ if (isset($_SESSION['aluno'])) {
             </div>
         </nav>
     </div>
+    
+    <!-- Sidenav para Mobile -->
+    <ul id="mobile" class="sidenav">
+        <li><a href="/jeverson-tcc/inicialAluno.php"><i class="material-icons">home</i> Home</a></li>
+        <li><a href="/jeverson-tcc/crudAluno/perfilAluno.php">Perfil</a></li>
+        <li><a href="/jeverson-tcc/logout.php">Sair</a></li>
+    </ul>
 
     <?php
 } else {

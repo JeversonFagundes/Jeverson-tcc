@@ -44,6 +44,10 @@ $resultado = excutarSQL($mysql, $sql);
 
     <main class="container">
 
+    <?php
+
+    
+    ?>
         <div class="card-panel">
 
             <table class="highlight responsive-table">

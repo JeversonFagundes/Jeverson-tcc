@@ -157,6 +157,8 @@ $aluno = mysqli_fetch_assoc($resultado);
 
                     <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
                         Cancelar </button>
+                </form>
+            </div>
     </main>
 
     <!--Import jQuery before materialize.js-->

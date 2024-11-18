@@ -100,7 +100,7 @@ $resultado = excutarSQL($mysql, $sql);
 
                 <div class="input-field col s12">
                     <i class="material-icons prefix">confirmation_number</i>
-                    <input placeholder="Digite sua matricula" id="matricula" type="text" class="validate" pattern="^[0-9]{10}$" required>
+                    <input placeholder="Digite sua matricula" id="matricula" name="matricula" type="text" class="validate" pattern="^[0-9]{10}$" required>
                     <label for="mat">Matricula</label>
                     <span class="helper-text" data-error="A sua matricula deve conter 10 caracteres númericos"></span>
                 </div>

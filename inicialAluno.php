@@ -65,10 +65,13 @@ if ($_SESSION['aluno'][2] == 9) {
         .espacamento {
             margin-right: 10px;
         }
+        .especamentoh2{
+            margin-left: 20px;
+        }
     </style>
 </head>
 
-<body>
+<body class="#f5f5f5 grey lighten-4">
 
     <!--Para que não seja necessário criar toda vez um header com uma nav em todas as telas dos usuários, então aqui incluimos a pasta onde esta o arquivo onde está criado o header e o nav.-->
     <?php require_once "boasPraticas/headerNav.php"; ?>
@@ -76,7 +79,7 @@ if ($_SESSION['aluno'][2] == 9) {
     <main>
 
         <!--Sessão com o valor do nome aluno.-->
-        <h2><?php echo $_SESSION['aluno'][0]; ?></h2>
+        <h2 class="especamentoh2"><?php echo $_SESSION['aluno'][0]; ?></h2>
 
         <hr>
 
