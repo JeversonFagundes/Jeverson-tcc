@@ -131,22 +131,63 @@ $aluno = mysqli_fetch_assoc($resultado);
                             <i class="material-icons right">create</i> </button>
                     </p>
                 </div>
-                <div class="col s12">
-                    <p class="center-align">
-                        <button i class="btn waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3" type="submit" name="action">Excluir conta
-                            <i class="material-icons right">delete</i> </button>
-                    </p>
-                </div>
-            </div>
-
 
         </form>
 
+        <div class="col s12">
+            <p class="center-align">
+                <a href="#modal<?php echo $aluno['id_aluno']; ?>" class="waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3 btn modal-trigger"><i class="material-icons right">delete</i>Excluir conta</a>
+            </p>
+        </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal<?php echo $aluno['id_aluno']; ?>" class="modal">
+            <div class="modal-content">
+                <h2> Atenção! </h2>
+                <p>Você confirma a exclusão da sua conta! : <?php echo $aluno['nome']; ?> ?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form action="excluirAluno.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $aluno['id_aluno']; ?>">
+
+                    <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
+                        Excluir </button>
+
+                    <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
+                        Cancelar </button>
     </main>
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 
+    <script>
+        // M.AutoInit();
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {
+                opacity: 0.7, // Opacidade do background (0.0 a 1.0)
+                inDuration: 1000, // Duração da animação de abertura em milissegundos
+                outDuration: 1200, // Duração da animação de fechamento em milissegundos
+                dismissible: true, // Permite fechar ao clicar fora do modal
+                startingTop: '10%', // Posição inicial do modal em relação ao topo
+                endingTop: '15%' // Posição final do modal em relação ao topo
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa a sidenav
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, {
+                edge: 'left'
+            });
+
+            // Configura a largura da sidenav
+            var sidenav = document.querySelector('.sidenav');
+            sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
+        });
+    </script>
 </body>
 
 </html>
