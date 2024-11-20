@@ -15,7 +15,7 @@ if (isset($_SESSION['aluno'])) {
             <!-- Define a barra de navegação com uma cor marrom clara. -->
             <div class="nav-wrapper container">
                 <!-- Cria um contêiner para o conteúdo da navegação. -->
-                <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons" style="color: black;">menu</i></a>
                 <!-- Cria um ícone de menu para a navegação móvel. -->
 
                 <ul class="right hide-on-med-and-down">

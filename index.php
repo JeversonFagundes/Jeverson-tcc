@@ -8,7 +8,7 @@ require_once "boasPraticas/notificacoes.php";
 <html lang="pt-br">
 
 <head>
-
+                                        
     <meta charset="UTF-8">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
