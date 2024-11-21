@@ -63,10 +63,22 @@ if ($_SESSION['aluno'][2] == 9) {
         }
 
         .espacamento {
-            margin-right: 10px;
+            margin-right: 20px;
         }
-        .especamentoh2{
+
+        .especamentoh2 {
             margin-left: 20px;
+        }
+
+        /* Defina as classes CSS para a estilização */
+        .ativo {
+            background-color: #d4edda;
+            /* Verde claro */
+        }
+
+        .inativo {
+            background-color: #f8d7da;
+            /* Vermelho claro */
         }
     </style>
 </head>
@@ -143,7 +155,7 @@ if ($_SESSION['aluno'][2] == 9) {
 
         ?>
 
-            <div class="container">
+            <div class="especamentoh2 espacamento">
 
                 <?php
                 echo "<a href='crudEntrega/formcadEntrega.php' class=\"brown lighten-3 waves-effect waves-light btn\"><i class=\"material-icons right\">add</i>Inserir</a> <br><br>";
@@ -177,197 +189,84 @@ if ($_SESSION['aluno'][2] == 9) {
                 //limpar as notificações do sistema.
                 limpaNotificacoes();
 
-                //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
-                while ($dados = mysqli_fetch_assoc($query)) {
-
-                    //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
-                    if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
-
-                        //agora devemos verificar qual é o status da entrega para poder imprimir as informações com as configurações de cores certas.
-                        if ($dados['status'] == "Deferido") {
-
                 ?>
-                            <!--quer dizer que o cordenador de curso aceitou a entrega do aluno, por esse motivo imprimimos o card com a borda verde-->
-                            <div class="card deferido">
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Titulo : <?php echo $dados['titulo_certificado'] ?><i class="material-icons right">more_vert</i></span><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natureza</th>
+                            <th>Certificado</th>
+                            <th>Carga horária</th>
+                            <th>Carga horária aprovada</th>
+                            <th>Situação</th>
+                            <th>Observações</th>
+                            <th colspan="2">Opções</th>
+                        </tr>
+                    </thead>
 
-                                    <p>Situação : <?php echo $dados['status'] ?> </p><br>
+                    <tbody>
 
-                                    <p>Certificado : <a href="<?php echo $pasta . $dados['caminho'] ?>"><?php echo $dados['certificado'] ?></a> </p><br>
-
-                                    <p>Carga horária aprovada: <?php echo $dados['carga_horaria_aprovada']; ?></p><br>
-
-                                    <p>Observações : <?php echo $dados['observacoes']; ?></p><br>
-
-                                    <a href="crudEntrega/formeditEntrega.php?id=<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light#00c853 green accent-4 lighten-3 modal-trigger espacamento"><i class="material-icons">create</i></a>
-
-                                    <a href="#modal<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>
-
-                                    <!-- Modal Structure -->
-                                    <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
-                                        <div class="modal-content">
-                                            <h2> Atenção! </h2>
-                                            <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                                <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
-
-                                                <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
-                                                    Excluir </button>
-
-                                                <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
-                                                    Cancelar </button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4"><?php echo $dados['titulo_certificado'] ?><i class="material-icons right">close</i></span>
-
-                                    <p>Natureza : <?php echo $dados['natureza']; ?></p>
-                                    <p>Descrição da natureza : <?php echo $dados['descricao']; ?></p>
-                                    <p>Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-
-                                </div>
-                            </div>
-                            <?php
-                        } else {
-
-                            if ($dados['status'] == "Indeferido") {
-
-                            ?>
-                                <!--quer dizer que o cordenador de curso não aceitou a entrega do aluno, por esse motivo imprimimos o card com a borda vermelha-->
-                                <div class="card indeferido">
-                                    <div class="card-content">
-                                        <span class="card-title activator grey-text text-darken-4">Titulo : <?php echo $dados['titulo_certificado'] ?><i class="material-icons right">more_vert</i></span><br>
-
-                                        <p>Situação : <?php echo $dados['status'] ?> </p><br>
-
-                                        <p>Certificado : <a href="<?php echo $pasta . $dados['caminho'] ?>"><?php echo $dados['certificado'] ?></a> </p><br>
-
-                                        <p>Carga horária aprovada: <?php echo $dados['carga_horaria_aprovada']; ?></p><br>
-
-                                        <p>Observações : <?php echo $dados['observacoes']; ?></p><br>
-
-                                        <a href="crudEntrega/formeditEntrega.php?id=<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light#00c853 green accent-4 lighten-3 modal-trigger espacamento"><i class="material-icons">create</i></a>
-
-                                        <a href="#modal<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>
-
-                                        <!-- Modal Structure -->
-                                        <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
-                                            <div class="modal-content">
-                                                <h2> Atenção! </h2>
-                                                <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                                    <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
-
-                                                    <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
-                                                        Excluir </button>
-
-                                                    <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
-                                                        Cancelar </button>
-                                                </form>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="card-reveal">
-                                        <span class="card-title grey-text text-darken-4"><?php echo $dados['titulo_certificado'] ?><i class="material-icons right">close</i></span>
-
-                                        <p>Natureza : <?php echo $dados['natureza']; ?></p>
-                                        <p>Descrição da natureza : <?php echo $dados['descricao']; ?></p>
-                                        <p>Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-
-                                    </div>
-                                </div>
                         <?php
+
+                        //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
+                        while ($dados = mysqli_fetch_assoc($query)) {
+
+                            //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
+                            if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
+
+                                //agora devemos verificar qual é o status da entrega para poder imprimir as informações com as configurações de cores certas.
+                                if ($dados['status'] == "Deferido") {
+
+                                    echo "<tr>";
+                                    echo "<td>" . $dados['descricao'] . "</td>";
+                                    echo "<td>" . $dados['titulo_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
+                                    echo "<td>" . $dados['status'] . "</td>";
+
+                                    echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a>' . '</td>';
+
+                                    echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>' . '</td>';
+                                    echo "<td>" . $dados['observacoes'] . "</td>";
+                                } else {
+
+                                    if ($dados['status'] == "Indeferido") {
+
+                                        echo "<tr>";
+                                        echo "<td>" . $dados['descricao'] . "</td>";
+                                        echo "<td>" . $dados['titulo_certificado'] . "</td>";
+                                        echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
+                                        echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
+                                        echo "<td>" . $dados['status'] . "</td>";
+                                        echo "<td>" . $dados['observacoes'] . "</td>";
+                                        echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">create</i></a>' . '</td>';
+
+                                        echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>' . '</td>';
+                                        echo "<tr>";
+                                    }
+                                }
+                            } else {
+
+                                echo "<tr class=\"ativo espacamentoh2\">";
+                                echo "<td>" . $dados['descricao'] . "</td>";
+                                echo "<td>" .'<a href="'.$pasta. $dados['caminho'] .'">'.$dados['certificado'].' </a>'. "</td>";
+                                echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
+                                echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
+                                echo "<td>" . $dados['status'] . "</td>";
+                                echo "<td>" . $dados['observacoes'] . "</td>";
+                                echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons #81c784 green lighten-2">create</i></a>' . '</td>';
+
+                                echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>' . '</td>';
+                                echo "<tr>";
                             }
                         }
-                    } else {
 
                         ?>
-                        <!--quer dizer que o cordenador de curso não realizou nenhuma correção na entrega do aluno, por isso a entrega ainda está em analize, por esse motivo imprimimos o card com a borda laranja-->
-                        <div class="card analizando">
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Titulo : <?php echo $dados['titulo_certificado'] ?><i class="material-icons right">more_vert</i></span><br>
 
-                                <p>Situação : <?php echo $dados['status'] ?> </p><br>
+                    </tbody>
+                </table>
 
-                                <p>Certificado : <a href="<?php echo $pasta . $dados['caminho'] ?>"><?php echo $dados['certificado'] ?></a> </p><br>
-
-                                <p>Carga horária aprovada: <?php echo $dados['carga_horaria_aprovada']; ?></p><br>
-
-                                <a href="crudEntrega/formeditEntrega.php?id=<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light#00c853 green accent-4 lighten-3 modal-trigger espacamento"><i class="material-icons">create</i></a>
-
-                                <a href="#modal<?php echo $dados['id_entrega_atividade']; ?>" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>
-
-                                <!-- Modal Structure -->
-                                <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
-                                    <div class="modal-content">
-                                        <h2> Atenção! </h2>
-                                        <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                            <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
-
-                                            <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
-                                                Excluir </button>
-
-                                            <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
-                                                Cancelar </button>
-                                        </form>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4"><?php echo $dados['titulo_certificado'] ?><i class="material-icons right">close</i></span>
-
-                                <p>Natureza : <?php echo $dados['natureza']; ?></p>
-                                <p>Descrição da natureza : <?php echo $dados['descricao']; ?></p>
-                                <p>Carga horária do certificado: <?php echo $dados['carga_horaria_certificado']; ?></p>
-                                <p>Observações : <?php echo $dados['observacoes'] ?>
-
-                            </div>
-                        </div>
             <?php
-                    }
-                }
-
-
-                /*
-
-            //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
-            while ($dados = mysqli_fetch_assoc($query)) {
-
-                //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
-                if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
-
-                    //agora devemos verificar qual é o status da entrega para poder imprimir as informações com as configurações de cores certas.
-                    if ($dados['status'] == "Deferido") {
-                    } else {
-
-                        if ($dados['status'] == "Indeferido") {
-                        }
-                    }
-                } else {
-                }
-            }
-            
-            */
-            }
+        }
             ?>
             </div>
     </main>
@@ -399,6 +298,18 @@ if ($_SESSION['aluno'][2] == 9) {
             // Configura a largura da sidenav
             var sidenav = document.querySelector('.sidenav');
             sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
+        });
+        // M.AutoInit();
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {
+                opacity: 0.7, // Opacidade do background (0.0 a 1.0)
+                inDuration: 1000, // Duração da animação de abertura em milissegundos
+                outDuration: 1200, // Duração da animação de fechamento em milissegundos
+                dismissible: true, // Permite fechar ao clicar fora do modal
+                startingTop: '10%', // Posição inicial do modal em relação ao topo
+                endingTop: '15%' // Posição final do modal em relação ao topo
+            });
         });
     </script>
 </body>
