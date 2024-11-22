@@ -8,26 +8,25 @@ if (isset($_SESSION['aluno'])) {
 ?>
 
     <div class="navbar-fixed">
-        <nav class="#ffffff white lighten-3">
-            <div class="nav-wrapper container">
-                <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons" style="color: black;">menu</i></a>
+        <nav class="white lighten-3">
+            <div class="nav-wrapper container"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
                 <ul class="right hide-on-med-and-down">
-                    <li> <a class="black-text" <?php if ($paginaCorrente == 'index.php') {
+                    <li> <a class="black-text" <?php if ($paginaCorrente == 'inicialAluno.php') {
                                                     echo 'style="text-decoration: underline;"';
-                                                } ?> href="index.php">Home</a></li>
-                    <li> <a class="black-text" <?php if ($paginaCorrente == 'telaInicial.php') {
+                                                } ?> href="/jeverson-tcc/inicialAluno.php"> Tela inicial </a> </li>
+                    <li> <a class="black-text" <?php if ($paginaCorrente == 'perfilAluno.php') {
                                                     echo 'style="text-decoration: underline;"';
-                                                } ?> href="telaInicial.php">Ficção cientifíca</a></li>
-
+                                                } ?> href="/jeverson-tcc/crudAluno/perfilAluno.php"> Perfil </a> </li>
+                    <li> <a class="black-text" href="/jeverson-tcc/logout.php"> Sair </a> </li>
                 </ul>
             </div>
         </nav>
     </div>
-
     <!-- Sidenav para Mobile -->
     <ul id="mobile" class="sidenav">
-        <li><a href="index.php"><i class="material-icons">home</i> Home</a></li>
-        <li><a href="telaInicial.php">Ficção cientifíca</a></li>
+        <li><a href="/jeverson-tcc/inicialAluno.php"><i class="material-icons">home</i>Tela inicial</a></li>
+        <li><a href="/jeverson-tcc/crudAluno/perfilAluno.php"><i class="material-icons">person_outline</i>Perfil</a></li>
+        <li><a href="/jeverson-tcc/logout.php"><i class="material-icons">exit_to_app</i>Sair</a></li>
 
     </ul>
 
