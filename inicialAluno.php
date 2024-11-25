@@ -150,12 +150,11 @@ if ($_SESSION['aluno'][2] == 9) {
             $total_horas_aprovadas = $entrega['total_horas'];
 
             mysqli_data_seek($query, 0);
-
         ?>
 
             <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
 
-            <div>
+            <div class="container ">
 
                 <!--notificações do sistema.-->
                 <?php
@@ -174,7 +173,7 @@ if ($_SESSION['aluno'][2] == 9) {
                 <p>Horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " " . $total_curso ?></p>
 
                 <!--definir a tabela com as informações das atividades complementares de curso que o aluno entregou no sistema.-->
-                <table>
+                <table class="striped">
                     <thead>
                         <tr>
                             <th>Natureza</th>
