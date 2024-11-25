@@ -24,7 +24,9 @@ $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.status, ea.certificado, ea.caminho, ea.titulo_certificado,
 
- ea.observacoes, ac.descricao
+ ea.observacoes, ac.descricao, a.total_horas,
+
+ ac.natureza
 
  FROM aluno a
 
@@ -41,14 +43,6 @@ ON ea.id_atividade_complementar = ac.id_atividade_complementar
 //executar o comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
-//verificar se houve algum arro na conexão.
-if ($mysql->error) {
-
-    die("Falha ao ver os resultados! " . $mysql->error);
-} else {
-
-    //se não houve erro, não aconte nada.
-}
 ?>
 
 <!DOCTYPE html>
@@ -57,120 +51,138 @@ if ($mysql->error) {
 <head>
 
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização das atividade entregues por um aluno</title>
 
-    <!--estilização em formato de card para os dados que serão mostrados na tela de validação do coordenador de curso.-->
-    <style>
-        .card {
-            background-color: white;
-            width: 40%;
-            height: 520px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
-            margin-bottom: 20px;
-        }
-
-        textarea {
-            width: 450px;
-
-            height: 100px;
-
-            resize: none;
-
-        }
-    </style>
 
 </head>
 
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="../inicialCoordenador.php">Voltar</a></li>
-        </ul>
-    </nav>
+    <!--incluir a navbar.-->
+    <?php
+    require_once "../boasPraticas/headerNav.php";
+    ?>
 
     <h1>Informações da atividade complementar entregue no sistema para validação</h1>
 
-    <?php
+    <main class="container">
 
-    //chamar a função que exibe a notificação
-    exibirNotificacoes();
+        <?php
 
-    //chamar a função que limpa a notificação da sessão.
-    limpaNotificacoes();
+        //chamar a função que exibe a notificação
+        exibirNotificacoes();
 
-    //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
-    while ($dados = mysqli_fetch_assoc($resultado)) {
+        //chamar a função que limpa a notificação da sessão.
+        limpaNotificacoes();
 
-        //abrir o formulário com os dados da variavél $dados.
-        echo '<form action = "mudarSituacao.php" method = "post" >';
+        //definir o array associativo com os valores vindos do banco de dados.
+        $entrega = mysqli_fetch_assoc($resultado);
 
-        echo '<div class="card">';
+        //definir a variável que irá armazenar o total de horas aprovadas do aluno.
+        $total_horas_aprovadas = $entrega['total_horas'];
 
-        echo '<div class="card-body">';
+        mysqli_data_seek($resultado, 0);
 
-        echo '<h1 class="card-title">' . 'Titulo do certificado:' . '' . $dados['titulo_certificado'] . '</h1>';
+        ?>
 
-        echo '<p class="card-text">' . 'Nome do aluno: ' . '' . $dados['nome'] . '</p>';
+        <p>Total de horas aprovadas : <?php echo $total_horas_aprovadas ?></p>
+        <?php
 
-        echo '<p class="card-text">' . 'Matricula: ' . '' . $dados['matricula'] . '</p>';
+        //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
+        while ($dados = mysqli_fetch_assoc($resultado)) {
 
-        echo '<p class="card-text">' . 'E-mail: ' . '' . $dados['email'] . '</p>';
+        ?>
 
-        echo '<p class="card-title">' . 'O certificado:' . ' ' . '<a href="' . $pastaDestino . $dados['caminho'] . '">' . $dados['certificado'] . '</a>' . '</p>';
+            <form action="mudarSituacao.php" method="post">
 
-        echo '<p class="card-text">' . 'Descrição da atividade realizada: ' . '' . $dados['descricao'] . '</p>';
+                <div class="card-panel">
 
-        echo '<p class="card-text">' . 'Carga horaria do certificado: ' . '' . $dados['carga_horaria_certificado'] . '</p>';
+                    <div class="row">
 
-        echo '<p class="card-text">' . 'Carga horaria deferida: ' . '<input type = "number" value = "' . $dados['carga_horaria_aprovada'] . '" name = "cargaDefe">' . '</p>';
+                        <!--dados invisiveis.-->
+                        <input type="hidden" name="id_atividade" value="<?php echo $dados['id_entrega_atividade']; ?>">
+                        <input type="hidden" name="aluno" value="<?php echo $dados['id_aluno']; ?>">
+                        <input type="hidden" name="nome" value="<?php echo $dados['nome']; ?>">
+                        <input type="hidden" name="matricula" value="<?php echo $dados['matricula']; ?>">
+                        <input type="hidden" name="email" value="<?php echo $dados['email']; ?>">
+                        <input type="hidden" name="certificado" value="<?php echo $dados['titulo_certificado']; ?>">
+                        <input type="hidden" name="descricao" value="<?php echo $dados['descricao']; ?>">
 
-        echo '<p class="card-text">' . 'Situação:' . ' ' . $dados['status'] . '</p>';
+                        <div class="input-field col s12">
+                            <input placeholder="Natureza" id="natureza" type="text" value="<?php echo $dados['natureza'] ?>" disabled>
+                            <label for="natureza">Natureza da entrega</label>
+                        </div>
 
-    ?>
+                        <div class="input-field col s12">
+                            <input placeholder="Descrição da natureza" id="descricaonatureza" value="<?php echo $dados['descricao'] ?>" type="text" disabled>
+                            <label for="descricaonatureza">Descrição da natureza</label>
+                        </div>
 
-        <!--"<textarea name="" id=""></textarea>" é utilizado para criar uma área de texto multilinha em um formulário, permitindo que os usuários insiram uma quantidade significativa de texto livre, como comentários ou feedback.-->
+                        <div class="input-field col s12">
+                            <input placeholder="Descrição da atividade desenvolvida" id="descricao" value="<?php echo $dados['titulo_certificado'] ?>" type="text" disabled>
+                            <label for="descricao">Descrição da atividade desenvolvida</label>
+                        </div>
 
-        <!--declarar um text area para que o coordenador de curso possa cadastrar suas observações sobre o arquivo que ele está validando.-->
-        <label for="obser">Adicionar observações:</label><br>
-        <textarea name="observacoes" id="obser"><?php echo $dados['observacoes']; ?></textarea><br><br>
+                        <div class="input-field col s12">
+                            <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $dados['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
+                            <label for="cargahorariadesenvolvida">Carga horária desenvolvida</label>
+                        </div>
 
-    <?php
+                        <div class="input-field col s12">
+                            <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $dados['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
+                            <label for="cargDef">Carga horária deferida</label>
+                            <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
+                        </div>
 
-        echo '<input type = "hidden" value = "' . $dados['id_entrega_atividade'] . '" name = "id_atividade">';
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $dados['observacoes'] ?></textarea>
+                            <label for="textarea1">Adicionar observações</label>
+                        </div>
 
-        echo '<input type = "hidden" value = "' . $dados['id_aluno'] . '" name = "aluno">';
+                    </div>
 
-        echo '<input type = "hidden" value = "' . $dados['nome'] . '" name = "nome">';
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="center-align">
+                                <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="deferir" value="Deferir">Deferir
+                                    <i class="material-icons right">thumb_up</i> </button>
+                            </p>
+                        </div>
+                    </div>
 
-        echo '<input type = "hidden" value = "' . $dados['matricula'] . '" name = "matricula">';
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="center-align">
+                                <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="indeferir" value="Indeferir">Indeferir
+                                    <i class="material-icons right">thumb_down</i> </button>
+                            </p>
+                        </div>
+                    </div>
 
-        echo '<input type = "hidden" value = "' . $dados['email'] . '" name = "email">';
+                </div>
 
-        echo '<input type = "hidden" value = "' . $dados['titulo_certificado'] . '" name = "certificado">';
+            </form>
 
-        echo '<input type = "hidden" value = "' . $dados['descricao'] . '" name = "descricao">';
+        <?php
+        }
+        ?>
 
-        echo '<input type = "submit" value = "Deferir" name = "deferir">';
-
-        echo '<input type = "submit" value = "Indeferir" name = "indeferir">';
-
-        echo '</div>';
-
-        echo '</div>';
-
-        echo '</form>';
-    }
-
-    ?>
+    </main>
 
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+    <script>
+        $('#textarea1').val('New Text');
+        M.textareaAutoResize($('#textarea1'));
+    </script>
+
 </body>
 
 </html>

@@ -160,3 +160,59 @@ $resultado = excutarSQL($mysql, $sql);
 
                 }
             }
+
+
+            ?>
+
+            <form action="mudarSituacao.php" method="post">
+
+                <div class="card-panel">
+
+                    <div class="row">
+
+                     <!--dados invisiveis.-->
+                     <input type="hidden" name="id_atividade" value="<?php echo $dados['id_entrega_atividade']; ?>">
+                        <input type="hidden" name="aluno" value="<?php echo $dados['id_aluno']; ?>">
+                        <input type="hidden" name="nome" value="<?php echo $dados['nome']; ?>">
+                        <input type="hidden" name="matricula" value="<?php echo $dados['matricula']; ?>">
+                        <input type="hidden" name="email" value="<?php echo $dados['email']; ?>">
+                        <input type="hidden" name="certificado" value="<?php echo $dados['titulo_certificado']; ?>">
+                        <input type="hidden" name="descricao" value="<?php echo $dados['descricao']; ?>">
+
+                        <div class="input-field col s12">
+                            <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        <?php
