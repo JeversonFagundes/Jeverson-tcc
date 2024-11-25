@@ -2,37 +2,38 @@
 
 //INICIALALUNO.PHP
 
-//conectar com o banco de dados jeverson-tcc
+//conectar com o banco de dados jeverson_tcc.
 require_once "conecta.php";
 
 //incluir o arquivo de notificações do sistema.
 require_once "boasPraticas/notificacoes.php";
 
-//criar a variavél de conexão com o banco de dados jeverson-tcc. Esta variavél vem do arquivo conecta.php.
+//criar a variavel de conexão com o banco de dados jeverson_tcc. Esta variavel vem do arquivo conecta.php
 $mysql = conectar();
 
 //pasta de destino para onde vão os certificados.
-$pasta = "certificados/";
+$pastaDestino = "certificados/";
 
-//fazer uma verificação para definir a variavél que irá receber o total de horas do curso. Por exemplo "a carga horaria obrigatório do curso de informática é 60 horas".
-
+//fazer uma verificação para definir qual o valor que a variavel $total_curso irá receber. Por exemplo "a carga horária obrigatória do curso de informática é de 60 horas".
 if ($_SESSION['aluno'][2] == 9) {
 
+    //Curso Técnico Integrado em Informática
     $total_curso = 60;
 } else {
 
     if ($_SESSION['aluno'][2] == 11 or $_SESSION['aluno'][2] == 13) {
 
+        //Curso Técnico Integrado em Administração e Curso de Markiting Subsequente
         $total_curso = 40;
     } else {
 
         if ($_SESSION['aluno'][2] == 12) {
 
+            //Curso de Manutenção e Suporte em Informática (MSI)
             $total_curso = 50;
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +42,7 @@ if ($_SESSION['aluno'][2] == 9) {
 <head>
 
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -50,56 +52,45 @@ if ($_SESSION['aluno'][2] == 9) {
     <title>Tela inicial</title>
 
     <style>
-        .analizando {
-            border: 2px solid orange;
-        }
-
-        .deferido {
-            border: 2px solid green;
-        }
-
-        .indeferido {
-            border: 2px solid red;
-        }
-
         .espacamento {
             margin-right: 20px;
         }
 
-        .especamentoh2 {
+        .espacamentoh2 {
             margin-left: 20px;
         }
 
-        /* Defina as classes CSS para a estilização */
-        .ativo {
+        .deferido {
             background-color: #d4edda;
-            /* Verde claro */
         }
 
-        .inativo {
+        .indeferido {
             background-color: #f8d7da;
-            /* Vermelho claro */
         }
     </style>
+
 </head>
 
-<body class="#f5f5f5 grey lighten-4">
+<body>
 
-    <!--Para que não seja necessário criar toda vez um header com uma nav em todas as telas dos usuários, então aqui incluimos a pasta onde esta o arquivo onde está criado o header e o nav.-->
-    <?php require_once "boasPraticas/headerNav.php"; ?>
+    <!--incluir a navbar.-->
+    <?php
+    require_once "boasPraticas/headerNav.php";
+    ?>
 
     <main>
 
-        <!--Sessão com o valor do nome aluno.-->
-        <h2 class="especamentoh2"><?php echo $_SESSION['aluno'][0]; ?></h2>
+        <!--sessão com o valor do nome do aluno.-->
+        <h2><?php echo $_SESSION['aluno'][0]; ?></h2>
 
         <hr>
 
-        <h1 class="center-align">Minhas atividade complementares de curso</h1>
+        <h1>Minhas atividades complementares de curso.</h1>
 
+        <!--busca no banco de dados.-->
         <?php
 
-        //listar todas as atividades cadastradas pelo aluno que está logado no sistema. Para isso buscamos na tabela entrega_atividade unindo ela com a tabela atividade_complementar e aluno, para que seja possivél exibir as atividades cadastradas pelo aluno junto a com as informações da atividades complementar de curso que essa entrega está relacionada, como natureza, descricão etc.
+        //listar todas as atividades cadasttradas pelo aluno que está logado no sistema. Para isso buscamos na tebela entrega_atividade unindo coma tabela atividade_complementar e aluno, para que seja possível exibir as atividades cadastradas pelo aluno junto com as infromações da atividade complementar de curso que essa entrega está relacionada, como natureza, descrição etc.
         $sql = "SELECT 
         ac.descricao, 
         ac.natureza,
@@ -112,7 +103,8 @@ if ($_SESSION['aluno'][2] == 9) {
         ea.status,
         ea.caminho,
         ea.id_atividade_complementar,
-        ea.observacoes
+        ea.observacoes,
+        a.total_horas
         FROM entrega_atividade ea 
         INNER JOIN atividade_complementar ac 
         ON ea.id_atividade_complementar = ac.id_atividade_complementar
@@ -132,11 +124,9 @@ if ($_SESSION['aluno'][2] == 9) {
 
         ?>
 
+            <!--exibimos a mensagem de que o aluno não tem atividades cadastradas no sistema.-->
             <div class="container">
                 <p class="center-align">Você não entregou nenhuma atividade complementar no sistema ainda!</p><br>
-
-
-                <a href='crudEntrega/formcadEntrega.php' class="brown lighten-3 waves-effect waves-light btn"><i class="material-icons right">add</i>Inserir</a>
 
                 <?php
                 //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
@@ -153,33 +143,22 @@ if ($_SESSION['aluno'][2] == 9) {
             die();
         } else {
 
+            //definir o array associativo com os valores vindos do banco de dados.
+            $entrega = mysqli_fetch_assoc($query);
+
+            //definir a variável que irá armazenar o total de horas aprovadas do aluno.
+            $total_horas_aprovadas = $entrega['total_horas'];
+
+            mysqli_data_seek($query, 0);
+
         ?>
 
-            <div class="especamentoh2 espacamento">
+            <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
 
+            <div>
+
+                <!--notificações do sistema.-->
                 <?php
-                echo "<a href='crudEntrega/formcadEntrega.php' class=\"brown lighten-3 waves-effect waves-light btn\"><i class=\"material-icons right\">add</i>Inserir</a> <br><br>";
-
-                //definir a variavél que irá receber a soma total de horas das atividades aprovadas pelo coordenador de curso.
-                $total = 0;
-
-                //definir a estrutura de repetição que será responsável por pegar o valor das horas do banco de dados jeverson_tcc e soma-las.
-                while ($entrega_atividades = mysqli_fetch_assoc($query)) {
-
-                    //aqui  ocorre a soma das horas que foram aprovadas pelo coordenador de curso.
-                    $total = $total +  $entrega_atividades['carga_horaria_aprovada'];
-
-                    //aqui eu faço uma verificação de que o aluno já concluiu as suas horas complementares de curso aprovadas
-                    if ($total > $total_curso) {
-                        echo "Você completou as suas horas complementares de curso! <br>";
-                    }
-                }
-                echo "Total de horas aprovadas: " . $total . " " . "/" . " " . $total_curso . '<br>'; // Imprimir o total após o while
-
-                //para que o proximo while funcione corretamente, pricisamos redefinir o ponteiro de dados no resultado de uma consulta para uma linha específica
-                mysqli_data_seek($query, 0); // Reseta o ponteiro de dados do query
-
-                //mysqli_data_seek(); redefine o ponteiro de dados no resultado de uma consulta para uma linha específica
 
                 //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
 
@@ -190,73 +169,162 @@ if ($_SESSION['aluno'][2] == 9) {
                 limpaNotificacoes();
 
                 ?>
+                <!--definir o contador de horas aprovadas do aluno.-->
+
+                <p>Horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " " . $total_curso ?></p>
+
+                <!--definir a tabela com as informações das atividades complementares de curso que o aluno entregou no sistema.-->
                 <table>
                     <thead>
                         <tr>
                             <th>Natureza</th>
-                            <th>Certificado</th>
-                            <th>Carga horária</th>
-                            <th>Carga horária aprovada</th>
+                            <th>Descrição</th>
+                            <th>Horas Realizadas</th>
+                            <th>Horas aprovadas</th>
+                            <th>observações</th>
                             <th>Situação</th>
-                            <th>Observações</th>
-                            <th colspan="2">Opções</th>
+                            <th colspan="3">Opções</th>
                         </tr>
                     </thead>
-
                     <tbody>
+
+                        <!--definição da estrutura de repetição para poder fazer a exibição dos dados para o aluno.-->
 
                         <?php
 
-                        //definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
+                        // Definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
                         while ($dados = mysqli_fetch_assoc($query)) {
 
                             //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
                             if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
 
                                 //agora devemos verificar qual é o status da entrega para poder imprimir as informações com as configurações de cores certas.
+
                                 if ($dados['status'] == "Deferido") {
+
+                                    //imprimimos com a cor verde a linha da tabela.
 
                                     echo "<tr>";
                                     echo "<td>" . $dados['descricao'] . "</td>";
                                     echo "<td>" . $dados['titulo_certificado'] . "</td>";
                                     echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
                                     echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
+                                    echo "<td>" . $dados['observacoes'] . "</td>";
                                     echo "<td>" . $dados['status'] . "</td>";
 
-                                    echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a>' . '</td>';
+                                    echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a> </td>';
 
-                                    echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>' . '</td>';
+                                    echo '<td> <a href="#modal' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
+
+                                    echo "</tr>";
+
+                        ?>
+
+                                    <!-- Modal Structure -->
+                                    <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
+                                        <div class="modal-content">
+                                            <h2> Atenção! </h2>
+                                            <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <form action="crudEntrega/excluirEntrega.php" method="POST">
+                                                <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
+
+                                                <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
+                                                    Excluir </button>
+
+                                                <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
+                                                    Cancelar </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                <?php
+
+                                } elseif ($dados['status'] == "Indeferido") {
+
+                                    //imprimimos com a cor cermelha a linha da tabela.
+
+                                    echo "<tr>";
+                                    echo "<td>" . $dados['descricao'] . "</td>";
+                                    echo "<td>" . $dados['titulo_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
                                     echo "<td>" . $dados['observacoes'] . "</td>";
-                                } else {
+                                    echo "<td>" . $dados['status'] . "</td>";
 
-                                    if ($dados['status'] == "Indeferido") {
+                                    echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a> </td>';
 
-                                        echo "<tr>";
-                                        echo "<td>" . $dados['descricao'] . "</td>";
-                                        echo "<td>" . $dados['titulo_certificado'] . "</td>";
-                                        echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
-                                        echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
-                                        echo "<td>" . $dados['status'] . "</td>";
-                                        echo "<td>" . $dados['observacoes'] . "</td>";
-                                        echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">create</i></a>' . '</td>';
+                                    echo '<td> <a href="#modal' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
 
-                                        echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>' . '</td>';
-                                        echo "<tr>";
-                                    }
+                                    echo "</tr>";
+
+                                ?>
+
+                                    <!-- Modal Structure -->
+                                    <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
+                                        <div class="modal-content">
+                                            <h2> Atenção! </h2>
+                                            <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <form action="crudEntrega/excluirEntrega.php" method="POST">
+                                                <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
+
+                                                <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
+                                                    Excluir </button>
+
+                                                <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
+                                                    Cancelar </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                <?php
                                 }
                             } else {
 
-                                echo "<tr class=\"ativo espacamentoh2\">";
+                                //imprimimos com a cor laranja a linha da tabela.
+
+                                echo "<tr>";
                                 echo "<td>" . $dados['descricao'] . "</td>";
-                                echo "<td>" .'<a href="'.$pasta. $dados['caminho'] .'">'.$dados['certificado'].' </a>'. "</td>";
+                                echo "<td>" . $dados['titulo_certificado'] . "</td>";
                                 echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
                                 echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
-                                echo "<td>" . $dados['status'] . "</td>";
                                 echo "<td>" . $dados['observacoes'] . "</td>";
-                                echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons #81c784 green lighten-2">create</i></a>' . '</td>';
+                                echo "<td>" . $dados['status'] . "</td>";
 
-                                echo '<td>' . '<a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a>' . '</td>';
-                                echo "<tr>";
+                                echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a> </td>';
+
+                                echo '<td> <a href="#modal' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
+
+                                echo "</tr>";
+
+                                ?>
+
+                                <!-- Modal Structure -->
+                                <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
+                                    <div class="modal-content">
+                                        <h2> Atenção! </h2>
+                                        <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <form action="crudEntrega/excluirEntrega.php" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
+
+                                            <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
+                                                Excluir </button>
+
+                                            <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
+                                                Cancelar </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                        <?php
                             }
                         }
 
@@ -268,7 +336,7 @@ if ($_SESSION['aluno'][2] == 9) {
             <?php
         }
             ?>
-            </div>
+
     </main>
 
     <!--Import jQuery before materialize.js-->
@@ -298,18 +366,6 @@ if ($_SESSION['aluno'][2] == 9) {
             // Configura a largura da sidenav
             var sidenav = document.querySelector('.sidenav');
             sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
-        });
-        // M.AutoInit();
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, {
-                opacity: 0.7, // Opacidade do background (0.0 a 1.0)
-                inDuration: 1000, // Duração da animação de abertura em milissegundos
-                outDuration: 1200, // Duração da animação de fechamento em milissegundos
-                dismissible: true, // Permite fechar ao clicar fora do modal
-                startingTop: '10%', // Posição inicial do modal em relação ao topo
-                endingTop: '15%' // Posição final do modal em relação ao topo
-            });
         });
     </script>
 </body>

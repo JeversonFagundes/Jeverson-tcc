@@ -14,6 +14,9 @@ if (isset($_SESSION['aluno'])) {
                     <li> <a class="black-text" <?php if ($paginaCorrente == 'inicialAluno.php') {
                                                     echo 'style="text-decoration: underline;"';
                                                 } ?> href="/jeverson-tcc/inicialAluno.php"> Tela inicial </a> </li>
+                    <li> <a class="black-text" <?php if ($paginaCorrente == 'formcadEntrega.php') {
+                                                    echo 'style="text-decoration: underline;"';
+                                                } ?> href="/jeverson-tcc/crudEntrega/formcadEntrega.php">Entregar atividade</a> </li>
                     <li> <a class="black-text" <?php if ($paginaCorrente == 'perfilAluno.php') {
                                                     echo 'style="text-decoration: underline;"';
                                                 } ?> href="/jeverson-tcc/crudAluno/perfilAluno.php"> Perfil </a> </li>
