@@ -154,7 +154,7 @@ if ($_SESSION['aluno'][2] == 9) {
 
             <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
 
-            <div class="container ">
+            <div class="">
 
                 <!--notificações do sistema.-->
                 <?php

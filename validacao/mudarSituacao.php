@@ -29,6 +29,26 @@ if ($_POST['deferir']) {
     $certificado = $_POST['certificado'];
     $descricao = $_POST['descricao'];
 
+    $sql_busca_status = "SELECT status FROM entrega_atividade WHERE id_entrega_atividade = $id";
+    $query = excutarSQL($mysql, $sql_busca_status);
+
+    $status = mysqli_fetch_assoc($query);
+
+    if ($status['status'] == "Indeferido") {
+        $sql_total_horas = "SELECT total_horas FROM aluno WHERE id_aluno = $id_aluno";
+        $resultado = excutarSQL($mysql, $sql_total_horas);
+
+        $horas = mysqli_fetch_assoc($resultado);
+
+        $total_horas = $horas['total_horas'] + $cargaDefe;
+
+        $sql_soma_total_horas = "UPDATE aluno SET total_horas = $total_horas WHERE id_aluno = $id_aluno";
+        excutarSQL($mysql, $sql_soma_total_horas);
+
+    } else {
+       
+    }
+
     //declarar o comando de alterar no banco de dados.
     $sql = "UPDATE entrega_atividade SET carga_horaria_aprovada = $cargaDefe, status = '$situacao', observacoes = '$observacoes' WHERE id_entrega_atividade = $id";
 
@@ -38,6 +58,7 @@ if ($_POST['deferir']) {
     // Agora você pode chamar a função email
     email($nome, $situacao, $email, $cargaDefe, $descricao, $matricula, $certificado, $observacoes, 1);
 
+    //chamar a função de notificação do sistema
     notificacoes(1,"Atividade deferida com sucesso!");
 
     //redirecionar o coordenador de curso para a tela validação
