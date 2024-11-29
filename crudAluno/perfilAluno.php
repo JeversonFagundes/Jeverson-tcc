@@ -145,7 +145,9 @@ $aluno = mysqli_fetch_assoc($resultado);
         <div id="modal<?php echo $aluno['id_aluno']; ?>" class="modal">
             <div class="modal-content">
                 <h2> Atenção! </h2>
-                <p>Você confirma a exclusão da sua conta! : <?php echo $aluno['nome']; ?> ?</p>
+                <hr>
+                <p>Você confirma a exclusão da sua conta! : <strong><?php echo $aluno['nome']; ?></strong> ?</p>
+                <hr>
             </div>
 
             <div class="modal-footer">
