@@ -29,24 +29,43 @@ if ($_POST['deferir']) {
     $certificado = $_POST['certificado'];
     $descricao = $_POST['descricao'];
 
+    //para evitar erros na contagem total das horas aprovadas, devemos verificar qual a situação que à atividade tem quando vem do banco de dados.
+
+    //buscar pela situação da atividade que está sendo aprovada.
     $sql_busca_status = "SELECT status FROM entrega_atividade WHERE id_entrega_atividade = $id";
+
+    //executar o camando $sql_busca_status.
     $query = excutarSQL($mysql, $sql_busca_status);
 
+    //transformar os dados vindos do banco de dados em um array associativo
     $status = mysqli_fetch_assoc($query);
 
+    //verificar se o status é igual a Indeferido.
     if ($status['status'] == "Indeferido") {
+
+        //se o status for igual a Indeferido, então quer dizer que à atividade não sofreu nenhuma correção do coordenador de curso e por esse motivo podemos fazer a soma das horas aprovadas pelo coordenador.
+
+        //comando que busca pelo total de horas aprovadas que o aluno tem.
         $sql_total_horas = "SELECT total_horas FROM aluno WHERE id_aluno = $id_aluno";
+
+        //executar o camando $sql_total_horas.
         $resultado = excutarSQL($mysql, $sql_total_horas);
 
+        //transformar os dados do total de horas do aluno, em um array associativo.
         $horas = mysqli_fetch_assoc($resultado);
 
+        //a variavel $total_horas recebe as horas que vem do banco de dados + a carga horária que foi aprovada pelo coordenador de curso
         $total_horas = $horas['total_horas'] + $cargaDefe;
 
+        //com a soma das horas aprovadas, podemos fazer a atualização do total de horas do aluno.
         $sql_soma_total_horas = "UPDATE aluno SET total_horas = $total_horas WHERE id_aluno = $id_aluno";
+
+        //executar o comando atualização das horas do aluno.
         excutarSQL($mysql, $sql_soma_total_horas);
 
     } else {
        
+        //se a situação for diferente de Indeferido, quer dizer que o coordenador de curso realizou alguma correção sobre a entrega e por esse motivo não devemos somar as horas.
     }
 
     //declarar o comando de alterar no banco de dados.
