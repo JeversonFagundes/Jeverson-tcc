@@ -7,24 +7,26 @@ if (isset($_SESSION['aluno'])) {
 
 ?>
 
-    <div class="navbar-fixed">
-        <nav class="white lighten-3">
-            <div class="nav-wrapper container"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
-                <ul class="right hide-on-med-and-down">
-                    <li> <a class="black-text" <?php if ($paginaCorrente == 'inicialAluno.php') {
-                                                    echo 'style="text-decoration: underline;"';
-                                                } ?> href="/jeverson-tcc/inicialAluno.php"> Tela inicial </a> </li>
-                    <li> <a class="black-text" <?php if ($paginaCorrente == 'formcadEntrega.php') {
-                                                    echo 'style="text-decoration: underline;"';
-                                                } ?> href="/jeverson-tcc/crudEntrega/formcadEntrega.php">Entregar atividade</a> </li>
-                    <li> <a class="black-text" <?php if ($paginaCorrente == 'perfilAluno.php') {
-                                                    echo 'style="text-decoration: underline;"';
-                                                } ?> href="/jeverson-tcc/crudAluno/perfilAluno.php"> Perfil </a> </li>
-                    <li> <a class="black-text" href="/jeverson-tcc/logout.php"> Sair </a> </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-wrapper blue"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
+            <a href="#" class="brand-logo center">Meu App</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a <?php if ($paginaCorrente == 'inicialAluno.php') {
+                            echo 'style="text-decoration: underline;"';
+                        } ?> href="/jeverson-tcc/inicialAluno.php">Tela Inicial</a></li>
+                <li><a <?php if ($paginaCorrente == 'formcadEntrega.php') {
+                            echo 'style="text-decoration: underline;"';
+                        } ?> href="/jeverson-tcc/crudEntrega/formcadEntrega.php">Entregar Atividade</a></li>
+                <li><a <?php if ($paginaCorrente == 'perfilAluno.php') {
+                            echo 'style="text-decoration: underline;"';
+                        } ?> href="/jeverson-tcc/crudAluno/perfilAluno.php">
+                        Perfil</a></li>
+                <li><a href="/jeverson-tcc/logout.php">Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Sidenav para Mobile -->
     <ul id="mobile" class="sidenav">
         <li><a href="/jeverson-tcc/inicialAluno.php"><i class="material-icons">home</i>Tela inicial</a></li>

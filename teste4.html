@@ -1,3 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <!-- Link para o CSS do Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Ícones do Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        table {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            text-align: center;
+            color: #757575;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="#" class="brand-logo center">Meu App</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#">Tela Inicial</a></li>
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Entregar Atividade</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        
+        <div class="container">
+            <h2>Bem-vindo ao Sistema</h2>
+            <hr>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Data de Entrega</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fulano de Tal</td>
+                        <td>fulano@mail.com</td>
+                        <td>01/12/2024</td>
+                        <td>Pendente</td>
+                    </tr>
+                    <tr>
+                        <td>Ciclano de Tal</td>
+                        <td>ciclano@mail.com</td>
+                        <td>02/12/2024</td>
+                        <td>Concluído</td>
+                    </tr>
+                    <!-- Adicione mais linhas conforme necessário -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <p>Complementa Iffar - Jeverson Miguel Rios Fagundes</p>
+        </div>
+    </footer>
+
+    <!-- Link para o JavaScript do Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
+
 <?php
 
 //INICIALALUNO.PHP
@@ -13,37 +108,6 @@ $mysql = conectar();
 
 //pasta de destino para onde vão os certificados.
 $pastaDestino = "certificados/";
-
-//busca no banco de dados
-
-//listar todas as atividades cadasttradas pelo aluno que está logado no sistema. Para isso buscamos na tebela entrega_atividade unindo coma tabela atividade_complementar e aluno, para que seja possível exibir as atividades cadastradas pelo aluno junto com as infromações da atividade complementar de curso que essa entrega está relacionada, como natureza, descrição etc.
-$sql = "SELECT 
-ac.descricao, 
-ac.natureza,
-ac.id_atividade_complementar,
-ea.id_entrega_atividade,
-ea.titulo_certificado, 
-ea.carga_horaria_certificado,
-ea.certificado, 
-ea.carga_horaria_aprovada, 
-ea.status,
-ea.caminho,
-ea.id_atividade_complementar,
-ea.observacoes,
-a.total_horas
-FROM entrega_atividade ea 
-INNER JOIN atividade_complementar ac 
-ON ea.id_atividade_complementar = ac.id_atividade_complementar
-INNER JOIN aluno a 
-ON a.id_aluno = ea.id_aluno
-WHERE 
-a.id_aluno = " . $_SESSION['aluno'][1];
-
-//atribuir a variavél query ($query) a excução do comando sql ($sql).
-$query = excutarSQL($mysql, $sql);
-
-//atribuir á variavél quantidade ($quantidade) a quantidade de linhas que foram retornadas no comando sql ($sql).
-$quantidade = $query->num_rows;
 
 //fazer uma verificação para definir qual o valor que a variavel $total_curso irá receber. Por exemplo "a carga horária obrigatória do curso de informática é de 60 horas".
 if ($_SESSION['aluno'][2] == 9) {
@@ -65,13 +129,13 @@ if ($_SESSION['aluno'][2] == 9) {
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
 
     <!--Import Google Icon Font-->
@@ -80,80 +144,119 @@ if ($_SESSION['aluno'][2] == 9) {
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela inicial do aluno</title>
+    <title>Tela inicial</title>
+
+    <style>
+        .espacamento {
+            margin-right: 20px;
+        }
+
+        .espacamentoh2 {
+            margin-left: 20px;
+        }
+
+        .deferido {
+            background-color: #d4edda;
+        }
+
+        .indeferido {
+            background-color: #f8d7da;
+        }
+        .teste{
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
 
 </head>
 
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        margin: 0;
-    }
-
-    main {
-        flex: 1 0 auto;
-    }
-
-    .container {
-        margin-top: 50px;
-    }
-
-    table {
-        margin-top: 20px;
-    }
-
-    footer {
-        background-color: #f5f5f5;
-        padding: 10px 0;
-        text-align: center;
-        color: #757575;
-    }
-
-    .teste {
-        justify-content: center;
-        text-align: center;
-    }
-</style>
-
 <body>
 
-    <!-- Conteúdo Principal -->
+    <!--incluir a navbar.-->
+    <?php
+    require_once "boasPraticas/headerNav.php";
+    ?>
+
     <main>
 
-        <!--incluir a navbar.-->
+        <!--sessão com o valor do nome do aluno.-->
+        <h2><?php echo $_SESSION['aluno'][0]; ?></h2>
+
+        <hr>
+
+        <h1 class="center-align">Minhas atividades complementares de curso.</h1>
+
+        <!--busca no banco de dados.-->
         <?php
-        require_once "boasPraticas/headerNav.php";
+
+        //listar todas as atividades cadasttradas pelo aluno que está logado no sistema. Para isso buscamos na tebela entrega_atividade unindo coma tabela atividade_complementar e aluno, para que seja possível exibir as atividades cadastradas pelo aluno junto com as infromações da atividade complementar de curso que essa entrega está relacionada, como natureza, descrição etc.
+        $sql = "SELECT 
+        ac.descricao, 
+        ac.natureza,
+        ac.id_atividade_complementar,
+        ea.id_entrega_atividade,
+        ea.titulo_certificado, 
+        ea.carga_horaria_certificado,
+        ea.certificado, 
+        ea.carga_horaria_aprovada, 
+        ea.status,
+        ea.caminho,
+        ea.id_atividade_complementar,
+        ea.observacoes,
+        a.total_horas
+        FROM entrega_atividade ea 
+        INNER JOIN atividade_complementar ac 
+        ON ea.id_atividade_complementar = ac.id_atividade_complementar
+        INNER JOIN aluno a 
+        ON a.id_aluno = ea.id_aluno
+        WHERE 
+        a.id_aluno = " . $_SESSION['aluno'][1];
+
+        //atribuir a variavél query ($query) a excução do comando sql ($sql).
+        $query = excutarSQL($mysql, $sql);
+
+        //atribuir á variavél quantidade ($quantidade) a quantidade de linhas que foram retornadas no comando sql ($sql).
+        $quantidade = $query->num_rows;
+
+        //com a quantidade de linhas em mãos, agora é possivél fazer verificações com relação a isso.
+        if ($quantidade == 0) {
+
         ?>
 
-        <div class="container">
+            <!--exibimos a mensagem de que o aluno não tem atividades cadastradas no sistema.-->
+            <div class="container">
+                <p class="center-align">Você não entregou nenhuma atividade complementar no sistema ainda!</p><br>
 
-            <h2>Bem-vindo ao Sistema</h2>
-            <hr>
+                <?php
+                //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
 
-            <?php
+                //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
+                exibirNotificacoes();
 
-            //com a quantidade de linhas em mãos, agora é possivél fazer verificações com relação a isso.
-            if ($quantidade == 0) {
+                //limpar as notificações do sistema.
+                limpaNotificacoes();
+                ?>
+            </div>
 
-            ?>
+        <?php
+            die();
+        } else {
 
-                <!--exibimos a mensagem de que o aluno não tem atividades cadastradas no sistema.-->
-                <h3>Minhas atividades complementares de curso.</h3>
-                <p>Você não entregou nenhuma atividade complementar no sistema ainda!</p>
+            //definir o array associativo com os valores vindos do banco de dados.
+            $entrega = mysqli_fetch_assoc($query);
 
-            <?php
+            //definir a variável que irá armazenar o total de horas aprovadas do aluno.
+            $total_horas_aprovadas = $entrega['total_horas'];
 
-            } else {
+            mysqli_data_seek($query, 0);
+        ?>
 
-                //definir o array associativo com os valores vindos do banco de dados.
-                $entrega = mysqli_fetch_assoc($query);
+            <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
 
-                //definir a variável que irá armazenar o total de horas aprovadas do aluno.
-                $total_horas_aprovadas = $entrega['total_horas'];
+            <div class="center-aling">
 
-                mysqli_data_seek($query, 0);
+                <!--notificações do sistema.-->
+                <?php
 
                 //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
 
@@ -163,30 +266,28 @@ if ($_SESSION['aluno'][2] == 9) {
                 //limpar as notificações do sistema.
                 limpaNotificacoes();
 
-            ?>
-
-                <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
-
+                ?>
                 <!--definir o contador de horas aprovadas do aluno.-->
+
                 <p>Horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " " . $total_curso ?></p>
 
                 <!--definir a tabela com as informações das atividades complementares de curso que o aluno entregou no sistema.-->
-                <table class="striped">
+                <table>
                     <thead>
                         <tr>
                             <th>Natureza</th>
                             <th class="teste">Descrição</th>
-                            <th class="teste">Horas realizadas</th>
+                            <th class="teste">Horas Realizadas</th>
                             <th class="teste">Horas aprovadas</th>
-                            <th class="teste">Observações</th>
+                            <th class="teste">observações</th>
                             <th class="teste">Situação</th>
-                            <th class="teste" colspan="2"></th>
+                            <th class="teste" colspan="3"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Adicione mais linhas conforme necessário -->
 
                         <!--definição da estrutura de repetição para poder fazer a exibição dos dados para o aluno.-->
+
                         <?php
 
                         // Definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
@@ -203,11 +304,11 @@ if ($_SESSION['aluno'][2] == 9) {
 
                                     echo "<tr>";
                                     echo "<td>" . $dados['descricao'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['observacoes'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['status'] . "</td>";
+                                    echo "<td>" . $dados['titulo_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
+                                    echo "<td>" . $dados['observacoes'] . "</td>";
+                                    echo "<td>" . $dados['status'] . "</td>";
 
                                     echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a> </td>';
 
@@ -245,11 +346,11 @@ if ($_SESSION['aluno'][2] == 9) {
 
                                     echo "<tr>";
                                     echo "<td>" . $dados['descricao'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['observacoes'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['status'] . "</td>";
+                                    echo "<td>" . $dados['titulo_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_certificado'] . "</td>";
+                                    echo "<td>" . $dados['carga_horaria_aprovada'] . "</td>";
+                                    echo "<td>" . $dados['observacoes'] . "</td>";
+                                    echo "<td>" . $dados['status'] . "</td>";
 
                                     echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a> </td>';
 
@@ -291,7 +392,7 @@ if ($_SESSION['aluno'][2] == 9) {
                                 echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
                                 echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
                                 echo "<td class=\"teste\">" . $dados['observacoes'] . "</td>";
-                                echo "<td class=\"teste\">" . $dados['status'] . "</td>";
+                                echo "<td>" . $dados['status'] . "</td>";
 
                                 echo '<td class=\"teste\"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">create</i></a> </td>';
 
@@ -331,19 +432,10 @@ if ($_SESSION['aluno'][2] == 9) {
                 </table>
 
             <?php
-            }
-
+        }
             ?>
-        </div>
 
     </main>
-
-    <!-- Rodapé -->
-    <footer>
-        <div class="container">
-            <p>Complementa Iffar - Jeverson Miguel Rios Fagundes</p>
-        </div>
-    </footer>
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
