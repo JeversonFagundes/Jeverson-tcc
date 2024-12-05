@@ -18,7 +18,7 @@ $pastaDestino = "../certificados/";
 //buscar pelos dados do aluno unindo com os dados da tabela entrega_atividade, que onde estão os dados da entrega das atividades que o aluno entregou no sistema.
 $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
- ea.id_entrega_atividade, 
+ ea.id_entrega_atividade, ea.status,
 
  ea.carga_horaria_certificado, ea.carga_horaria_aprovada, 
 
@@ -70,109 +70,114 @@ $resultado = excutarSQL($mysql, $sql);
     require_once "../boasPraticas/headerNav.php";
     ?>
 
-    <h1>Informações da atividade complementar entregue no sistema para validação</h1>
-
     <main class="container">
 
-        <?php
+        <h2 class="center-align">Tela de validação da atividade entregue</h3><br>
 
-        //chamar a função que exibe a notificação
-        exibirNotificacoes();
+            <?php
 
-        //chamar a função que limpa a notificação da sessão.
-        limpaNotificacoes();
+            //chamar a função que exibe a notificação
+            exibirNotificacoes();
 
-        //definir o array associativo com os valores vindos do banco de dados.
-        $entrega = mysqli_fetch_assoc($resultado);
+            //chamar a função que limpa a notificação da sessão.
+            limpaNotificacoes();
 
-        //definir a variável que irá armazenar o total de horas aprovadas do aluno.
-        $total_horas_aprovadas = $entrega['total_horas'];
+            //definir o array associativo com os valores vindos do banco de dados.
+            $entrega = mysqli_fetch_assoc($resultado);
 
-        mysqli_data_seek($resultado, 0);
+            //definir a variável que irá armazenar o total de horas aprovadas do aluno.
+            $total_horas_aprovadas = $entrega['total_horas'];
 
-        ?>
+            mysqli_data_seek($resultado, 0);
 
-        <p>Total de horas aprovadas : <?php echo $total_horas_aprovadas ?></p>
-        <?php
+            ?>
 
-        //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
-        while ($dados = mysqli_fetch_assoc($resultado)) {
+            <p>Total de horas aprovadas : <?php echo $total_horas_aprovadas ?></p><br>
+            <?php
 
-        ?>
+            //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
+            while ($dados = mysqli_fetch_assoc($resultado)) {
 
-            <form action="mudarSituacao.php" method="post">
+            ?>
 
-                <div class="card-panel">
+                <form action="mudarSituacao.php" method="post">
 
-                    <div class="row">
+                    <div class="card-panel">
 
-                        <!--dados invisiveis.-->
-                        <input type="hidden" name="id_atividade" value="<?php echo $dados['id_entrega_atividade']; ?>">
-                        <input type="hidden" name="aluno" value="<?php echo $dados['id_aluno']; ?>">
-                        <input type="hidden" name="nome" value="<?php echo $dados['nome']; ?>">
-                        <input type="hidden" name="matricula" value="<?php echo $dados['matricula']; ?>">
-                        <input type="hidden" name="email" value="<?php echo $dados['email']; ?>">
-                        <input type="hidden" name="certificado" value="<?php echo $dados['titulo_certificado']; ?>">
-                        <input type="hidden" name="descricao" value="<?php echo $dados['descricao']; ?>">
+                        <div class="row">
 
-                        <div class="input-field col s12">
-                            <input placeholder="Natureza" id="natureza" type="text" value="<?php echo $dados['natureza'] ?>" disabled>
-                            <label for="natureza">Natureza da entrega</label>
+                            <!--dados invisiveis.-->
+                            <input type="hidden" name="id_atividade" value="<?php echo $dados['id_entrega_atividade']; ?>">
+                            <input type="hidden" name="aluno" value="<?php echo $dados['id_aluno']; ?>">
+                            <input type="hidden" name="nome" value="<?php echo $dados['nome']; ?>">
+                            <input type="hidden" name="matricula" value="<?php echo $dados['matricula']; ?>">
+                            <input type="hidden" name="email" value="<?php echo $dados['email']; ?>">
+                            <input type="hidden" name="certificado" value="<?php echo $dados['titulo_certificado']; ?>">
+                            <input type="hidden" name="descricao" value="<?php echo $dados['descricao']; ?>">
+
+                            <div class="input-field col s12">
+                                <input placeholder="Situaçao" id="situacao" type="text" value="<?php echo $dados['status'] ?>" disabled>
+                                <label for="situacao">Situação : </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input placeholder="Natureza" id="natureza" type="text" value="<?php echo $dados['natureza'] ?>" disabled>
+                                <label for="natureza">Natureza da entrega : </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $dados['descricao'] ?></textarea>
+                                <label for="textarea2">Descrição da natureza : </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input placeholder="Descrição da atividade desenvolvida" id="descricao" value="<?php echo $dados['titulo_certificado'] ?>" type="text" disabled>
+                                <label for="descricao">Descrição da atividade desenvolvida : </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $dados['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
+                                <label for="cargahorariadesenvolvida">Carga horária desenvolvida : </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $dados['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
+                                <label for="cargDef">Carga horária deferida : </label>
+                                <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $dados['observacoes'] ?></textarea>
+                                <label for="textarea1">Adicionar observações : </label>
+                            </div>
+
                         </div>
 
-                        <div class="input-field col s12">
-                            <input placeholder="Descrição da natureza" id="descricaonatureza" value="<?php echo $dados['descricao'] ?>" type="text" disabled>
-                            <label for="descricaonatureza">Descrição da natureza</label>
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="center-align">
+                                    <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="deferir" value="Deferir">Deferir
+                                        <i class="material-icons right">thumb_up</i> </button>
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="input-field col s12">
-                            <input placeholder="Descrição da atividade desenvolvida" id="descricao" value="<?php echo $dados['titulo_certificado'] ?>" type="text" disabled>
-                            <label for="descricao">Descrição da atividade desenvolvida</label>
-                        </div>
-
-                        <div class="input-field col s12">
-                            <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $dados['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
-                            <label for="cargahorariadesenvolvida">Carga horária desenvolvida</label>
-                        </div>
-
-                        <div class="input-field col s12">
-                            <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $dados['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
-                            <label for="cargDef">Carga horária deferida</label>
-                            <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
-                        </div>
-
-                        <div class="input-field col s12">
-                            <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $dados['observacoes'] ?></textarea>
-                            <label for="textarea1">Adicionar observações</label>
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="center-align">
+                                    <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="indeferir" value="Indeferir">Indeferir
+                                        <i class="material-icons right">thumb_down</i> </button>
+                                </p>
+                            </div>
                         </div>
 
                     </div>
 
-                    <div class="row">
-                        <div class="col s12">
-                            <p class="center-align">
-                                <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="deferir" value="Deferir">Deferir
-                                    <i class="material-icons right">thumb_up</i> </button>
-                            </p>
-                        </div>
-                    </div>
+                </form>
 
-                    <div class="row">
-                        <div class="col s12">
-                            <p class="center-align">
-                                <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="indeferir" value="Indeferir">Indeferir
-                                    <i class="material-icons right">thumb_down</i> </button>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </form>
-
-        <?php
-        }
-        ?>
+            <?php
+            }
+            ?>
 
     </main>
 
@@ -181,6 +186,9 @@ $resultado = excutarSQL($mysql, $sql);
     <script>
         $('#textarea1').val('New Text');
         M.textareaAutoResize($('#textarea1'));
+
+        $('#textarea2').val('New Text');
+        M.textareaAutoResize($('#textarea2'));
     </script>
 
 </body>
