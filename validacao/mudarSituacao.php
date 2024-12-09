@@ -41,9 +41,9 @@ if ($_POST['deferir']) {
     $status = mysqli_fetch_assoc($query);
 
     //verificar se o status é igual a Indeferido.
-    if ($status['status'] == "Indeferido") {
+    if ($status['status'] == "Indeferido" or $status['status'] == "Em análise") {
 
-        //se o status for igual a Indeferido, então quer dizer que à atividade não sofreu nenhuma correção do coordenador de curso e por esse motivo podemos fazer a soma das horas aprovadas pelo coordenador.
+        //se o status for igual a Indeferido ou Em análise, então quer dizer que à atividade não sofreu nenhuma correção do coordenador de curso e por esse motivo podemos fazer a soma das horas aprovadas pelo coordenador.
 
         //comando que busca pelo total de horas aprovadas que o aluno tem.
         $sql_total_horas = "SELECT total_horas FROM aluno WHERE id_aluno = $id_aluno";

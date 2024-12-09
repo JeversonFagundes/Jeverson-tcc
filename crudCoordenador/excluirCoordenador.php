@@ -12,8 +12,7 @@ require_once "../boasPraticas/notificacoes.php";
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
-//buscar da url os valores necessários para a exclusão do coordenador de curso ddo banco de dados.
-$id = $_GET['id'];
+//receber os dados vindos do formulário de exclusão do coordenador 
 
 //atribuir a variavél sql ($sql) o omando para deletar o coordenador de curso do banco de dados.
 $sql = "DELETE FROM coordenador_curso WHERE id_coordenador = $id";

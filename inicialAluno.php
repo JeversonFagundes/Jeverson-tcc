@@ -178,7 +178,6 @@ if ($_SESSION['aluno'][2] == 9) {
                             <th class="teste">Descrição</th>
                             <th class="teste">Horas realizadas</th>
                             <th class="teste">Horas aprovadas</th>
-                            <th class="teste">Observações</th>
                             <th class="teste">Situação</th>
                             <th class="teste" colspan="2"></th>
                         </tr>
@@ -206,7 +205,6 @@ if ($_SESSION['aluno'][2] == 9) {
                                     echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
                                     echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
                                     echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['observacoes'] . "</td>";
                                     echo "<td class=\"teste\">" . $dados['status'] . "</td>";
 
                                     echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
@@ -248,7 +246,6 @@ if ($_SESSION['aluno'][2] == 9) {
                                     echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
                                     echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
                                     echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['observacoes'] . "</td>";
                                     echo "<td class=\"teste\">" . $dados['status'] . "</td>";
 
                                     echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
@@ -290,7 +287,6 @@ if ($_SESSION['aluno'][2] == 9) {
                                 echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
                                 echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
                                 echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                echo "<td class=\"teste\">" . $dados['observacoes'] . "</td>";
                                 echo "<td class=\"teste\">" . $dados['status'] . "</td>";
 
                                 echo '<td class=\"teste\"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light#1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';

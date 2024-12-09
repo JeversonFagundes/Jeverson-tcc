@@ -117,10 +117,12 @@ $quatidade_linhas = $resultado->num_rows;
             <?php
 
             } else {
-
+            
                 //quer dizer que temos alunos que entregaram atividades complementares para avalição no sistema.
 
             ?>
+
+                <h3 class="center-aling">Lista de alunos para validação de horas complementares</h3>
 
                 <!--tabela dos alunos.-->
                 <table class="highlight">
@@ -147,7 +149,6 @@ $quatidade_linhas = $resultado->num_rows;
                             echo '<td class="teste"> <a href="validacao/validar.php?id=' . $dados['id_aluno'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
 
                             echo "</tr>";
-
                         }
 
                         ?>

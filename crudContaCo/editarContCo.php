@@ -31,4 +31,4 @@ $_SESSION['coordenador'][2] = $curso;
 notificacoes(1, "Alterações realizadas com sucesso!");
 
 //após todas as alterações redirecionamos o coordenador de curso para a tela do seu perfil, onde estarão todas as informações já alteradas.
-header("location: perfil.php");
+header("location: perfilCoordenador.php");

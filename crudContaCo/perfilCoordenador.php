@@ -23,93 +23,171 @@ $coordenador = mysqli_fetch_assoc($resultado);
 ?>
 
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
-    <title>Editar sua conta</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do coordenador de curso</title>
 
 </head>
 
 <body>
 
+    <!--incluir a navbar-->
     <?php require_once "../boasPraticas/headerNav.php"; ?>
 
-    <h1>Informações da sua conta!</h1>
+    <!--conteúdo principal-->
+    <main class="container">
 
-    <?php
-    //chamar a função que imprime a notificação para o usuário.
-    exibirNotificacoes();
-
-    //chamar a função que limpa a notificação de dentro da sessão.
-    limpaNotificacoes();
-    ?>
-
-    <form action="editarContCo.php" method="post">
-
-        <label for="nome">Nome: </label>
-        <input type="text" value="<?php echo $coordenador['nome']; ?>" name="nome"><br><br>
-
-        <label for="email">Email: </label>
-        <input type="email" value="<?php echo $coordenador['email']; ?>" name="email"><br><br>
-
+        <h1 class="center-align">Informações da sua conta!</h1>
         <?php
 
-        //buscar por todos os curso cadastrados no sistema e ordena-los em ordem alfabética.
-        $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+        //chamar a função que exibe a notificação
+        exibirNotificacoes();
 
-        //atribuir a veriavél resultado2 ($resultado2) a execução do comando sql.
-        $resultado2 = excutarSQL($mysql, $sql2);
-
+        //chamar a função que limpa a notificação da sessão.
+        limpaNotificacoes();
         ?>
 
-        <label for="curso">Selecione o seu curso: </label>
+        <form action="editarContCo.php" method="post">
 
-        <!--declarar o campo de selecção.-->
-        <select id="curso" name="curso" required>
+            <div class="card-panel">
 
-            <?php
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">person_outline</i>
+                    <input placeholder="Digite o seu nome" value="<?php echo $coordenador['nome']; ?>" id="nome" name="nome" type="text" class="validate" pattern="^.+$" required>
+                    <label for="nome">Nome</label>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                </div>
 
-            //atribuir a veriavél dados ($dados) os valores gerados no array associativo pela execução do comando sql ($sql2) que será repetido enquanto houver dados.
-            while ($dados = mysqli_fetch_assoc($resultado2)) {
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <input placeholder="Digite o seu email" value="<?php echo $coordenador['email']; ?>" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                    <label for="email">Email</label>
+                    <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                </div>
 
-            ?>
-                <!--declarar as opções do compo de seleção. Os valores estão vendo da variavél dados ($dados).-->
-                <option <?php
+                <?php
 
-                        //aqui tendo em maões os valores vindos do coordenador de curso que esta logado nomomento e dos cursos cadastrados no sistema, verificamos qual é o curso do coordenador e exibimos com opção selecionada o curso dele. No caso essa condição sempre vai ser atendida porque o coordenador de curso, assim com o alno estão cadastrados no sistema e por possuem obrigratóriamente um curso em seu cadastro.
-                        if ($coordenador['id_curso'] == $dados['id_curso']) {
+                //atribuir a variavél sql2 ($sql2) a busca por todos os cursos cadastrados no sistema e ordená-los por ordem alfabéticaF
+                $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
 
-                            echo "selected";
-                        }
-                        ?> value="<?php echo $dados['id_curso'] ?>">
-                    <?php echo $dados['nome_curso'] ?>
-                </option>
-            <?php
-            }
-            ?>
+                //atribuir a variavél resultado2 ($resultado2) a excução do comando sql2 ($sql2).
+                $resultado2 = excutarSQL($mysql, $sql2);
 
-        </select><br><br>
+                ?>
 
-        <input type="hidden" value="<?php echo $coordenador['id_coordenador']; ?>" name="id">
+                <label>Qual é o seu curso?</label>
+                <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
+                <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
+                <select name="curso" class="browser-default">
+                    <?php
 
-        <input type="submit" value="Editar"><br><br>
+                    //dentro do campo de seleção atribuimos a veriavél dados ($dados) o array associativo com os valores do resultado da excução do comando sql2 ($sql2) que será repetido enquanto houver dados.
+                    while ($dados = mysqli_fetch_assoc($resultado2)) {
+
+                    ?>
+
+                        <!--declarar o option que nada mais é do que as opções do select. Este option tem os valores que queremos do array associativo dados ($dados).-->
+                        <option <?php
+
+                                //aqui fazemos uma verificação de todos os cursos cadastrados no sistema, qual é o do aluno que está logado no momento e atribuimos o comando selected "seleciionado", ou  seja, a lista de opções já vai vir selecionada com o nome do curso do aluno que está logado no sistema. No caso está verificação sempre vai ser atendida, porque o aluno está logado no sistema, ou seja, ele está cadastrado no banco de dados e se ele esta cadastrado, ele tem que ter abrigatóriamente um curso
+                                if ($coordenador['id_curso'] == $dados['id_curso']) {
+
+                                    echo "selected";
+                                }
+                                ?> value="<?php echo $dados['id_curso'] ?>">
+                            <?php echo $dados['nome_curso'] ?>
+                        </option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
 
 
+            <input type="hidden" value="<?php echo $coordenador['id_coordenador']; ?>" name="id">
 
-    </form>
+            <div class="row">
+                <div class="col s12">
+                    <p class="center-align">
+                        <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="action">Editar conta
+                            <i class="material-icons right">create</i> </button>
+                    </p>
+                </div>
 
-    <button><a href="excluirContCo.php">Excluir sua conta!</a></button><br><br>
+            </div>
+
+        </form>
+
+        <div class="col s12">
+            <p class="center-align">
+                <a href="#modal<?php echo $coordenador['id_coordenador']; ?>" class="waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3 btn modal-trigger"><i class="material-icons right">delete</i>Excluir conta</a>
+            </p>
+        </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal<?php echo $coordenador['id_coordenador']; ?>" class="modal">
+            <div class="modal-content">
+                <h2> Atenção! </h2>
+                <hr>
+                <p>Você confirma a exclusão da sua conta! : <strong><?php echo $coordenador['nome']; ?></strong> ?</p>
+                <hr>
+            </div>
+
+            <div class="modal-footer">
+                <form action="../crudCoordenador/excluirCoordenador.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $coordenador['id_coordenador']; ?>">
+
+                    <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
+                        Excluir </button>
+
+                    <button type="button" name="btn-cancelar" class="modal-action modal-close  btn waves-light green">
+                        Cancelar </button>
+                </form>
+            </div>
+
+    </main>
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+
+    <script>
+        // M.AutoInit();
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {
+                opacity: 0.7, // Opacidade do background (0.0 a 1.0)
+                inDuration: 1000, // Duração da animação de abertura em milissegundos
+                outDuration: 1200, // Duração da animação de fechamento em milissegundos
+                dismissible: true, // Permite fechar ao clicar fora do modal
+                startingTop: '10%', // Posição inicial do modal em relação ao topo
+                endingTop: '15%' // Posição final do modal em relação ao topo
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa a sidenav
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, {
+                edge: 'left'
+            });
+
+            // Configura a largura da sidenav
+            var sidenav = document.querySelector('.sidenav');
+            sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
+        });
+    </script>
+
 </body>
 
 </html>
