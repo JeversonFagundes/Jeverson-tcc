@@ -30,12 +30,15 @@ ea.status,
 ea.caminho,
 ea.id_atividade_complementar,
 ea.observacoes,
-a.total_horas
+a.total_horas,
+c.carga_horaria
 FROM entrega_atividade ea 
 INNER JOIN atividade_complementar ac 
 ON ea.id_atividade_complementar = ac.id_atividade_complementar
 INNER JOIN aluno a 
 ON a.id_aluno = ea.id_aluno
+INNER JOIN curso c
+ON a.id_curso AND c.id_curso = " . $_SESSION['aluno'][2] . "
 WHERE 
 a.id_aluno = " . $_SESSION['aluno'][1];
 
@@ -44,27 +47,6 @@ $query = excutarSQL($mysql, $sql);
 
 //atribuir á variavél quantidade ($quantidade) a quantidade de linhas que foram retornadas no comando sql ($sql).
 $quantidade = $query->num_rows;
-
-//fazer uma verificação para definir qual o valor que a variavel $total_curso irá receber. Por exemplo "a carga horária obrigatória do curso de informática é de 60 horas".
-if ($_SESSION['aluno'][2] == 9) {
-
-    //Curso Técnico Integrado em Informática
-    $total_curso = 60;
-} else {
-
-    if ($_SESSION['aluno'][2] == 11 or $_SESSION['aluno'][2] == 13) {
-
-        //Curso Técnico Integrado em Administração e Curso de Markiting Subsequente
-        $total_curso = 40;
-    } else {
-
-        if ($_SESSION['aluno'][2] == 12) {
-
-            //Curso de Manutenção e Suporte em Informática (MSI)
-            $total_curso = 50;
-        }
-    }
-}
 
 ?>
 
@@ -168,7 +150,7 @@ if ($_SESSION['aluno'][2] == 9) {
                 <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
 
                 <!--definir o contador de horas aprovadas do aluno.-->
-                <p>Horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " " . $total_curso ?></p>
+                <p>Horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " " . $entrega['carga_horaria'] ?></p>
 
                 <!--definir a tabela com as informações das atividades complementares de curso que o aluno entregou no sistema.-->
                 <table>
@@ -329,6 +311,34 @@ if ($_SESSION['aluno'][2] == 9) {
             <?php
             }
 
+            ?>
+
+            <br>
+
+            <?php
+
+            //se o total de horas aprovadas for maior o igual ao total de horas que o curso pode aprovar, então quer dizer que o aluno completou todas as suas horas complementares de curso.
+            if ($total_horas_aprovadas >= $entrega['carga_horaria']) {
+
+                //e por esse motivo ele pode garar o relatório com as informações.
+
+            ?>
+
+                <a href='relatorio.php' class="brown lighten-3 waves-effect waves-light btn"><i class="material-icons right">add</i>Gerar relatório</a>
+
+            <?php
+
+            } else {
+
+                //não acontece nada.
+
+            ?>
+
+                <a href='relatorio.php' class="brown lighten-3 waves-effect waves-light btn"><i class="material-icons right">add</i>Gerar relatório</a>
+
+            <?php
+
+            }
             ?>
         </div>
 

@@ -95,9 +95,23 @@ $quantidade = $query->num_rows;
 
         <div class="container">
 
+            <h2 class="center-align">Cadastro de atividades complementares de curso</h2>
+            <hr>
+
+            <br><br>
+
+            <?php
+
+            //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
+
+            //exibir a mensagem de emtrega de atividade no sistema bem sucessedida.
+            exibirNotificacoes();
+
+            //limpar as notificações do sistema.
+            limpaNotificacoes();
+
+            ?>
             <div class="card-panel">
-                <h2 class="center-align">Cadastro de atividades complementares de curso</h2>
-                <hr>
 
                 <br>
 
@@ -129,7 +143,7 @@ $quantidade = $query->num_rows;
                         </div>
 
                         <div class="center-align">
-                            <a class="waves-effect waves-light btn"><i class="material-icons right">send</i>Cadastrar</a>
+                            <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Cadastrar</button>
                         </div>
                     </div>
 
@@ -262,7 +276,6 @@ $quantidade = $query->num_rows;
         $('#textarea1').val('New Text');
         M.textareaAutoResize($('#textarea1'));
     </script>
-
 </body>
 
 </html>

@@ -25,4 +25,4 @@ excutarSQL($mysql, $sql);
 notificacoes(1, "Cadastro da atividade complementar realizada com sucesso!");
 
 //redirecionar o coordenador de novamente para a sua tela inicial.
-header("location: ../inicialCoordenador.php");
+header("location: formcadAtividade.php");
