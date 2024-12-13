@@ -131,6 +131,7 @@ $aluno = mysqli_fetch_assoc($resultado);
                             <i class="material-icons right">create</i> </button>
                     </p>
                 </div>
+            </div>
 
         </form>
 

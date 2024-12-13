@@ -171,6 +171,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
                         <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
                     </div>
                 </div>
+                
                 <!--aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema.-->
                 <p>Seu certificado : <a class="waves-effect waves-light btn" href=" <?php echo $pasta . $entrega['caminho']; ?>"><?php echo $entrega['certificado']; ?></a>
                 </p>

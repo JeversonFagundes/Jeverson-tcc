@@ -1,4 +1,8 @@
 <?php
+
+//incluir o arquivo de notificações e de inicialização da sessão.
+require_once "../boasPraticas/notificacoes.php";
+
 //buscar da url o valor necessário para buscar pela atividade que o coordenador de curso deseja alterar.
 $id = $_GET['id'];
 
@@ -25,10 +29,12 @@ $dados = mysqli_fetch_assoc($resultado);
 <head>
 
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar um atividade complementar</title>
 
@@ -36,28 +42,67 @@ $dados = mysqli_fetch_assoc($resultado);
 
 <body>
 
-    <h1>Formulário de alteração de atividade complementar!</h1>
+    <?php
 
-    <form action="editarAtividade.php" method="post">
+    //incluir a navBar do sistema
+    require_once "../boasPraticas/headerNav.php";
 
-        <label for="nome">Natureza:</label>
-        <input type="text" value="<?php echo $dados['natureza']; ?>" name="natureza"><br><br>
+    ?>
 
-        <label for="carga">Carga horaria máxima da atividade</label>
-        <input type="text" value="<?php echo $dados['carga_horaria_maxima']; ?>" name="carga"><br><br>
+    <!--conteudo principal.-->
+    <main class="container">
 
-        <label for="descricao">Descrição</label><br>
-        <textarea name="descricao" id="texto" cols="30" rows="10"><?php echo $dados['descricao']; ?></textarea><br><br>
+        <h1 class="center-align">Formulário de alteração de atividade complementar!</h1>
 
-        <input type="hidden" value="<?php echo $dados['id_atividade_complementar']; ?>" name="id">
+        <div class="card-panel">
 
-        <input type="submit" value="Alterar"><br><br>
-    </form>
+            <form action="editarAtividade.php" method="post">
 
-    <button><a href="../inicialCoordenador.php">Voltar</a></button>
+                <input type="hidden" value="<?php echo $dados['id_atividade_complementar']; ?>" name="id">
+
+                <div class="input-field col s12">
+                    <input placeholder="Digite a natureza da atividade" value="<?php echo $dados['natureza']; ?>" id="natureza" name="natureza" type="text" class="validate" pattern="^.+$" required>
+                    <label for="natureza">Natureza</label>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                </div>
+
+                <div class="input-field col s12">
+                    <input placeholder="Digite a carga hoária da atividade" value="<?php echo $dados['carga_horaria_maxima']; ?>" id="carga" name="carga" type="text" class="validate" pattern="^.+$" required>
+                    <label for="carga">Carga horária máxima</label>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" name="descricao" class="materialize-textarea"><?php echo $dados['descricao']; ?></textarea>
+                        <label for="textarea1">Descrição da atividade</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align">
+                            <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="action">Editar conta
+                                <i class="material-icons right">create</i> </button>
+                        </p>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
 
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+
+    <script>
+        $('#textarea1').val('New Text');
+        M.textareaAutoResize($('#textarea1'));
+    </script>
+
 </body>
 
 </html>

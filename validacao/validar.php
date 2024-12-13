@@ -26,7 +26,7 @@ $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.observacoes, ac.descricao, a.total_horas,
 
- ac.natureza
+ ac.natureza, c.carga_horaria
 
  FROM aluno a
 
@@ -38,6 +38,9 @@ INNER JOIN atividade_complementar ac
 
 ON ea.id_atividade_complementar = ac.id_atividade_complementar
 
+INNER JOIN curso c 
+
+ON a.id_curso AND c.id_curso = " . $_SESSION['coordenador'][2]."
 ";
 
 //executar o comando sql ($sql).
@@ -92,7 +95,7 @@ $resultado = excutarSQL($mysql, $sql);
 
             ?>
 
-            <p>Total de horas aprovadas : <?php echo $total_horas_aprovadas ?></p><br>
+            <p>Total de horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " ". $entrega['carga_horaria'] ?></p><br>
             <?php
 
             //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
@@ -139,6 +142,10 @@ $resultado = excutarSQL($mysql, $sql);
                                 <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $dados['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
                                 <label for="cargahorariadesenvolvida">Carga horária desenvolvida : </label>
                             </div>
+
+                            <!--aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema.-->
+                            <p>Visualizar atividade entregue : <a class="waves-effect waves-light btn" href=" <?php echo $pastaDestino . $dados['caminho']; ?>"><?php echo $dados['titulo_certificado']; ?></a>
+                            </p>
 
                             <div class="input-field col s12">
                                 <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $dados['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
