@@ -14,10 +14,21 @@ require_once "../boasPraticas/headerNav.php";
 $mysql = conectar();
 
 //atribuir a variavél sql ($sql) a busca por todos os cursos relacionados com o curso do aluno logado no momento.
-$sql = "SELECT natureza, descricao, carga_horaria_maxima FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
+$sql = "SELECT ea.natureza, ea.descricao, ea.carga_horaria_maxima,
+
+c.carga_horaria
+
+FROM atividade_complementar ea 
+
+INNER JOIN curso c 
+
+ON ea.id_curso = c.id_curso
+
+WHERE ea.id_curso = "  . $_SESSION['aluno'][2];
 
 //atribuir a variavél resultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
+
 
 ?>
 
@@ -27,27 +38,29 @@ $resultado = excutarSQL($mysql, $sql);
 <head>
 
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de entrega de atividade complementar</title>
+
+    <style>
+        .espacamento{
+            margin-bottom: 30px;
+        }
+    </style>
 
 </head>
 
 <body>
 
-    <h1 class="center-align">Formulário de entrega de atividades complementares.</h1>
-
-    <h3 class="center-align">Tabela de atividades complementares.</h3>
-
     <main class="container">
 
-    <?php
+        <h1 class="center-align">Tabela de atividades complementares</h1>
 
-    
-    ?>
         <div class="card-panel">
 
             <table class="highlight responsive-table">
@@ -75,6 +88,16 @@ $resultado = excutarSQL($mysql, $sql);
                     ?>
                 </tbody>
             </table>
+
+            <?php
+
+            mysqli_data_seek($resultado, 0);
+
+            $total_horas = mysqli_fetch_assoc($resultado);
+
+            ?>
+
+            <p> <strong> Total de horas exigidas pelo PCC : <?php echo $total_horas['carga_horaria'] ?> horas </strong> </p>
 
             <br>
 
@@ -110,9 +133,10 @@ $resultado = excutarSQL($mysql, $sql);
                     }
                     ?>
                 </select>
+
                 <br>
 
-                <div class="input-field col s12">
+                <div class="input-field col s12 espacamento">
                     <!--<i class="material-icons prefix">person_outline</i>-->
                     <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^[^']+$" required>
                     <label for="titulo">Titulo certificado</label>
@@ -142,7 +166,7 @@ $resultado = excutarSQL($mysql, $sql);
                 <div class="row">
                     <div class="col s12">
                         <p class="center-align">
-                            <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="action">Entregar atividade
+                            <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="action">Entregar atividade
                                 <i class="material-icons right">send</i> </button>
                         </p>
                     </div>

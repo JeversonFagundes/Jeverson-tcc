@@ -55,13 +55,17 @@ $entrega = mysqli_fetch_assoc($resultado2);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de alteração de atividade complementar</title>
 
+    <style>
+        .espacamento {
+            margin-bottom: 30px;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <h1 class="center-align">Formulário de alteração da sua atividade complementar entregue!</h1>
-
-    <h3 class="center-align">Tabela de atividades complementares.</h3>
+    <h3 class="center-align">Tabela de atividades complementares</h3>
 
     <main class="container">
 
@@ -144,7 +148,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
                 </select>
                 <br>
 
-                <div class="input-field col s12">
+                <div class="input-field col s12 espacamento">
                     <!--<i class="material-icons prefix">person_outline</i>-->
                     <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^[^']+$" required value="<?php echo $entrega['titulo_certificado']; ?>">
                     <label for="titulo">Titulo certificado</label>
@@ -162,7 +166,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
 
                 <input type="hidden" name="caminho" value="<?php echo $entrega['caminho']; ?>">
 
-                <div class="file-field input-field">
+                <div class="file-field input-field espacamento">
                     <div class="btn">
                         <span>Certificado</span>
                         <input type="file" id="certi" name="certificado">
@@ -171,7 +175,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
                         <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
                     </div>
                 </div>
-                
+
                 <!--aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema.-->
                 <p>Seu certificado : <a class="waves-effect waves-light btn" href=" <?php echo $pasta . $entrega['caminho']; ?>"><?php echo $entrega['certificado']; ?></a>
                 </p>
@@ -179,8 +183,8 @@ $entrega = mysqli_fetch_assoc($resultado2);
                 <div class="row">
                     <div class="col s12">
                         <p class="center-align">
-                            <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="action">Entregar atividade
-                                <i class="material-icons right">send</i> </button>
+                            <button class="btn waves-effect waves-light  #1565c0 blue darken-3 lighten-3" type="submit" name="action">Alterar atividade
+                                <i class="material-icons right">create</i> </button>
                         </p>
                     </div>
                 </div>

@@ -8,14 +8,24 @@ require_once "boasPraticas/notificacoes.php";
 <html lang="pt-br">
 
 <head>
-                                        
+
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de login</title>
+
+
+    <style>
+        .espacamento {
+            margin-bottom: 30px;
+        }
+    </style>
+
 
 </head>
 
@@ -44,7 +54,7 @@ require_once "boasPraticas/notificacoes.php";
 
                 <div class="row">
 
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 espacamento">
                         <i class="material-icons prefix">mail_outline</i>
                         <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
                         <label for="email">Email</label>
@@ -100,7 +110,7 @@ require_once "boasPraticas/notificacoes.php";
 
         <?php
 
-        $senha = "Gremista123@"; 
+        $senha = "Gremista123@";
         $hash = password_hash($senha, PASSWORD_ARGON2ID);
         echo $hash;
 

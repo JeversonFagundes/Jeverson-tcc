@@ -25,11 +25,19 @@ $resultado = excutarSQL($mysql, $sql);
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <title>Tela de cadastro</title>
+
+    <style>
+        .espacamento {
+            margin-bottom: 30px;
+        }
+    </style>
 
 </head>
 
@@ -96,23 +104,25 @@ $resultado = excutarSQL($mysql, $sql);
                     <?php
                     }
                     ?>
-                </select><br>
+                </select>
+                
+                <br><br>
 
-                <div class="input-field col s12">
+                <div class="input-field col s12 espacamento">
                     <i class="material-icons prefix">confirmation_number</i>
                     <input placeholder="Digite sua matricula" id="matricula" name="matricula" type="text" class="validate" pattern="^[0-9]{10}$" required>
                     <label for="mat">Matricula</label>
                     <span class="helper-text" data-error="A sua matricula deve conter 10 caracteres númericos"></span>
                 </div>
 
-                <div class="input-field col s12">
+                <div class="input-field col s12 espacamento">
                     <i class="material-icons prefix">mail_outline</i>
                     <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
                     <label for="email">Email</label>
                     <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
                 </div>
 
-                <div class="input-field col s12">
+                <div class="input-field col s12 espacamento">
                     <i class="material-icons prefix">lock_outline</i>
                     <input id="senha" type="password" placeholder="Digite a seu senha" class="validate" name="senha" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                     <label for="senha">Senha</label>

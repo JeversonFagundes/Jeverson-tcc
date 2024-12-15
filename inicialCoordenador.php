@@ -58,10 +58,12 @@ $quatidade_linhas = $resultado->num_rows;
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
+
         }
 
         main {
             flex: 1 0 auto;
+
         }
 
         .container {
@@ -117,7 +119,7 @@ $quatidade_linhas = $resultado->num_rows;
             <?php
 
             } else {
-            
+
                 //quer dizer que temos alunos que entregaram atividades complementares para avalição no sistema.
 
             ?>
