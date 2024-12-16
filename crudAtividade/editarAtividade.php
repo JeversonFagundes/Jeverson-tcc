@@ -25,7 +25,7 @@ $sql = "UPDATE atividade_complementar SET natureza = '$natureza', carga_horaria_
 excutarSQL($mysql, $sql);
 
 //gerar a notificação de um novo aluno cadastrado no sistema.
-notificacoes(1, "Alterações na atividade complementar realizada com sucesso!");
+notificacoes(1, "Alterações na atividade complementar realizadas com sucesso!");
 
-//redirecionar o coordenador de curso novamente para a sua tela inicial.
-header("location: ../inicialCoordenador.php");
+//redirecionar o coordenador de curso novamente para a tela de alterações da atividade.
+header("location: formeditAtividade.php?id=$id");

@@ -1,18 +1,18 @@
 <?php
-
-function verificarConexaoInternet($url = 'http://www.google.com')
+function estaConectadoInternet()
 {
-    $conectado = @fsockopen($url, 80);
-    if ($conectado) {
-        fclose($conectado);
+    $conexao = @fsockopen("www.google.com", 80);
+    if ($conexao) {
+        fclose($conexao);
         return true;
     } else {
         return false;
     }
 }
 
-if (verificarConexaoInternet()) {
-    echo "Conectado à internet.";
+// Verificar a conexão com a internet
+if (estaConectadoInternet()) {
+    echo "Você está conectado à internet.";
 } else {
-    echo "Sem conexão com a internet.";
+    echo "Você não está conectado à internet.";
 }

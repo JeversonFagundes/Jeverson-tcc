@@ -13,6 +13,8 @@ require_once "../conecta.php";
 //declarar a variavel de conexão com o banco de dados jeverson-tcc. 
 $mysql = conectar();
 
+require_once "../boasPraticas/notificacoes.php";
+
 //receber os dados vindos do formulário de recuperação de senha que esta no arquivo form-recuperar-senha.html.
 $email = $_POST['email'];
 
@@ -35,9 +37,13 @@ $quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
 
 //se todas as tabelas retornaram 0 então esse email não está cadastrado no sistema.
 if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_administradores == 0) {
-    echo "E-mail: " . " " . $email . " " . " não está cadastrado no sistema!<p><a href = \"../index.php\">Voltar</a></p>";
 
-    die();
+    notificacoes(2, "E-mail: " . " " . $email . " " . " não está cadastrado no sistema!");
+ 
+    header("location:form-recuperar-senha.php");
+
+    die ();
+
 } else {
 
     //se uma das tabelas retornou um valor diferente de 0 para a busca referente ao amil informado, devemos ver qual tabela foi.
@@ -108,8 +114,8 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
             $mail->CharSet = 'UTF-8'; // Define o conjunto de caracteres para UTF-8, garantindo que caracteres especiais sejam exibidos corretamente.
             $mail->Encoding = 'base64'; // Define a codificação do email para base64, que é adequada para conteúdo binário e texto.
             $mail->setLanguage('br'); // Define o idioma para mensagens de erro e outros textos gerados automaticamente para português do Brasil.
-            //$mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens
             $mail->isSMTP();                       //envia o email usando SMTP
             $mail->Host = 'smtp.gmail.com';        // Define o servidor SMTP que será usado para enviar o email.
             $mail->SMTPAuth = true;                // Habilita a autenticação SMTP.
@@ -147,9 +153,10 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
             //O comando $_SERVER['SERVER_NAME'] em PHP é utilizado para obter o nome do host do servidor onde o script está sendo executado1. Este valor é definido na configuração do servidor web e pode ser útil em várias situações.
 
             $mail->send(); //é utilizado para enviar o email configurado anteriormente com a biblioteca PHPMailer. Quando você chama este método, ele tenta enviar o email com todas as configurações e conteúdo que você definiu anteriormente no script.
-            echo 'Email enviado com sucesso!<br>Confira o seu email.';
 
-            echo '<p><a href = "../index.php">Voltar para a tela inicial</a></p>';
+            notificacoes(1, "Email enviado com sucesso! Confira o seu email.");
+        
+            header("location:form-recuperar-senha.php");
 
             // gravar as informações na tabela recuperar-senha
             date_default_timezone_set('America/Sao_Paulo'); //Esta linha define o fuso horário padrão para ‘America/Sao_Paulo’ (horário de Brasília). Isso é importante para garantir que todas as funções de data e hora utilizem o fuso horário correto.
@@ -203,8 +210,8 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
         $mail->CharSet = 'UTF-8'; // Define o conjunto de caracteres para UTF-8, garantindo que caracteres especiais sejam exibidos corretamente.
         $mail->Encoding = 'base64'; // Define a codificação do email para base64, que é adequada para conteúdo binário e texto.
         $mail->setLanguage('br'); // Define o idioma para mensagens de erro e outros textos gerados automaticamente para português do Brasil.
-        //$mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens
         $mail->isSMTP();                       //envia o email usando SMTP
         $mail->Host = 'smtp.gmail.com';        // Define o servidor SMTP que será usado para enviar o email.
         $mail->SMTPAuth = true;                 // Habilita a autenticação SMTP.
@@ -246,9 +253,9 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
         //O comando $_SERVER['SERVER_NAME'] em PHP é utilizado para obter o nome do host do servidor onde o script está sendo executado1. Este valor é definido na configuração do servidor web e pode ser útil em várias situações.
 
         $mail->send(); //é utilizado para enviar o email configurado anteriormente com a biblioteca PHPMailer. Quando você chama este método, ele tenta enviar o email com todas as configurações e conteúdo que você definiu anteriormente no script.
-        echo 'Email enviado com sucesso!<br>Confira o seu email.';
-
-        echo '<p><a href = "../index.php">Voltar para a tela inicial</a></p>';
+        notificacoes(1, "Email enviado com sucesso! Confira o seu email.");
+        
+        header("location:form-recuperar-senha.php");
 
         // gravar as informações na tabela recuperar-senha
         date_default_timezone_set('America/Sao_Paulo'); //Esta linha define o fuso horário padrão para ‘America/Sao_Paulo’ (horário de Brasília). Isso é importante para garantir que todas as funções de data e hora utilizem o fuso horário correto.

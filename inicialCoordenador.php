@@ -17,17 +17,24 @@ $mysql = conectar();
 
 //O comando DISTINCT é usado para selecionar valores únicos de uma coluna ou combinações de colunas em uma consulta SQL, eliminando os valores duplicados.
 
-$sql = "SELECT DISTINCT 
-        a.id_aluno, 
-        a.nome, 
-        a.matricula,
-        a.total_horas
-        FROM aluno a
-        INNER JOIN coordenador_curso cc 
-        ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
-        INNER JOIN entrega_atividade ea 
-        ON a.id_aluno = ea.id_aluno 
-        ;";
+$sql = "SELECT DISTINCT a.id_aluno, a.nome, a.matricula, a.total_horas,
+
+c.carga_horaria
+
+FROM aluno a 
+
+INNER JOIN coordenador_curso cc 
+
+ON a.id_curso = " . $_SESSION['coordenador'][2] . " AND cc.id_curso = " . $_SESSION['coordenador'][2] . "
+
+INNER JOIN entrega_atividade ea 
+
+ON a.id_aluno = ea.id_aluno 
+
+INNER JOIN curso c 
+
+ON c.id_curso = cc.id_curso
+";
 
 //atribuir a variavél resultado ($resultado) a execução do comando sql ($sql1).
 $resultado = excutarSQL($mysql, $sql);
@@ -143,14 +150,28 @@ $quatidade_linhas = $resultado->num_rows;
 
                         while ($dados = mysqli_fetch_assoc($resultado)) {
 
-                            echo "<tr>";
+                            if ($dados['total_horas'] >= $dados['carga_horaria']) {
 
-                            echo "<td>" . $dados['nome'] . "</td>";
-                            echo "<td class=\"teste\" >" . $dados['matricula'] . "</td>";
-                            echo "<td class=\"teste\" >" . $dados['total_horas'] . "</td>";
-                            echo '<td class="teste"> <a href="validacao/validar.php?id=' . $dados['id_aluno'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
+                                echo "<tr class=\"#a5d6a7 green lighten-3\">";
 
-                            echo "</tr>";
+                                echo "<td>" . $dados['nome'] . "</td>";
+                                echo "<td class=\"teste\" >" . $dados['matricula'] . "</td>";
+                                echo "<td class=\"teste\" >" . $dados['total_horas'] . "</td>";
+                                echo '<td class="teste"> <a href="validacao/validar.php?id=' . $dados['id_aluno'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
+
+                                echo "</tr>";
+
+                            } else {
+
+                                echo "<tr class=\"#ffcc80 orange lighten-3\">";
+
+                                echo "<td>" . $dados['nome'] . "</td>";
+                                echo "<td class=\"teste\" >" . $dados['matricula'] . "</td>";
+                                echo "<td class=\"teste\" >" . $dados['total_horas'] . "</td>";
+                                echo '<td class="teste"> <a href="validacao/validar.php?id=' . $dados['id_aluno'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
+
+                                echo "</tr>";
+                            }
                         }
 
                         ?>

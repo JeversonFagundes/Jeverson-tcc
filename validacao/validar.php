@@ -163,7 +163,7 @@ $resultado = excutarSQL($mysql, $sql);
                         <div class="row">
                             <div class="col s12">
                                 <p class="center-align">
-                                    <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="deferir" value="Deferir">Deferir
+                                    <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="deferir" value="Deferir">Deferir
                                         <i class="material-icons right">thumb_up</i> </button>
                                 </p>
                             </div>
@@ -172,7 +172,7 @@ $resultado = excutarSQL($mysql, $sql);
                         <div class="row">
                             <div class="col s12">
                                 <p class="center-align">
-                                    <button class="btn waves-effect waves-light brown  lighten-3" type="submit" name="indeferir" value="Indeferir">Indeferir
+                                    <button class="btn waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3" type="submit" name="indeferir" value="Indeferir">Indeferir
                                         <i class="material-icons right">thumb_down</i> </button>
                                 </p>
                             </div>

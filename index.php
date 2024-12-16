@@ -2,6 +2,7 @@
 
 //incluir o arquivo que exibe as mensagens para o usuário
 require_once "boasPraticas/notificacoes.php";
+
 ?>
 
 <!DOCTYPE html>

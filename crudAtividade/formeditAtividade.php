@@ -52,7 +52,17 @@ $dados = mysqli_fetch_assoc($resultado);
     <!--conteudo principal.-->
     <main class="container">
 
-        <h1 class="center-align">Formulário de alteração de atividade complementar!</h1>
+        <h1 class="center-align">Alteração da atividade complementar</h1>
+
+        <?php
+
+        //chamar a função que exibe a notificação para o aluno.
+        exibirNotificacoes();
+
+        //limpar a notificação de dentro da sessão.
+        limpaNotificacoes();
+
+        ?>
 
         <div class="card-panel">
 

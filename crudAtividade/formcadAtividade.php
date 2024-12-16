@@ -129,8 +129,8 @@ $quantidade = $query->num_rows;
                         </div>
 
                         <div class="input-field col s12">
-                            <input placeholder="Digite a carga horária máxima a ser aprovada nesta atividade" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,3}$" required>
-                            <label for="carga">Carga horária máxima</label>
+                            <input placeholder="Digite o aproveitamento máximo da atividade" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,3}$" required>
+                            <label for="carga">Aproveitamento máximo</label>
                             <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas"></span>
                         </div>
 
@@ -175,7 +175,7 @@ $quantidade = $query->num_rows;
                         <tr>
                             <th>Natureza</th>
                             <th>Descrição</th>
-                            <th class="teste">Carga horária máxima</th>
+                            <th class="teste">Aproveitamento máxima</th>
                             <th colspan="2"></th>
                         </tr>
                     </thead>

@@ -65,30 +65,69 @@ if ($recuperar == null) {
 
 <head>
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Senha</title>
+
+    <style>
+        p{
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <form action="salvar_nova_senha.php" method="post">
-        <input type="hidden" name="email" value="<?= $email ?>">
-        <input type="hidden" name="token" value="<?= $token ?>">Email: <?= $email ?><br><br>
 
-        <label for="senha">Senha:
-            <input type="password" name="senha" id="senha"></label><br><br>
+    <!--conteudo principal-->
+    <main class="container">
 
-        <label for="repet">Repita a senha:
-            <input type="password" name="repetirSenha" id="repet"></label><br><br>
+        <h1 class="center-align">Recuperação de senha</h1>
 
-        <input type="submit" value="Salvar nova senha">
-    </form>
+        <p>Seu email : <?php echo $email ?> </p>
+
+        <div class="card-panel">
+            <form action="salvar_nova_senha.php" method="post">
+
+                <input type="hidden" name="email" value="<?= $email ?>">
+                <input type="hidden" name="token" value="<?= $token ?>">
+
+                <div class="input-field col s12 espacamento">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <input id="senha" type="password" placeholder="Digite a seu senha" class="validate" name="senha" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
+                    <label for="senha">Senha</label>
+                    <span class="helper-text" data-error="Deve ter 8 caracteres, no mínimo e  conter pelo menos 1 letra maiuscula,1 letra minuscula, 1 número e 1 caracter especial;."> </span>
+                </div>
+
+                <br>
+
+                <div class="input-field col s12 espacamento">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <input id="repetirSenha" type="password" placeholder="Repita sua senha" class="validate" name="repetirSenha" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
+                    <label for="repetirSenha">Repitir senha</label>
+                    <span class="helper-text" data-error="Deve ter 8 caracteres, no mínimo e  conter pelo menos 1 letra maiuscula,1 letra minuscula, 1 número e 1 caracter especial;."> </span>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align">
+                            <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="action">Recuperar senha
+                                <i class="material-icons right">send</i> </button>
+                        </p>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
 
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 </body>
 
 </html>
