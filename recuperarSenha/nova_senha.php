@@ -2,6 +2,9 @@
 
 //NOVA_SENHA.PHP
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 // verificar o email.
 // verificar o token.
 $email = $_GET['email'];

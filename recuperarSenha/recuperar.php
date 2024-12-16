@@ -13,6 +13,7 @@ require_once "../conecta.php";
 //declarar a variavel de conexão com o banco de dados jeverson-tcc. 
 $mysql = conectar();
 
+//incluir o arquivo de notificações do sistema.
 require_once "../boasPraticas/notificacoes.php";
 
 //receber os dados vindos do formulário de recuperação de senha que esta no arquivo form-recuperar-senha.html.

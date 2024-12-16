@@ -2,6 +2,9 @@
 
 //FORMEDITCURSO.PHP
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //buscar da url os valores necessários para buscar pelas informações do curso que se deseja alterar.
 $id = $_GET['id'];
 

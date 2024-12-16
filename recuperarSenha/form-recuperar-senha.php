@@ -1,5 +1,6 @@
 <?php
 
+//incluir o arquivo de notificações do sitema
 require_once "../boasPraticas/notificacoes.php";
 ?>
 

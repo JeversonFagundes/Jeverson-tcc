@@ -8,6 +8,7 @@ require_once "../conecta.php";
 //incluir o arquivo de notificações do sistema.
 require_once "../boasPraticas/notificacoes.php";
 
+//incluir a navbar
 require_once "../boasPraticas/headerNav.php";
 
 //declarar a variavel de conexão com o banco de dados.

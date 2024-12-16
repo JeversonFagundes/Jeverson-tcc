@@ -2,6 +2,9 @@
 
 //FORMEDITCOORDENADOR.PHP
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //buscar da url os valores necessários para buscar os dados do coordenador que se deseja alterar
 $id = $_GET['id'];
 

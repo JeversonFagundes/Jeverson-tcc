@@ -2,11 +2,15 @@
 
 //FORMCADCOORDENADOR.PHP
 
+//incluir o arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //conectar com o banco de dados jeverosn-tcc.
 require_once "../conecta.php";
 
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
+
 ?>
 
 <!DOCTYPE html>

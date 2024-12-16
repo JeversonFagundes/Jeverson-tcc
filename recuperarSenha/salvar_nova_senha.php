@@ -14,6 +14,9 @@ require_once "../conecta.php";
 //declarar a veriavél de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
+//conectar no arquivo de notificações do sistema.
+require_once "../boasPraticas/notificacoes.php";
+
 //buscar por todos os dados da tabela recuperar_senha com a condição de ser onde o email e o token forem os que acabamos de receber.
 $sql = "SELECT * FROM recuperar_senha WHERE email='$email' AND token='$token'";
 
@@ -55,7 +58,8 @@ if ($recuperar == null) {
     //fazer a terceira verificação.
     if ($recuperar['usado'] == 1) {
 
-        echo "Esse pedido de recuperação de senha já foi utilizadoanteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha.";
+        echo "Esse pedido de recuperação de senha já foi utilizado 
+        anteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha.";
 
         die();
     }
