@@ -29,7 +29,9 @@ $recuperar = mysqli_fetch_assoc($resultado);
 //fazer a primeira verificação.
 if ($recuperar == null) {
 
-    echo "Email ou token incorreto. Tente fazer um novo pedido de recuperação de senha.";
+    notificacoes(2, "Email ou token incorreto. Tente fazer um novo pedido de recuperação de senha");
+
+    header("location:form-recuperar-senha.php");
 
     die();
 } else {
@@ -50,7 +52,9 @@ if ($recuperar == null) {
     //fazer a segunda verificação.
     if ($agora > $dataExpiracao) {
 
-        echo "Essa solicitação de recuperação de senha expirou! Faça um novo pedido de recuperação de senha.";
+        notificacoes(2, "Essa solicitação de recuperação de senha expirou! Faça um novo pedido de recuperação de senha");
+
+        header("location:form-recuperar-senha.php");
 
         die();
     }
@@ -58,8 +62,10 @@ if ($recuperar == null) {
     //fazer a terceira verificação.
     if ($recuperar['usado'] == 1) {
 
-        echo "Esse pedido de recuperação de senha já foi utilizado 
-        anteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha.";
+        notificacoes(2, "Esse pedido de recuperação de senha já foi utilizado 
+        anteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha");
+
+        header("location:form-recueprar-senha.php");
 
         die();
     }
@@ -67,7 +73,9 @@ if ($recuperar == null) {
     //verificar se o campo senha e o campo repetir senha tem o mesmo valor.
     if ($senha != $repetirSenha) {
 
-        echo "A senha que você digitou é diferente da senha que você digitou no repetir senha. Por favor tente novamente!";
+        notificacoes(2, "A senha que você digitou é diferente da senha que você digitou no repetir senha. Por favor tente novamente!");
+
+        header("location:nova_senha.php?email=$email&token=$token");
 
         die();
     }
@@ -102,9 +110,9 @@ if ($recuperar == null) {
         $sql3 = "UPDATE recuperar_senha SET usado=1 WHERE email='$email' AND token='$token'";
         excutarSQL($mysql, $sql3);
 
-        echo "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema.<br>";
+        notificacoes(1, "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema");
 
-        echo "<a href='../index.php'>Acessar sistema</a>";
+        header("location:../index.php");
 
         die();
     }
@@ -118,9 +126,9 @@ if ($recuperar == null) {
         $sql3 = "UPDATE recuperar_senha SET usado=1 WHERE email='$email' AND token='$token'";
         excutarSQL($mysql, $sql3);
 
-        echo "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema.<br>";
+        notificacoes(1, "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema");
 
-        echo "<a href='index.php'>Acessar sistema</a>";
+        header("location:../index.php");
 
         die();
     }
@@ -135,9 +143,9 @@ if ($recuperar == null) {
         $sql4 = "UPDATE recuperar_senha SET usado=1 WHERE email='$email' AND token='$token'";
         excutarSQL($mysql, $sql4);
 
-        echo "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema.<br>";
+        notificacoes(1, "Nova senha cadastrada com sucesso! Faça o login para acessar o sistema");
 
-        echo "<a href='../index.php'>Acessar sistema</a>";
+        header("location:../index.php");
 
         die();
     }

@@ -28,7 +28,9 @@ $recuperar = mysqli_fetch_assoc($resultado);
 //fazer a primeira verificação.
 if ($recuperar == null) {
 
-    echo "Email ou token incorreto. Tente fazer um novo pedido de recuperação de senha.";
+    notificacoes(2, "Email ou token incorreto. Tente fazer um novo pedido de recuperação de senha");
+
+    header("location:form-recuperar-senha.php");
 
     die();
 } else {
@@ -49,7 +51,9 @@ if ($recuperar == null) {
     //fazer a segunda verificação.
     if ($agora > $dataExpiracao) {
 
-        echo "Essa solicitação de recuperação de senha expirou! Faça um novo pedido de recuperação de senha.";
+        notificacoes(2, "Essa solicitação de recuperação de senha expirou! Faça um novo pedido de recuperação de senha");
+
+        header("location:form-recuperar-senha.php");
 
         die();
     }
@@ -57,7 +61,9 @@ if ($recuperar == null) {
     //fazer a terceira verificação.
     if ($recuperar['usado'] == 1) {
 
-        echo "Esse pedido de recuperação de senha já foi utilizado anteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha.<p><a href = \"../index.php\">Voltar</a></p>";
+        notificacoes(2, "Esse pedido de recuperação de senha já foi utilizado anteriormente! Para recuperar a senha faça um novo pedido de recuperação de senha");
+
+        header("location:form-recuperar-senha.php");
 
         die();
     }
@@ -78,7 +84,7 @@ if ($recuperar == null) {
     <title>Nova Senha</title>
 
     <style>
-        p{
+        p {
             font-size: 20px;
         }
     </style>
@@ -92,6 +98,18 @@ if ($recuperar == null) {
         <h1 class="center-align">Recuperação de senha</h1>
 
         <p>Seu email : <?php echo $email ?> </p>
+
+        <?php
+
+        //chamar as funções reerentes as notificações do sistema.
+
+        //exibe as notificações do sistema.
+        exibirNotificacoes();
+
+        //limpa as nnotificações do sistema.
+        limpaNotificacoes();
+
+        ?>
 
         <div class="card-panel">
             <form action="salvar_nova_senha.php" method="post">
