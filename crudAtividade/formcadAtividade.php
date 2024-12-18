@@ -143,7 +143,7 @@ $quantidade = $query->num_rows;
                         </div>
 
                         <div class="center-align">
-                            <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Cadastrar</button>
+                            <button type="submit" class="waves-effect #2e7d32 green darken-3 waves-light btn"><i class="material-icons right">send</i>Cadastrar</button>
                         </div>
                     </div>
 

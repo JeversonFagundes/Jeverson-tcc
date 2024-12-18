@@ -136,7 +136,7 @@ if ($recuperar == null) {
                 <div class="row">
                     <div class="col s12">
                         <p class="center-align">
-                            <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="action">Recuperar senha
+                            <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="action">Recuperar senha
                                 <i class="material-icons right">send</i> </button>
                         </p>
                     </div>

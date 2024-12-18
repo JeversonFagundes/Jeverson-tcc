@@ -40,7 +40,7 @@ ON ea.id_atividade_complementar = ac.id_atividade_complementar
 
 INNER JOIN curso c 
 
-ON a.id_curso AND c.id_curso = " . $_SESSION['coordenador'][2]."
+ON a.id_curso AND c.id_curso = " . $_SESSION['coordenador'][2] . "
 ";
 
 //executar o comando sql ($sql).
@@ -63,6 +63,15 @@ $resultado = excutarSQL($mysql, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização das atividade entregues por um aluno</title>
 
+<style>
+
+.relatorio{
+    margin-bottom: 15px;
+}
+.total{
+    font-size: 20px;
+}
+</style>
 
 </head>
 
@@ -95,7 +104,28 @@ $resultado = excutarSQL($mysql, $sql);
 
             ?>
 
-            <p>Total de horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " ". $entrega['carga_horaria'] ?></p><br>
+            <p class="total" >Total de horas aprovadas : <strong> <?php echo $total_horas_aprovadas . " " . "/" . " " . $entrega['carga_horaria'] ?></strong></p>
+
+            <?php
+
+            //se o total de horas aprovadas que o aluno tem, for maior ou igual a quantidade de horas o curso disponibiliza
+            if ($total_horas_aprovadas >= $entrega['carga_horaria']) {
+
+                //disponibilizamos a funcionalidade de imprimir relatório, usando para isso um link
+            ?>
+
+                <a href='relatorio.php?id=<?php echo $entrega['id_aluno']; ?>' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio ">
+                    <i class="material-icons right">ssignment</i>Gerar relatório
+                </a>
+            <?php
+
+            }
+            ?>
+
+            <a href='../relatorio.php?id=<?php echo $entrega['id_aluno']; ?>' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio">
+                <i class="material-icons right"> assignment</i>Gerar relatório
+            </a>
+
             <?php
 
             //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
@@ -163,7 +193,7 @@ $resultado = excutarSQL($mysql, $sql);
                         <div class="row">
                             <div class="col s12">
                                 <p class="center-align">
-                                    <button class="btn waves-effect waves-light #00c853 green accent-4 lighten-3" type="submit" name="deferir" value="Deferir">Deferir
+                                    <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="deferir" value="Deferir">Deferir
                                         <i class="material-icons right">thumb_up</i> </button>
                                 </p>
                             </div>

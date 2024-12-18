@@ -324,7 +324,9 @@ $quantidade = $query->num_rows;
 
             ?>
 
-                <a href='relatorio.php' class="brown lighten-3 waves-effect waves-light btn"><i class="material-icons right">add</i>Gerar relatório</a>
+                <a href='relatorio.php' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio">
+                    <i class="material-icons right"> assignment</i>Gerar relatório
+                </a>
 
             <?php
 
@@ -334,7 +336,9 @@ $quantidade = $query->num_rows;
 
             ?>
 
-                <a href='relatorio.php' class="brown lighten-3 waves-effect waves-light btn"><i class="material-icons right">add</i>Gerar relatório</a>
+                <a href='relatorio.php' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio">
+                    <i class="material-icons right"> assignment</i>Gerar relatório
+                </a>
 
             <?php
 
