@@ -15,11 +15,10 @@ $mysql = conectar();
 $nome = $_POST['nome'];
 $curso = $_POST['curso'];
 $email = $_POST['email'];
-$senha = $_POST['senha'];
 $id = $_POST['id'];
 
 //atribuir a variavél sql ($sql) o comando alteração do banco de dados.
-$sql = "UPDATE coordenador_curso SET nome = '$nome', email = '$email', senha = '$senha', id_curso = $curso WHERE id_coordenador = $id";
+$sql = "UPDATE coordenador_curso SET nome = '$nome', email = '$email', id_curso = $curso WHERE id_coordenador = $id";
 
 //excutar o comando sql ($sql).
 excutarSQL($mysql, $sql);
@@ -27,4 +26,4 @@ excutarSQL($mysql, $sql);
 notificacoes(1, "Alterações realizadas com sucesso!");
 
 //redirecionar o administrador para a sua tela inicial.
-header("location: ../inicialAdmin.php");
+header("location:formeditCoordenador.php?id=$id");

@@ -32,77 +32,116 @@ $coordenador = mysqli_fetch_assoc($resultado);
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
+
     <title>Alterar um coordenador</title>
 
 </head>
 
 <body>
 
-    <h1>Formulário de alteração de um coordenador!</h1>
-    
-    <form action="editarCoordenador.php" method="post">
+    <?php
 
-        <label for="nome">Nome do coordenador de curso:</label>
-        <input type="text" value="<?php echo $coordenador['nome']; ?>" name="nome"><br><br>
+    require_once "../boasPraticas/headerNav.php";
+    ?>
+
+    <main class="container">
+
+        <h1 class="center-align">Formulário de alteração de um coordenador!</h1>
 
         <?php
 
-        //atribuir a variavél sql2 ($sql2) a busca por todos os curso e ordena-los em ordem alfabética.
-        $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
+        exibirNotificacoes();
 
-        //atribuir a variavél resulltado2 ($resultado2) a execução do comando sql2 ($sql2)
-        $resultado2 = excutarSQL($mysql, $sql2);
-
+        limpaNotificacoes();
         ?>
 
-        <label for="curso">Selecione o seu curso:</label>
+        <div class="card-panel">
 
-        <!--declarar um campo de seleção.-->
-        <select id="curso" name="curso" required>
+            <form action="editarCoordenador.php" method="post">
 
-            <?php
+                <input type="hidden" value="<?php echo $coordenador['id_coordenador']; ?>" name="id" />
 
-            //atribuir a variavél dados ($dados) os valores do array associativo gerado na busca por todos os curso e repetir enquanto houver dados.
-            while ($dados = mysqli_fetch_assoc($resultado2)) {
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">person_outline</i>
+                    <input placeholder="Digite o nome do coordenador de curso" value="<?php echo $coordenador['nome']; ?>" id="nome" name="nome" type="text" class="validate" pattern="^.+$" required>
+                    <label for="nome">Nome do coordenador de curso : </label>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                </div>
 
-            ?>
+                <?php
 
-                <!--declarar as opções do campo, essas opções serão os curso que buscamos do banco de dados.-->
-                <option <?php
+                //atribuir a variavél sql2 ($sql2) a busca por todos os curso e ordena-los em ordem alfabética.
+                $sql2 = "SELECT id_curso, nome_curso FROM curso ORDER BY nome_curso ASC";
 
-                        //com as informações do coordenador de curso e do curso, podemos fazer a verificação de todos os cursos, qual é o do coordenador logado no momento e adicionar o comando selected que irá marcar o curso do coordenador como a opção selecionada.
-                        if ($coordenador['id_curso'] == $dados['id_curso']) {
+                //atribuir a variavél resulltado2 ($resultado2) a execução do comando sql2 ($sql2)
+                $resultado2 = excutarSQL($mysql, $sql2);
 
-                            echo "selected";
-                        }
-                        ?> value="<?php echo $dados['id_curso'] ?>">
-                    <?php echo $dados['nome_curso'] ?>
-                </option>
-            <?php
-            }
-            ?>
+                ?>
 
-        </select><br><br>
+                <label>Qual é o seu curso?</label>
+                <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
+                <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
+                <select name="curso" class="browser-default ">
+                    <!--OPTION define cada opção dentro do menu suspenso.-->
+                    <option value="" disabled selected>Escolha o seu curso</option>
 
-        <label for="email">Email:</label>
-        <input type="text" value="<?php echo $coordenador['email']; ?>" name="email"><br><br>
+                    <!--selected é usado para definir uma opção como pré-selecionada quando a página é carregada.-->
+                    <!--disabled é usado para tornar uma opção não selecionável.-->
 
-        <label for="senha">Senha:</label>
-        <input type="text" value="<?php echo $coordenador['senha']; ?>" name="senha"><br><br>
+                    <?php
 
-        <input type="hidden" value="<?php echo $coordenador['id_coordenador']; ?>" name="id" />
+                    //atribuir a variavél dados ($dados) os valores do array associativo gerado na busca por todos os curso e repetir enquanto houver dados.
+                    while ($dados = mysqli_fetch_assoc($resultado2)) {
 
-        <input type="submit" value="Alterar">
-    </form>
+                    ?>
 
-    <button><a href="../inicialAdmin.php">Voltar</a></button>
+                        <!--declarar as opções do campo, essas opções serão os curso que buscamos do banco de dados.-->
+                        <option <?php
+
+                                //com as informações do coordenador de curso e do curso, podemos fazer a verificação de todos os cursos, qual é o do coordenador logado no momento e adicionar o comando selected que irá marcar o curso do coordenador como a opção selecionada.
+                                if ($coordenador['id_curso'] == $dados['id_curso']) {
+
+                                    echo "selected";
+                                }
+                                ?> value="<?php echo $dados['id_curso'] ?>">
+                            <?php echo $dados['nome_curso'] ?>
+                        </option>
+
+                    <?php
+                    }
+                    ?>
+                </select>
+
+                <br>
+                <div class="input-field col s12 espacamento">
+                    <i class="material-icons prefix">mail_outline</i>
+                    <input placeholder="Digite o seu email" value="<?php echo $coordenador['email']; ?>" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                    <label for="email">Email</label>
+                    <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align">
+                            <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="action">Cadastrar coordenador de curso
+                                <i class="material-icons right">send</i> </button>
+                        </p>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
 
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 </body>
 
 </html>

@@ -14,9 +14,9 @@ $mysql = conectar();
 //receber os valores vindos do formulário de login.
 //Limpar os dados que foram colocados nos campos de email e senha.
 //O real_escape_string() é usado para escapar caracteres especiais em uma string, tornando-a segura para ser usada em uma consulta SQL, evitando que caracteres especiais quebrem a excução do comando sql.
-$email = $mysql->real_escape_string($_POST['email']);
+$email = trim( $mysql->real_escape_string($_POST['email']));
 
-$senha = $mysql->real_escape_string($_POST['senha']);
+$senha = trim($mysql->real_escape_string($_POST['senha']));
 
 //O comando COUNT(*) é usado para contar o número total de registros (linhas) em uma tabela sem retornar o valor dos registros.
 //O comando sql mysqli_fetch_row() é usado para obter uma linha de dados de um conjunto de resultados e retorná-la como um array enumerado
