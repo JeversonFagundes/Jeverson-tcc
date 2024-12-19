@@ -113,8 +113,6 @@ $quantidade_coordenadores_curso = $resultado2->num_rows;
 
 </html>
 
-//////////////
-
 
 <?php
 
@@ -269,3 +267,36 @@ $mysql = conectar();
 </body>
 
 </html>
+
+?>
+
+        <!-- Navbar -->
+        <nav>
+            <div class="nav-wrapper blue"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
+                <a href="#" class="brand-logo center">Meu App</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a <?php if ($paginaCorrente == 'inicialCoordenador.php') {
+                                echo 'style="text-decoration: underline;"';
+                            } ?> href="/jeverson-tcc/inicialCoordenador.php">Tela Inicial</a></li>
+                    <li><a <?php if ($paginaCorrente == 'formcadAtividade.php') {
+                                echo 'style="text-decoration: underline;"';
+                            } ?> href="/jeverson-tcc/crudAtividade/formcadAtividade.php">Cadastrar Atividade Complementar de Curso</a></li>
+                    <li><a <?php if ($paginaCorrente == 'perfilCoordenador.php') {
+                                echo 'style="text-decoration: underline;"';
+                            } ?> href="/jeverson-tcc/crudContaCo/perfilCoordenador.php">
+                            Perfil</a></li>
+                    <li><a href="/jeverson-tcc/logout.php">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Sidenav para Mobile -->
+        <ul id="mobile" class="sidenav">
+            <li><a href="/jeverson-tcc/inicialCoordenador.php"><i class="material-icons">home</i>Tela inicial</a></li>
+            <li><a href="/jeverson-tcc/crudAtividade/formcadAtividade.php"><i class="material-icons">home</i>Cadastrar Atividade</a></li>
+            <li><a href="/jeverson-tcc/crudContaCo/perfilCoordenador.php"><i class="material-icons">person_outline</i>Perfil</a></li>
+            <li><a href="/jeverson-tcc/logout.php"><i class="material-icons">exit_to_app</i>Sair</a></li>
+
+        </ul>
+
+<?php
