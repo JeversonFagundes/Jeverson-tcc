@@ -12,7 +12,7 @@ require_once "../boasPraticas/notificacoes.php";
 $mysql = conectar();
 
 //buscar da url os valores necessários para a exclusão do curso.
-$id = $_GET['id'];
+$id = $_POST['id'];
 
 //definir a pasta de destino dos certificados.
 $pastaDestino = "../certificados/";

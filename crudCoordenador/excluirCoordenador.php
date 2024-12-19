@@ -8,11 +8,11 @@ require_once "../conecta.php";
 //incluir o arquivo de notificações do sistema.
 require_once "../boasPraticas/notificacoes.php";
 
-
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
 //receber os dados vindos do formulário de exclusão do coordenador 
+$id = $_POST['id'];
 
 //atribuir a variavél sql ($sql) o omando para deletar o coordenador de curso do banco de dados.
 $sql = "DELETE FROM coordenador_curso WHERE id_coordenador = $id";

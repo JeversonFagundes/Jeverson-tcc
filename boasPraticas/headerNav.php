@@ -10,7 +10,6 @@ if (isset($_SESSION['aluno'])) {
     <!-- Navbar -->
     <nav>
         <div class="nav-wrapper blue"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
-            <a href="#" class="brand-logo center">Meu App</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a <?php if ($paginaCorrente == 'inicialAluno.php') {
                             echo 'style="text-decoration: underline;"';
@@ -46,7 +45,6 @@ if (isset($_SESSION['aluno'])) {
         <!-- Navbar -->
         <nav>
             <div class="nav-wrapper blue"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
-                <a href="#" class="brand-logo center">Meu App</a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a <?php if ($paginaCorrente == 'inicialCoordenador.php') {
                                 echo 'style="text-decoration: underline;"';
@@ -82,15 +80,19 @@ if (isset($_SESSION['aluno'])) {
             <!-- Navbar -->
             <nav>
                 <div class="nav-wrapper blue"> <a href="#" data-target="mobile" class="sidenav-trigger"> <i class="material-icons" style="color: black;">menu</i> </a>
-                    <a href="#" class="brand-logo center">Meu App</a>
                     <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        <li><a <?php if ($paginaCorrente == 'inicialAdministrador.php') {
+                        <li><a <?php if ($paginaCorrente == 'inicialAdmin.php') {
                                     echo 'style="text-decoration: underline;"';
-                                } ?> href="/jeverson-tcc/inicialCoordenador.php">Tela Inicial</a></li>
-                        <li><a <?php if ($paginaCorrente == 'formcadAtividade.php') {
+                                } ?> href="/jeverson-tcc/inicialAdmin.php">Tela Inicial</a></li>
+                        <li><a <?php if ($paginaCorrente == 'formcadcurso.php') {
                                     echo 'style="text-decoration: underline;"';
-                                } ?> href="/jeverson-tcc/crudAtividade/formcadAtividade.php">Cadastrar Atividade Complementar de Curso</a></li>
-                        <li><a <?php if ($paginaCorrente == 'perfilCoordenador.php') {
+                                } ?> href="/jeverson-tcc/crudCurso/formcadcurso.php">Cadastrar curso</a></li>
+
+                        <li><a <?php if ($paginaCorrente == 'formcadCoordenador.php') {
+                                    echo 'style="text-decoration: underline;"';
+                                } ?> href="/jeverson-tcc/crudCoordenador/formcadCoordenador.php">Cadastrar coordenador de curso</a></li>
+
+                        <li><a <?php if ($paginaCorrente == 'perfilAdmini.php') {
                                     echo 'style="text-decoration: underline;"';
                                 } ?> href="/jeverson-tcc/crudContaCo/perfilCoordenador.php">
                                 Perfil</a></li>
@@ -101,8 +103,9 @@ if (isset($_SESSION['aluno'])) {
 
             <!-- Sidenav para Mobile -->
             <ul id="mobile" class="sidenav">
-                <li><a href="/jeverson-tcc/inicialCoordenador.php"><i class="material-icons">home</i>Tela inicial</a></li>
-                <li><a href="/jeverson-tcc/crudAtividade/formcadAtividade.php"><i class="material-icons">home</i>Cadastrar Atividade</a></li>
+                <li><a href="/jeverson-tcc/inicialAdmin.php"><i class="material-icons">home</i>Tela inicial</a></li>
+                <li><a href="/jeverson-tcc/crudCurso/formcadcurso.php"><i class="material-icons">border_color</i>Cadastrar curso</a></li>
+                <li><a href="/jeverson-tcc/crudCoordenador/formcadCoordenador.php"><i class="material-icons">border_color</i>Cadastro Co</a></li>
                 <li><a href="/jeverson-tcc/crudContaCo/perfilCoordenador.php"><i class="material-icons">person_outline</i>Perfil</a></li>
                 <li><a href="/jeverson-tcc/logout.php"><i class="material-icons">exit_to_app</i>Sair</a></li>
 

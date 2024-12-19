@@ -25,4 +25,4 @@ excutarSQL($mysql, $sql);
 notificacoes(1, "Alterações no curso feitas com sucesso!");
 
 //redirecionar o administrador para a sua tel inicial.
-header("location: ../inicialAdmin.php");
+header("location: formeditCurso.php?id=$id");
