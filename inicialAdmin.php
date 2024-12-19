@@ -10,6 +10,31 @@ require_once "boasPraticas/notificacoes.php";
 //declarar a veriável de conexão com o banco de dados jeverson-tcc. Esta veriavel vem do conecta.php.
 $mysql = conectar();
 
+//Buscar todos os cursos cadastrados no sistema e lista-los em ordem alfabética.
+$sql = "SELECT * FROM curso ORDER BY nome_curso ASC";
+
+//Atribuir a veriavel resultado ($resultado) o valor da excução do comando sql ($sql).
+$resultado = excutarSQL($mysql, $sql);
+
+//pegar a quantidade de cursos retornados.
+$quantidade_cursos = $resultado->num_rows;
+
+//Buscar todos os coordenadores de curso da tebela coordenador_curso, unindo a tebala coordenador_curso com a tabela curso para que seja possivél buscar todos os coordenador de curso com o seu respectivo curso.
+$sql2 = "SELECT cc.id_coordenador, cc.nome, cc.email, c.nome_curso FROM coordenador_curso cc
+
+        INNER JOIN curso c
+
+        ON cc.id_curso = c.id_curso
+
+        ORDER BY cc.nome ASC
+
+        ;";
+
+//Atribuir a resultado ($resultado2) o valor da execução do comando sql ($sql2).
+$resultado2 = excutarSQL($mysql, $sql2);
+
+//pegar a quantidade de coordenador de cursos retornados
+$quantidade_coordenadores_curso = $resultado2->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -18,10 +43,105 @@ $mysql = conectar();
 <head>
 
     <meta charset="UTF-8">
+
     <!--Import Google Icon Font-->
-    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela inicial do administrador</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            text-align: center;
+            color: #757575;
+        }
+
+        .teste {
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--conteudo principal-->
+    <main>
+
+        <!--incluir a navbar.-->
+        <?php
+        require_once "boasPraticas/headerNav.php";
+        ?>
+
+        <div class="container">
+
+            <h2>Bem-vindo ao Sistema</h2>
+            <hr>
+
+        </div>
+
+    </main>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+
+</body>
+
+</html>
+
+//////////////
+
+
+<?php
+
+//INICIALADMIN.PHP
+
+//conectar com o banco de dados jeverson-tcc.
+require_once "conecta.php";
+
+require_once "boasPraticas/notificacoes.php";
+
+//declarar a veriável de conexão com o banco de dados jeverson-tcc. Esta veriavel vem do conecta.php.
+$mysql = conectar();
+
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial do administrador</title>
 
@@ -145,7 +265,7 @@ $mysql = conectar();
     </main>
 
     <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="js/materialize.min.js"></script>-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 </body>
 
 </html>

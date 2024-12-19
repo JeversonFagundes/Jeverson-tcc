@@ -73,6 +73,14 @@ if (isset($_SESSION['aluno'])) {
         </ul>
 
 <?php
+    }else {
+        
+        if (isset( $_SESSION['administrador'])) {
+            
+            
+        }
     }
 }
+
+
 ?>
