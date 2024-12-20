@@ -13,6 +13,14 @@ $options->set('isRemoteEnabled', true);
 $dompdf = new Dompdf($options);
 
 if (isset($_SESSION['aluno'])) {
+
+    $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada) FROM entrega_atividade ea WHERE ea.id_aluno =" . $_SESSION['aluno'][1] . " AND ea.status = 'Deferido'";
+
+    $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
+
+    //definir a variável que irá armazenar o total de horas aprovadas do aluno.
+    $total_horas_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
+
     $sql_coordenador_curso = "SELECT nome FROM coordenador_curso WHERE id_curso = " . $_SESSION['aluno'][2];
     $query_coordenador = excutarSQL($mysql, $sql_coordenador_curso);
     $coordenador_curso = mysqli_fetch_assoc($query_coordenador);
@@ -24,7 +32,6 @@ if (isset($_SESSION['aluno'])) {
                 ea.status,
                 a.nome, 
                 a.matricula, 
-                a.total_horas,
                 c.nome_curso, 
                 c.carga_horaria 
             FROM 
@@ -44,6 +51,13 @@ if (isset($_SESSION['aluno'])) {
 
         $id_aluno = $_GET['id'];
 
+        $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada) FROM entrega_atividade ea WHERE ea.id_aluno = $id_aluno AND ea.status = 'Deferido'";
+
+        $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
+
+        //definir a variável que irá armazenar o total de horas aprovadas do aluno.
+        $total_horas_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
+
         $sql_coordenador_curso = "SELECT nome FROM coordenador_curso WHERE id_coordenador = " . $_SESSION['coordenador'][1];
         $query_coordenador = excutarSQL($mysql, $sql_coordenador_curso);
         $coordenador_curso = mysqli_fetch_assoc($query_coordenador);
@@ -55,7 +69,6 @@ if (isset($_SESSION['aluno'])) {
                     ea.status,
                     a.nome, 
                     a.matricula, 
-                    a.total_horas,
                     c.nome_curso, 
                     c.carga_horaria 
                 FROM 
@@ -133,7 +146,7 @@ foreach ($todas_atividades_aluno as $dados_table) {
 $dados .= "</tbody>";
 $dados .= "</table>" . "<br>";
 
-$dados .= "<p style='text-align: center;'><strong>Total de horas aprovadas: " . $todas_atividades_aluno[0]['total_horas'] . " / " . $todas_atividades_aluno[0]['carga_horaria'] . "</strong></p><br>";
+$dados .= "<p style='text-align: center;'><strong>Total de horas aprovadas: " . $total_horas_aprovadas['SUM(ea.carga_horaria_aprovada)'] . " / " . $todas_atividades_aluno[0]['carga_horaria'] . "</strong></p><br>";
 
 $dados .= "<p style='text-align: center;'> <strong>" . $coordenador_curso['nome'] . " </strong><br> Assinatura do coordenador de curso: <br><br> <strong>" . $todas_atividades_aluno[0]['nome'] . "</strong> <br> Assinatura do aluno:</p>";
 

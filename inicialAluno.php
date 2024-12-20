@@ -30,7 +30,6 @@ ea.status,
 ea.caminho,
 ea.id_atividade_complementar,
 ea.observacoes,
-a.total_horas,
 c.carga_horaria
 FROM entrega_atividade ea 
 INNER JOIN atividade_complementar ac 
@@ -125,6 +124,7 @@ $quantidade = $query->num_rows;
                 <h3>Minhas atividades complementares de curso.</h3>
                 <p>Você não entregou nenhuma atividade complementar no sistema ainda!</p>
 
+            
             <?php
 
             } else {
@@ -132,10 +132,11 @@ $quantidade = $query->num_rows;
                 //definir o array associativo com os valores vindos do banco de dados.
                 $entrega = mysqli_fetch_assoc($query);
 
-                //definir a variável que irá armazenar o total de horas aprovadas do aluno.
-                $total_horas_aprovadas = $entrega['total_horas'];
+                $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada ) FROM entrega_atividade ea WHERE ea.status = 'Deferido' AND ea.id_aluno =" . $_SESSION['aluno'][1];
 
-                mysqli_data_seek($query, 0);
+                $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
+
+                $horas_totais_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
 
                 //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
 
@@ -150,8 +151,12 @@ $quantidade = $query->num_rows;
                 <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
 
                 <!--definir o contador de horas aprovadas do aluno.-->
-                <p>Horas aprovadas : <?php echo $total_horas_aprovadas . " " . "/" . " " . $entrega['carga_horaria'] ?></p>
+                <p>Horas aprovadas : <?php echo $horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] . " " . "/" . " " . $entrega['carga_horaria'] ?></p>
 
+                <?php
+
+                mysqli_data_seek($query, 0)
+                ?>
                 <!--definir a tabela com as informações das atividades complementares de curso que o aluno entregou no sistema.-->
                 <table>
                     <thead>
@@ -318,7 +323,7 @@ $quantidade = $query->num_rows;
             <?php
 
             //se o total de horas aprovadas for maior o igual ao total de horas que o curso pode aprovar, então quer dizer que o aluno completou todas as suas horas complementares de curso.
-            if ($total_horas_aprovadas >= $entrega['carga_horaria']) {
+            if ($horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] >= $entrega['carga_horaria']) {
 
                 //e por esse motivo ele pode garar o relatório com as informações.
 
@@ -331,17 +336,6 @@ $quantidade = $query->num_rows;
             <?php
 
             } else {
-
-                //não acontece nada.
-
-            ?>
-
-                <a href='relatorio.php' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio">
-                    <i class="material-icons right"> assignment</i>Gerar relatório
-                </a>
-
-            <?php
-
             }
             ?>
         </div>

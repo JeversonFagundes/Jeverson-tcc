@@ -24,7 +24,7 @@ $sql = "SELECT a.id_aluno, a.nome, a.matricula, a.email,
 
  ea.status, ea.certificado, ea.caminho, ea.titulo_certificado,
 
- ea.observacoes, ac.descricao, a.total_horas,
+ ea.observacoes, ac.descricao,
 
  ac.natureza, c.carga_horaria
 
@@ -97,19 +97,23 @@ $resultado = excutarSQL($mysql, $sql);
             //definir o array associativo com os valores vindos do banco de dados.
             $entrega = mysqli_fetch_assoc($resultado);
 
+            $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada) FROM entrega_atividade ea WHERE ea.id_aluno = $id AND ea.status = 'Deferido'";
+
+            $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
+
             //definir a variável que irá armazenar o total de horas aprovadas do aluno.
-            $total_horas_aprovadas = $entrega['total_horas'];
+            $total_horas_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
 
             mysqli_data_seek($resultado, 0);
 
             ?>
 
-            <p class="total" >Total de horas aprovadas : <strong> <?php echo $total_horas_aprovadas . " " . "/" . " " . $entrega['carga_horaria'] ?></strong></p>
+            <p class="total" >Total de horas aprovadas : <strong> <?php echo $total_horas_aprovadas['SUM(ea.carga_horaria_aprovada)'] . " " . "/" . " " . $entrega['carga_horaria'] ?></strong></p>
 
             <?php
 
             //se o total de horas aprovadas que o aluno tem, for maior ou igual a quantidade de horas o curso disponibiliza
-            if ($total_horas_aprovadas >= $entrega['carga_horaria']) {
+            if ($total_horas_aprovadas['SUM(ea.carga_horaria_aprovada)'] >= $entrega['carga_horaria']) {
 
                 //disponibilizamos a funcionalidade de imprimir relatório, usando para isso um link
             ?>
