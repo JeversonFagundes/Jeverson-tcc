@@ -16,7 +16,7 @@ $pastaDestino = "certificados/";
 
 //busca no banco de dados
 
-//listar todas as atividades cadasttradas pelo aluno que está logado no sistema. Para isso buscamos na tebela entrega_atividade unindo coma tabela atividade_complementar e aluno, para que seja possível exibir as atividades cadastradas pelo aluno junto com as infromações da atividade complementar de curso que essa entrega está relacionada, como natureza, descrição etc.
+//listar todas as atividades cadastradas pelo aluno que está logado no sistema. Para isso buscamos na tebela entrega_atividade unindo coma tabela atividade_complementar e aluno, para que seja possível exibir as atividades cadastradas pelo aluno junto com as infromações da atividade complementar de curso que essa entrega está relacionada, como natureza, descrição etc.
 $sql = "SELECT 
 ac.descricao, 
 ac.natureza,
@@ -53,6 +53,7 @@ $quantidade = $query->num_rows;
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
 
     <!--Import Google Icon Font-->
@@ -63,44 +64,44 @@ $quantidade = $query->num_rows;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela inicial do aluno</title>
 
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            text-align: center;
+            color: #757575;
+        }
+
+        .teste {
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+
 </head>
-
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        margin: 0;
-    }
-
-    main {
-        flex: 1 0 auto;
-    }
-
-    .container {
-        margin-top: 50px;
-    }
-
-    table {
-        margin-top: 20px;
-    }
-
-    footer {
-        background-color: #f5f5f5;
-        padding: 10px 0;
-        text-align: center;
-        color: #757575;
-    }
-
-    .teste {
-        justify-content: center;
-        text-align: center;
-    }
-</style>
 
 <body>
 
-    <!-- Conteúdo Principal -->
+    <!--contaudo principal-->
     <main>
 
         <!--incluir a navbar.-->
@@ -115,7 +116,7 @@ $quantidade = $query->num_rows;
 
             <?php
 
-            //com a quantidade de linhas em mãos, agora é possivél fazer verificações com relação a isso.
+            //com a quantidade de linhas retornadas do banco de dados em mãos, agora é possivél fazer verificações com relação a isso.
             if ($quantidade == 0) {
 
             ?>
@@ -124,19 +125,30 @@ $quantidade = $query->num_rows;
                 <h3>Minhas atividades complementares de curso.</h3>
                 <p>Você não entregou nenhuma atividade complementar no sistema ainda!</p>
 
-            
-            <?php
+                <?php
 
             } else {
 
-                //definir o array associativo com os valores vindos do banco de dados.
-                $entrega = mysqli_fetch_assoc($query);
+                //definir o array associativo com todos os valores vindos do banco de dados.
+                $entrega = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
+                //contar o total de horas deferidas que o aluno tem.
                 $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada ) FROM entrega_atividade ea WHERE ea.status = 'Deferido' AND ea.id_aluno =" . $_SESSION['aluno'][1];
 
+                //executar o comando de comtagem do total de horas aprovadas que o aluno tem
                 $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
 
+                //criar um array associativo com os valores da contagem total de horas aprovadas.
                 $horas_totais_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
+                
+                //verificar se a contagem total de horas totais aprovadas é igual a 0.
+                if ($horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] == 0) {
+
+                    $quantidade_total_horas = 0;
+                } else {
+
+                    $quantidade_total_horas = $horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'];
+                }
 
                 //bem acima das atividades que foram entregues no sistema, fica a mecanica de exibir notificações do sistema, que nesse caso exibi as nofiticações de "entrega realizada com sucesso no sistema!" qunado necessário.
 
@@ -146,18 +158,23 @@ $quantidade = $query->num_rows;
                 //limpar as notificações do sistema.
                 limpaNotificacoes();
 
-            ?>
+                $imprimido = false;
 
-                <!--mostramos todas as infromações referentes as entregas que o aluno faz no sistema.-->
+                foreach ($entrega as $contagem_total) {
+                    if (!$imprimido) {
 
-                <!--definir o contador de horas aprovadas do aluno.-->
-                <p>Horas aprovadas : <?php echo $horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] . " " . "/" . " " . $entrega['carga_horaria'] ?></p>
-
-                <?php
-
-                mysqli_data_seek($query, 0)
                 ?>
+
+                        <p>Total de horas aprovadas : <?php echo $quantidade_total_horas . " " . "/" . " " . $contagem_total['carga_horaria'] ?></p>
+                <?php
+                        $imprimido = true;
+                    }
+                }
+
+                ?>
+
                 <!--definir a tabela com as informações das atividades complementares de curso que o aluno entregou no sistema.-->
+
                 <table>
                     <thead>
                         <tr>
@@ -166,52 +183,55 @@ $quantidade = $query->num_rows;
                             <th class="teste">Horas realizadas</th>
                             <th class="teste">Horas aprovadas</th>
                             <th class="teste">Situação</th>
-                            <th class="teste" colspan="2"></th>
+                            <th class="teste" colspan="3"></th>
                         </tr>
                     </thead>
+
                     <tbody>
+
                         <!-- Adicione mais linhas conforme necessário -->
 
                         <!--definição da estrutura de repetição para poder fazer a exibição dos dados para o aluno.-->
                         <?php
 
                         // Definir a estrutura de repetição que irá mostrar na tela do aluno, todas as atividades que ele entregou no sistema.
-                        while ($dados = mysqli_fetch_assoc($query)) {
+                        foreach ($entrega as $informacoes_entrega) {
 
                             //dentro da repetição verificamos se o status e a observação são diferentes das configurações padrões do sistema. Se isso for verdadeiro, significa que o coordenador de curso adcionou uma correção a entrega do certificado, diante disso imprimimos as informações de status, observações que o coordenador de curso adicionou e a carga horária que foi aprovada.
-                            if ($dados['status'] != "Em análise" or $dados['observacoes'] != "Sem observações") {
+                            if ($informacoes_entrega['status'] != "Em análise" or $informacoes_entrega['observacoes'] != "Sem observações") {
 
                                 //agora devemos verificar qual é o status da entrega para poder imprimir as informações com as configurações de cores certas.
-
-                                if ($dados['status'] == "Deferido") {
+                                if ($informacoes_entrega['status'] == "Deferido") {
 
                                     //imprimimos com a cor verde a linha da tabela.
 
                                     echo "<tr class=\"#a5d6a7 green lighten-3\">";
-                                    echo "<td>" . $dados['descricao'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['status'] . "</td>";
+                                    echo "<td>" . $informacoes_entrega['descricao'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['titulo_certificado'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_certificado'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['status'] . "</td>";
 
-                                    echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
+                                    echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
 
-                                    echo '<td> <a href="#modal' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
+                                    echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
+
+                                    echo '<td> <a href="#modal' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
 
                                     echo "</tr>";
 
                         ?>
 
                                     <!-- Modal Structure -->
-                                    <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
+                                    <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal">
                                         <div class="modal-content">
                                             <h2> Atenção! </h2>
-                                            <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
+                                            <p>Você confirma a exclusão desta entrega : <?php echo $informacoes_entrega['titulo_certificado']; ?> ?</p>
                                         </div>
 
                                         <div class="modal-footer">
                                             <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                                <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
+                                                <input type="hidden" name="id" value="<?php echo $informacoes_entrega['id_entrega_atividade']; ?>">
 
                                                 <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
                                                     Excluir </button>
@@ -223,36 +243,37 @@ $quantidade = $query->num_rows;
                                         </div>
                                     </div>
                                 <?php
+                                } elseif ($informacoes_entrega['status'] == "Indeferido") {
 
-                                } elseif ($dados['status'] == "Indeferido") {
-
-                                    //imprimimos com a cor cermelha a linha da tabela.
+                                    //imprimimos com a cor vermelha a linha da tabela.
 
                                     echo "<tr class=\"#ef9a9a red lighten-3\">";
-                                    echo "<td>" . $dados['descricao'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                    echo "<td class=\"teste\">" . $dados['status'] . "</td>";
+                                    echo "<td>" . $informacoes_entrega['descricao'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['titulo_certificado'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_certificado'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
+                                    echo "<td class=\"teste\">" . $informacoes_entrega['status'] . "</td>";
 
-                                    echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
+                                    echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
 
-                                    echo '<td> <a href="#modal' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
+                                    echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
+
+                                    echo '<td> <a href="#modal' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
 
                                     echo "</tr>";
 
                                 ?>
 
                                     <!-- Modal Structure -->
-                                    <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
+                                    <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal">
                                         <div class="modal-content">
                                             <h2> Atenção! </h2>
-                                            <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
+                                            <p>Você confirma a exclusão desta entrega : <?php echo $informacoes_entrega['titulo_certificado']; ?> ?</p>
                                         </div>
 
                                         <div class="modal-footer">
                                             <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                                <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
+                                                <input type="hidden" name="id" value="<?php echo $informacoes_entrega['id_entrega_atividade']; ?>">
 
                                                 <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
                                                     Excluir </button>
@@ -270,30 +291,32 @@ $quantidade = $query->num_rows;
                                 //imprimimos com a cor laranja a linha da tabela.
 
                                 echo "<tr class=\"#ffcc80 orange lighten-3\">";
-                                echo "<td>" . $dados['descricao'] . "</td>";
-                                echo "<td class=\"teste\">" . $dados['titulo_certificado'] . "</td>";
-                                echo "<td class=\"teste\">" . $dados['carga_horaria_certificado'] . "</td>";
-                                echo "<td class=\"teste\">" . $dados['carga_horaria_aprovada'] . "</td>";
-                                echo "<td class=\"teste\">" . $dados['status'] . "</td>";
+                                echo "<td>" . $informacoes_entrega['descricao'] . "</td>";
+                                echo "<td class=\"teste\">" . $informacoes_entrega['titulo_certificado'] . "</td>";
+                                echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_certificado'] . "</td>";
+                                echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
+                                echo "<td class=\"teste\">" . $informacoes_entrega['status'] . "</td>";
 
-                                echo '<td class=\"teste\"> <a href="crudEntrega/formeditEntrega.php?id=' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light#1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
+                                echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
 
-                                echo '<td class=\"teste\"> <a href="#modal' . $dados['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
+                                echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
+
+                                echo '<td> <a href="#modal' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light red modal-trigger"><i class="material-icons">delete</i></a> </td>';
 
                                 echo "</tr>";
 
                                 ?>
 
                                 <!-- Modal Structure -->
-                                <div id="modal<?php echo $dados['id_entrega_atividade']; ?>" class="modal">
+                                <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal">
                                     <div class="modal-content">
                                         <h2> Atenção! </h2>
-                                        <p>Você confirma a exclusão desta entrega : <?php echo $dados['titulo_certificado']; ?> ?</p>
+                                        <p>Você confirma a exclusão desta entrega : <?php echo $informacoes_entrega['titulo_certificado']; ?> ?</p>
                                     </div>
 
                                     <div class="modal-footer">
                                         <form action="crudEntrega/excluirEntrega.php" method="POST">
-                                            <input type="hidden" name="id" value="<?php echo $dados['id_entrega_atividade']; ?>">
+                                            <input type="hidden" name="id" value="<?php echo $informacoes_entrega['id_entrega_atividade']; ?>">
 
                                             <button type="submit" name="btn-deletar" class="modal-action modal-close waves-red btn red darken-1">
                                                 Excluir </button>
@@ -307,39 +330,35 @@ $quantidade = $query->num_rows;
                         <?php
                             }
                         }
-
                         ?>
 
                     </tbody>
+
                 </table>
+                <?php
 
+                echo "<br>";
+
+                //se o total de horas aprovadas for maior o igual ao total de horas que o curso pode aprovar, então quer dizer que o aluno completou todas as suas horas complementares de curso.
+
+                $imprimido_certificado = false;
+
+                foreach ($entrega as $certificado) {
+                    if ($quantidade_total_horas >= $certificado['carga_horaria']) {
+                        if (!$imprimido_certificado) {
+                ?>
+                            <a href='relatorio.php' class="btn waves-effect waves-light #1565c0 blue darken-3 lighten-3 relatorio">
+                                <i class="material-icons right">assignment</i>Gerar relatório
+                            </a>
             <?php
-            }
-
-            ?>
-
-            <br>
-
-            <?php
-
-            //se o total de horas aprovadas for maior o igual ao total de horas que o curso pode aprovar, então quer dizer que o aluno completou todas as suas horas complementares de curso.
-            if ($horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] >= $entrega['carga_horaria']) {
-
-                //e por esse motivo ele pode garar o relatório com as informações.
-
-            ?>
-
-                <a href='relatorio.php' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio">
-                    <i class="material-icons right"> assignment</i>Gerar relatório
-                </a>
-
-            <?php
-
-            } else {
+                            $imprimido_certificado = true;
+                        }
+                    }
+                }
             }
             ?>
+
         </div>
-
     </main>
 
     <!-- Rodapé -->
@@ -378,6 +397,7 @@ $quantidade = $query->num_rows;
             sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
         });
     </script>
+
 </body>
 
 </html>
