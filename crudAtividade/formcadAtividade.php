@@ -81,6 +81,7 @@ $quantidade = $query->num_rows;
     .testeP {
         font-size: 20px;
     }
+    
 </style>
 
 <body>
@@ -170,7 +171,7 @@ $quantidade = $query->num_rows;
                 <hr>
 
                 <!--definir a tabela de exebição das atividades cadastradas no sistema-->
-                <table>
+                <table class="highlight">
                     <thead>
                         <tr>
                             <th>Natureza</th>
@@ -260,6 +261,7 @@ $quantidade = $query->num_rows;
                 endingTop: '15%' // Posição final do modal em relação ao topo
             });
         });
+
 
         document.addEventListener('DOMContentLoaded', function() {
             // Inicializa a sidenav

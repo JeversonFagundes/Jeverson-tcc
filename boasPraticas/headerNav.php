@@ -92,10 +92,7 @@ if (isset($_SESSION['aluno'])) {
                                     echo 'style="text-decoration: underline;"';
                                 } ?> href="/jeverson-tcc/crudCoordenador/formcadCoordenador.php">Cadastrar coordenador de curso</a></li>
 
-                        <li><a <?php if ($paginaCorrente == 'perfilAdmini.php') {
-                                    echo 'style="text-decoration: underline;"';
-                                } ?> href="/jeverson-tcc/crudContaCo/perfilCoordenador.php">
-                                Perfil</a></li>
+                       
                         <li><a href="/jeverson-tcc/logout.php">Sair</a></li>
                     </ul>
                 </div>
@@ -105,8 +102,7 @@ if (isset($_SESSION['aluno'])) {
             <ul id="mobile" class="sidenav">
                 <li><a href="/jeverson-tcc/inicialAdmin.php"><i class="material-icons">home</i>Tela inicial</a></li>
                 <li><a href="/jeverson-tcc/crudCurso/formcadcurso.php"><i class="material-icons">border_color</i>Cadastrar curso</a></li>
-                <li><a href="/jeverson-tcc/crudCoordenador/formcadCoordenador.php"><i class="material-icons">border_color</i>Cadastro Co</a></li>
-                <li><a href="/jeverson-tcc/crudContaCo/perfilCoordenador.php"><i class="material-icons">person_outline</i>Perfil</a></li>
+                <li><a href="/jeverson-tcc/crudCoordenador/formcadCoordenador.php"><i class="material-icons">border_color</i>Cadastro Coordenador</a></li>
                 <li><a href="/jeverson-tcc/logout.php"><i class="material-icons">exit_to_app</i>Sair</a></li>
 
             </ul>

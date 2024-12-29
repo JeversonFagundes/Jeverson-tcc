@@ -18,10 +18,13 @@ if ($_POST['deferir']) {
     //se escolheu a opção de indeferir o arquivo que foi entregue no sistema, realizamos o processedimento necessários.
 
     //receber os dados vindos do formulário que está no arquivo validar.php.
+
+    //O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
     $id = $_POST['id_atividade'];
-    $cargaDefe = $_POST['cargaDefe'];
+    $cargaDefe = trim($_POST['cargaDefe']);
     $situacao = "Deferido";
-    $observacoes = $_POST['observacoes'];
+    $observacoes = trim($_POST['observacoes']);
     $id_aluno = $_POST['aluno'];
     $nome = $_POST['nome'];
     $matricula = $_POST['matricula'];
@@ -49,11 +52,14 @@ if ($_POST['deferir']) {
     if ($_POST['indeferir']) {
 
         //receber os dados vindos do formulário que está no arquivo validar.php.
+
+        //O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
         $id = $_POST['id_atividade'];
         $cargaDefe = 0;
         $situacao = "Indeferido";
         $id_aluno = $_POST['aluno'];
-        $observacoes = $_POST['observacoes'];
+        $observacoes = trim($_POST['observacoes']);
         $nome = $_POST['nome'];
         $matricula = $_POST['matricula'];
         $email = $_POST['email'];

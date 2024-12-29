@@ -140,7 +140,7 @@ $quantidade = $query->num_rows;
 
                 //criar um array associativo com os valores da contagem total de horas aprovadas.
                 $horas_totais_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
-                
+
                 //verificar se a contagem total de horas totais aprovadas é igual a 0.
                 if ($horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] == 0) {
 
@@ -165,7 +165,7 @@ $quantidade = $query->num_rows;
 
                 ?>
 
-                        <p>Total de horas aprovadas : <?php echo $quantidade_total_horas . " " . "/" . " " . $contagem_total['carga_horaria'] ?></p>
+                        <p><strong>Total de horas aprovadas : <?php echo $quantidade_total_horas . " " . "/" . " " . $contagem_total['carga_horaria'] ?></strong></p>
                 <?php
                         $imprimido = true;
                     }

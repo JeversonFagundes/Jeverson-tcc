@@ -12,8 +12,11 @@ require_once "../boasPraticas/notificacoes.php";
 $mysql = conectar();
 
 //receber os dados vindos do forrmulário do arquivo formcadcurso.html.
-$nome_curso = $_POST['nome'];
-$carga = $_POST['cargaHoraria'];
+
+//O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
+$nome_curso = trim($_POST['nome']);
+$carga = trim($_POST['cargaHoraria']);
 
 //atribuir a veriavél sql ($sql) o comando inserção no banco de dados.
 $sql = "INSERT INTO curso (nome_curso, carga_horaria) VALUES ('$nome_curso', $carga)";

@@ -17,7 +17,10 @@ $mysql = conectar();
 require_once "../boasPraticas/notificacoes.php";
 
 //receber os dados vindos do formulário de recuperação de senha que esta no arquivo form-recuperar-senha.html.
-$email = $_POST['email'];
+
+//O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
+$email = trim($_POST['email']);
 
 //verificar se o email informado está cadastrado no sistema.
 
@@ -40,11 +43,10 @@ $quantidade_administradores = mysqli_fetch_row($consulta_administradores)[0];
 if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_administradores == 0) {
 
     notificacoes(2, "E-mail: " . " " . $email . " " . " não está cadastrado no sistema!");
- 
+
     header("location:form-recuperar-senha.php");
 
-    die ();
-
+    die();
 } else {
 
     //se uma das tabelas retornou um valor diferente de 0 para a busca referente ao amil informado, devemos ver qual tabela foi.
@@ -68,7 +70,7 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
         //executamos o comando sql ($sql).
         $resultado = excutarSQL($mysql, $sql);
 
-         //atribuimos a variavél usuario ($usuario) os resultados da execução do comando sql ($sql).
+        //atribuimos a variavél usuario ($usuario) os resultados da execução do comando sql ($sql).
         $usuario = mysqli_fetch_assoc($resultado);
     }
     if ($quantidade_administradores != 0) {
@@ -156,7 +158,7 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
             $mail->send(); //é utilizado para enviar o email configurado anteriormente com a biblioteca PHPMailer. Quando você chama este método, ele tenta enviar o email com todas as configurações e conteúdo que você definiu anteriormente no script.
 
             notificacoes(1, "Email enviado com sucesso! Confira o seu email.");
-        
+
             header("location:form-recuperar-senha.php");
 
             // gravar as informações na tabela recuperar-senha
@@ -255,7 +257,7 @@ if ($quantidade_alunos == 0 && $quantidade_coordenadores == 0 && $quantidade_adm
 
         $mail->send(); //é utilizado para enviar o email configurado anteriormente com a biblioteca PHPMailer. Quando você chama este método, ele tenta enviar o email com todas as configurações e conteúdo que você definiu anteriormente no script.
         notificacoes(1, "Email enviado com sucesso! Confira o seu email.");
-        
+
         header("location:form-recuperar-senha.php");
 
         // gravar as informações na tabela recuperar-senha

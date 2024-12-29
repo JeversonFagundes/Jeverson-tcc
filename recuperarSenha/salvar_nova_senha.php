@@ -3,10 +3,13 @@
 //SALVAR_NOVA_SENHA.PHP
 
 //receber os dados vindos do formulário que está no arquivo "nova_senha.php".
-$email = $_POST['email'];
+
+//O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
+$email = trim($_POST['email']);
 $token = $_POST['token'];
-$senha = $_POST['senha'];
-$repetirSenha = $_POST['repetirSenha'];
+$senha = trim($_POST['senha']);
+$repetirSenha = trim($_POST['repetirSenha']);
 
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";

@@ -12,9 +12,12 @@ require_once "../boasPraticas/notificacoes.php";
 $mysql = conectar();
 
 //receber os dados vindos formulários que está no arquivo formeditentrega.php.
+
+//O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
 $atividade_complementar = $_POST['atividade_complementar'];
-$titulo = $_POST['titulo'];
-$carga = $_POST['carga'];
+$titulo = trim($_POST['titulo']);
+$carga = trim($_POST['carga']);
 $caminho = $_POST['caminho'];
 $certificado = $_FILES['certificado'];
 $id = $_POST['id'];
@@ -44,7 +47,7 @@ if ($certificado['size'] == 0) {
     excutarSQL($mysql, $sql);
 
     notificacoes(1, "Alterações realizadas com sucesso!");
-    
+
     //redirecionar o aluno para a sua tela inicial.
     header("location: ../inicialAluno.php");
 } else {
@@ -74,7 +77,6 @@ if ($certificado['size'] == 0) {
 
         //matar o código daqui para baixo
         die();
-
     } else {
 
         //se nçao houve arro norecebimento do arquivo devemos processeguir com o uopload do arquivo e alterações no banco de dados.

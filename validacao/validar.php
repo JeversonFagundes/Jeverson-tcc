@@ -61,17 +61,49 @@ $resultado = excutarSQL($mysql, $sql);
     <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualização das atividade entregues por um aluno</title>
+    <title>Visualização das atividades entregues por um aluno</title>
 
-<style>
+    <style>
+        .relatorio {
+            margin-bottom: 15px;
+        }
 
-.relatorio{
-    margin-bottom: 15px;
-}
-.total{
-    font-size: 20px;
-}
-</style>
+        .total {
+            font-size: 20px;
+        }
+
+        .espacamento {
+            margin-right: 30px;
+        }
+
+        .span {
+            margin-bottom: 20px;
+        }
+
+        .myModal {
+            width: 75%;
+            /* Ajuste a largura conforme necessário */
+            height: 55%;
+            /* Ajuste a altura conforme necessário */
+        }
+
+        p,
+        a,
+        h2,
+        h1,
+        span {
+            color: black;
+        }
+
+        .contagem {
+            font-size: 20px;
+        }
+
+        .teste {
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
 
 </head>
 
@@ -84,147 +116,327 @@ $resultado = excutarSQL($mysql, $sql);
 
     <main class="container">
 
-        <h2 class="center-align">Tela de validação da atividade entregue</h3><br>
+        <h2 class="center-align">Atividades entregues</h2><br>
 
-            <?php
+        <?php
 
-            //chamar a função que exibe a notificação
-            exibirNotificacoes();
+        //chamar a função que exibe a notificação
+        exibirNotificacoes();
 
-            //chamar a função que limpa a notificação da sessão.
-            limpaNotificacoes();
+        //chamar a função que limpa a notificação da sessão.
+        limpaNotificacoes();
 
-            //definir o array associativo com os valores vindos do banco de dados.
-            $entrega = mysqli_fetch_assoc($resultado);
+        //definir o array associativo com todos os valores vindos do banco de dados.
+        $entrega = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
-            $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada) FROM entrega_atividade ea WHERE ea.id_aluno = $id AND ea.status = 'Deferido'";
+        //contar o total de horas deferidas que o aluno tem.
+        $sql_total_horas = "SELECT SUM(ea.carga_horaria_aprovada ) FROM entrega_atividade ea WHERE ea.status = 'Deferido' AND ea.id_aluno = $id";
 
-            $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
+        //executar o comando de comtagem do total de horas aprovadas que o aluno tem
+        $execucao_total_horas = excutarSQL($mysql, $sql_total_horas);
 
-            //definir a variável que irá armazenar o total de horas aprovadas do aluno.
-            $total_horas_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
+        //criar um array associativo com os valores da contagem total de horas aprovadas.
+        $horas_totais_aprovadas = mysqli_fetch_assoc($execucao_total_horas);
 
-            mysqli_data_seek($resultado, 0);
+        //verificar se a contagem total de horas totais aprovadas é igual a 0.
+        if ($horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'] == 0) {
 
-            ?>
+            $quantidade_total_horas = 0;
+        } else {
 
-            <p class="total" >Total de horas aprovadas : <strong> <?php echo $total_horas_aprovadas['SUM(ea.carga_horaria_aprovada)'] . " " . "/" . " " . $entrega['carga_horaria'] ?></strong></p>
+            $quantidade_total_horas = $horas_totais_aprovadas['SUM(ea.carga_horaria_aprovada )'];
+        }
 
-            <?php
+        $imprimido = false;
 
-            //se o total de horas aprovadas que o aluno tem, for maior ou igual a quantidade de horas o curso disponibiliza
-            if ($total_horas_aprovadas['SUM(ea.carga_horaria_aprovada)'] >= $entrega['carga_horaria']) {
+        foreach ($entrega as $contagem_total) {
+            if (!$imprimido) {
 
-                //disponibilizamos a funcionalidade de imprimir relatório, usando para isso um link
-            ?>
+        ?>
 
-                <a href='relatorio.php?id=<?php echo $entrega['id_aluno']; ?>' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio ">
-                    <i class="material-icons right">ssignment</i>Gerar relatório
-                </a>
-            <?php
-
+                <p class="contagem"><strong>Total de horas aprovadas : <?php echo $quantidade_total_horas . " " . "/" . " " . $contagem_total['carga_horaria'] ?></strong></p>
+                <?php
+                $imprimido = true;
             }
-            ?>
+        }
 
-            <a href='../relatorio.php?id=<?php echo $entrega['id_aluno']; ?>' class="#1565c0 blue darken-3 lighten-3 waves-effect waves-light btn relatorio">
-                <i class="material-icons right"> assignment</i>Gerar relatório
-            </a>
+        //se o total de horas aprovadas for maior o igual ao total de horas que o curso pode aprovar, então quer dizer que o aluno completou todas as suas horas complementares de curso.
 
-            <?php
+        $imprimido_certificado = false;
 
-            //daclarar a variavél dados ($dados) que receberá os valores do array associativo que foi gerado na busca $sql. Esses dados serão repetidos enquanto houver dados.
-            while ($dados = mysqli_fetch_assoc($resultado)) {
+        foreach ($entrega as $certificado) {
+            if ($quantidade_total_horas >= $certificado['carga_horaria']) {
+                if (!$imprimido_certificado) {
+                ?>
+                    <a href="relatorio.php?id=<?php echo $id; ?>"
+                        class="btn waves-effect waves-light #1565c0 blue darken-3 lighten-3 relatorio">
+                        <i class="material-icons right">assignment</i>Gerar relatório
+                    </a>
+        <?php
 
-            ?>
+                    $sql_atualizacao = "UPDATE aluno a SET a.conclusao_horas = 1 WHERE id_aluno = $id";
 
-                <form action="mudarSituacao.php" method="post">
+                    $execucao = excutarSQL($mysql, $sql_atualizacao);
 
-                    <div class="card-panel">
-
-                        <div class="row">
-
-                            <!--dados invisiveis.-->
-                            <input type="hidden" name="id_atividade" value="<?php echo $dados['id_entrega_atividade']; ?>">
-                            <input type="hidden" name="aluno" value="<?php echo $dados['id_aluno']; ?>">
-                            <input type="hidden" name="nome" value="<?php echo $dados['nome']; ?>">
-                            <input type="hidden" name="matricula" value="<?php echo $dados['matricula']; ?>">
-                            <input type="hidden" name="email" value="<?php echo $dados['email']; ?>">
-                            <input type="hidden" name="certificado" value="<?php echo $dados['titulo_certificado']; ?>">
-                            <input type="hidden" name="descricao" value="<?php echo $dados['descricao']; ?>">
-
-                            <div class="input-field col s12">
-                                <input placeholder="Situaçao" id="situacao" type="text" value="<?php echo $dados['status'] ?>" disabled>
-                                <label for="situacao">Situação : </label>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <input placeholder="Natureza" id="natureza" type="text" value="<?php echo $dados['natureza'] ?>" disabled>
-                                <label for="natureza">Natureza da entrega : </label>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $dados['descricao'] ?></textarea>
-                                <label for="textarea2">Descrição da natureza : </label>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <input placeholder="Descrição da atividade desenvolvida" id="descricao" value="<?php echo $dados['titulo_certificado'] ?>" type="text" disabled>
-                                <label for="descricao">Descrição da atividade desenvolvida : </label>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $dados['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
-                                <label for="cargahorariadesenvolvida">Carga horária desenvolvida : </label>
-                            </div>
-
-                            <!--aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema.-->
-                            <p>Visualizar atividade entregue : <a class="waves-effect waves-light btn" href=" <?php echo $pastaDestino . $dados['caminho']; ?>"><?php echo $dados['titulo_certificado']; ?></a>
-                            </p>
-
-                            <div class="input-field col s12">
-                                <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $dados['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
-                                <label for="cargDef">Carga horária deferida : </label>
-                                <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $dados['observacoes'] ?></textarea>
-                                <label for="textarea1">Adicionar observações : </label>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col s12">
-                                <p class="center-align">
-                                    <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="deferir" value="Deferir">Deferir
-                                        <i class="material-icons right">thumb_up</i> </button>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col s12">
-                                <p class="center-align">
-                                    <button class="btn waves-effect waves-light #e64a19 deep-orange darken-2 lighten-3" type="submit" name="indeferir" value="Indeferir">Indeferir
-                                        <i class="material-icons right">thumb_down</i> </button>
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </form>
-
-            <?php
+                    $imprimido_certificado = true;
+                }
             }
-            ?>
+        }
+        ?>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Título da entrega</th>
+                    <th>Situação</th>
+                    <th class="teste">Carga horária entregue</th>
+                    <th class="teste">Carga horária deferida</th>
+                    <th colspan="1">Avaliar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <?php
+                // Definir a estrutura de repetição que irá mostrar os dados na tela do coordenador de curso.
+                foreach ($entrega as $informacoes_entrega) {
+
+                    if ($informacoes_entrega['status'] == "Deferido") {
+
+                        //imprimimos com a cor verde a linha da tabela.
+
+                        echo "<tr class=\"#a5d6a7 green lighten-3\">";
+                        echo "<td>" . $informacoes_entrega['titulo_certificado'] . "</td>";
+                        echo "<td>" . $informacoes_entrega['status'] . "</td>";
+                        echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_certificado'] . "</td>";
+                        echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
+
+                        echo '<td> <a href="#modal' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons">rate_review</i></a> </td>';
+
+                        echo "</tr>";
+
+                ?>
+
+                        <!-- Modal Structure -->
+                        <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal myModal">
+
+                            <div class="modal-footer">
+                                <form action="mudarSituacao.php" method="POST">
+
+                                    <!--dados invisiveis.-->
+                                    <input type="hidden" name="id_atividade" value="<?php echo $informacoes_entrega['id_entrega_atividade']; ?>">
+                                    <input type="hidden" name="aluno" value="<?php echo $informacoes_entrega['id_aluno']; ?>">
+                                    <input type="hidden" name="nome" value="<?php echo $informacoes_entrega['nome']; ?>">
+                                    <input type="hidden" name="matricula" value="<?php echo $informacoes_entrega['matricula']; ?>">
+                                    <input type="hidden" name="email" value="<?php echo $informacoes_entrega['email']; ?>">
+                                    <input type="hidden" name="certificado" value="<?php echo $informacoes_entrega['titulo_certificado']; ?>">
+                                    <input type="hidden" name="descricao" value="<?php echo $informacoes_entrega['descricao']; ?>">
+
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $informacoes_entrega['descricao'] ?></textarea>
+                                        <label for="textarea2">Descrição da natureza : </label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $informacoes_entrega['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
+                                        <label for="cargahorariadesenvolvida">Carga horária desenvolvida : </label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $informacoes_entrega['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
+                                        <label for="cargDef">Carga horária deferida : </label>
+                                        <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $informacoes_entrega['observacoes'] ?></textarea>
+                                        <label for="textarea1">Adicionar observações : </label>
+                                    </div>
+
+                                    <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
+                                        Deferir </button>
+
+                                    <button type="submit" name="indeferir" value="Indeferir" class="modal-action modal-close  btn waves-light red">
+                                        Indeferir </button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                        <?php
+                    } else {
+
+                        if ($informacoes_entrega['status'] == "Indeferido") {
+
+                            //imprimimos com a cor vermelha a linha da tabela.
+
+                            echo "<tr class=\"#ef9a9a red lighten-3\">";
+                            echo "<td>" . $informacoes_entrega['titulo_certificado'] . "</td>";
+                            echo "<td>" . $informacoes_entrega['status'] . "</td>";
+                            echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_certificado'] . "</td>";
+                            echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
+
+                            echo '<td> <a href="#modal' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons">rate_review</i></a> </td>';
+
+                            echo "</tr>";
+
+                        ?>
+
+                            <!-- Modal Structure -->
+                            <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal myModal">
+
+                                <div class="modal-footer">
+                                    <form action="mudarSituacao.php" method="POST">
+
+                                        <!--dados invisiveis.-->
+                                        <input type="hidden" name="id_atividade" value="<?php echo $informacoes_entrega['id_entrega_atividade']; ?>">
+                                        <input type="hidden" name="aluno" value="<?php echo $informacoes_entrega['id_aluno']; ?>">
+                                        <input type="hidden" name="nome" value="<?php echo $informacoes_entrega['nome']; ?>">
+                                        <input type="hidden" name="matricula" value="<?php echo $informacoes_entrega['matricula']; ?>">
+                                        <input type="hidden" name="email" value="<?php echo $informacoes_entrega['email']; ?>">
+                                        <input type="hidden" name="certificado" value="<?php echo $informacoes_entrega['titulo_certificado']; ?>">
+                                        <input type="hidden" name="descricao" value="<?php echo $informacoes_entrega['descricao']; ?>">
+
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $informacoes_entrega['descricao'] ?></textarea>
+                                            <label for="textarea2">Descrição da natureza : </label>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $informacoes_entrega['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
+                                            <label for="cargahorariadesenvolvida">Carga horária desenvolvida : </label>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $informacoes_entrega['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
+                                            <label for="cargDef">Carga horária deferida : </label>
+                                            <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $informacoes_entrega['observacoes'] ?></textarea>
+                                            <label for="textarea1">Adicionar observações : </label>
+                                        </div>
+
+                                        <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
+                                            Deferir </button>
+
+                                        <button type="submit" name="indeferir" value="Indeferir" class="modal-action modal-close  btn waves-light red">
+                                            Indeferir </button>
+
+                                    </form>
+                                </div>
+
+                            </div>
+                        <?php
+                        } else {
+
+                            //imprimimos com a cor laranja a linha da tabela.
+
+                            echo "<tr class=\"#ffcc80 orange lighten-3\">";
+                            echo "<td>" . $informacoes_entrega['titulo_certificado'] . "</td>";
+                            echo "<td>" . $informacoes_entrega['status'] . "</td>";
+                            echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_certificado'] . "</td>";
+                            echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
+
+                            echo '<td> <a href="#modal' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons">rate_review</i></a> </td>';
+
+                            echo "</tr>";
+
+                        ?>
+
+                            <!-- Modal Structure -->
+                            <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal myModal">
+
+                                <div class="modal-footer">
+                                    <form action="mudarSituacao.php" method="POST">
+
+                                        <!--dados invisiveis.-->
+                                        <input type="hidden" name="id_atividade" value="<?php echo $informacoes_entrega['id_entrega_atividade']; ?>">
+                                        <input type="hidden" name="aluno" value="<?php echo $informacoes_entrega['id_aluno']; ?>">
+                                        <input type="hidden" name="nome" value="<?php echo $informacoes_entrega['nome']; ?>">
+                                        <input type="hidden" name="matricula" value="<?php echo $informacoes_entrega['matricula']; ?>">
+                                        <input type="hidden" name="email" value="<?php echo $informacoes_entrega['email']; ?>">
+                                        <input type="hidden" name="certificado" value="<?php echo $informacoes_entrega['titulo_certificado']; ?>">
+                                        <input type="hidden" name="descricao" value="<?php echo $informacoes_entrega['descricao']; ?>">
+
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $informacoes_entrega['descricao'] ?></textarea>
+                                            <label for="textarea2">Descrição da natureza : </label>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $informacoes_entrega['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
+                                            <label for="cargahorariadesenvolvida">Carga horária desenvolvida : </label>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <input placeholder="Digite a carga que se deseja deferir" id="argaDef" name="cargaDefe" value="<?php echo $informacoes_entrega['carga_horaria_aprovada'] ?>" type="text" class="validate" pattern="^\d{1,2}$" required>
+                                            <label for="cargDef">Carga horária deferida : </label>
+                                            <span class="helper-text" data-error="Você deve digitar a carga horária que se deseja deferir"></span>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $informacoes_entrega['observacoes'] ?></textarea>
+                                            <label for="textarea1">Adicionar observações : </label>
+                                        </div>
+
+                                        <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
+                                            Deferir </button>
+
+                                        <button type="submit" name="indeferir" value="Indeferir" class="modal-action modal-close  btn waves-light red">
+                                            Indeferir </button>
+
+                                    </form>
+                                </div>
+
+                            </div>
+                <?php
+                        }
+                    }
+                }
+                ?>
+
+            </tbody>
+        </table>
 
     </main>
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+
     <script>
+        // M.AutoInit();
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {
+                opacity: 0.7, // Opacidade do background (0.0 a 1.0)
+                inDuration: 1000, // Duração da animação de abertura em milissegundos
+                outDuration: 1200, // Duração da animação de fechamento em milissegundos
+                dismissible: true, // Permite fechar ao clicar fora do modal
+                startingTop: '10%', // Posição inicial do modal em relação ao topo
+                endingTop: '15%' // Posição final do modal em relação ao topo
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa a sidenav
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, {
+                edge: 'left'
+            });
+
+            // Configura a largura da sidenav
+            var sidenav = document.querySelector('.sidenav');
+            sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
+
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const materialboxElems = document.querySelectorAll('.materialboxed');
+            M.Materialbox.init(materialboxElems);
+        });
+
         $('#textarea1').val('New Text');
         M.textareaAutoResize($('#textarea1'));
 

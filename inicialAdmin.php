@@ -137,7 +137,7 @@ $quantidade_coordenadores_curso = $resultado2->num_rows;
 
             ?>
 
-                <table>
+                <table class="highlight">
                     <thead>
                         <tr>
                             <th>Nome do curso</th>
@@ -214,7 +214,7 @@ $quantidade_coordenadores_curso = $resultado2->num_rows;
 
             ?>
 
-                <table>
+                <table class="highlight">
                     <thead>
                         <tr>
                             <th>Nome coordenador</th>
@@ -317,7 +317,7 @@ $quantidade_coordenadores_curso = $resultado2->num_rows;
 
             // Configura a largura da sidenav
             var sidenav = document.querySelector('.sidenav');
-            sidenav.style.width = '250px'; // Ajuste a largura conforme necessário
+            sidenav.style.width = '300px'; // Ajuste a largura conforme necessário
         });
     </script>
 
