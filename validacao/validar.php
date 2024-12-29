@@ -253,6 +253,8 @@ $resultado = excutarSQL($mysql, $sql);
                                         <label for="textarea1">Adicionar observações : </label>
                                     </div>
 
+                                    <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" class="waves-effect waves-light btn">Visualizar entrega</a>
+
                                     <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
                                         Deferir </button>
 
@@ -318,6 +320,8 @@ $resultado = excutarSQL($mysql, $sql);
                                             <label for="textarea1">Adicionar observações : </label>
                                         </div>
 
+                                        <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" class="waves-effect waves-light btn">Visualizar entrega</a>
+
                                         <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
                                             Deferir </button>
 
@@ -380,6 +384,8 @@ $resultado = excutarSQL($mysql, $sql);
                                             <textarea id="textarea1" name="observacoes" class="materialize-textarea"><?php echo $informacoes_entrega['observacoes'] ?></textarea>
                                             <label for="textarea1">Adicionar observações : </label>
                                         </div>
+
+                                        <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" class="waves-effect waves-light btn">Visualizar entrega</a>
 
                                         <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
                                             Deferir </button>
