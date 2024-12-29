@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 18-Dez-2024 às 23:02
+-- Tempo de geração: 29-Dez-2024 às 19:41
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `matricula` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
-  `total_horas` int NOT NULL,
+  `conclusao_horas` int NOT NULL,
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `aluno` (
 -- Extraindo dados da tabela `aluno`
 --
 
-INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `total_horas`, `id_curso`) VALUES
-(88, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 25, 9),
+INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `conclusao_horas`, `id_curso`) VALUES
+(88, 'Jeverson Miguel Rios Fagundes', '2022311922', 'jeverson.2022311922@aluno.iffar.edu.br', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 9),
 (89, 'Victor Yan', '2022311870', 'victor@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 12),
 (92, 'Luiz Guilherme', '1111111111', 'luiz@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 11),
 (93, 'Roberto Graziadei', '0000000000', 'roberto@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 13);
@@ -215,15 +215,7 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `entrega_atividade`
---
-
-INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`, `id_atividade_complementar`, `observacoes`) VALUES
-(125, 'Modelagem de dados', 12, 'Capturar.PNG', 20, 'Deferido', 88, '6747a1ce024bb.png', 1, 'Jeremias Fagundes'),
-(126, 'Modelagem de dados', 22, 'kazuya-mishima-character-wall-art-lrg.png', 5, 'Deferido', 88, '67519ec91b001.png', 1, 'Sem observações');
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
