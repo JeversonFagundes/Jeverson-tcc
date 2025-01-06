@@ -212,7 +212,7 @@ $quantidade = $query->num_rows;
                                     echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
                                     echo "<td class=\"teste\">" . $informacoes_entrega['status'] . "</td>";
 
-                                    echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
+                                    echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" target="_blank" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
 
                                     echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
 
@@ -297,7 +297,7 @@ $quantidade = $query->num_rows;
                                 echo "<td class=\"teste\">" . $informacoes_entrega['carga_horaria_aprovada'] . "</td>";
                                 echo "<td class=\"teste\">" . $informacoes_entrega['status'] . "</td>";
 
-                                echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
+                                echo '<td> <a href="' . $pastaDestino . $informacoes_entrega['caminho'] . '" target="_blank" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">remove_red_eye</i></a> </td>';
 
                                 echo '<td> <a href="crudEntrega/formeditEntrega.php?id=' . $informacoes_entrega['id_entrega_atividade'] . '" class="btn-floating btn-small waves-effect waves-light #1565c0 blue darken-3 modal-trigger"><i class="material-icons ">create</i></a> </td>';
 

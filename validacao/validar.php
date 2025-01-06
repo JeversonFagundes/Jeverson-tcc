@@ -168,7 +168,7 @@ $resultado = excutarSQL($mysql, $sql);
             if ($quantidade_total_horas >= $certificado['carga_horaria']) {
                 if (!$imprimido_certificado) {
                 ?>
-                    <a href="relatorio.php?id=<?php echo $id; ?>"
+                    <a href="../relatorio.php?id=<?php echo $id; ?>"
                         class="btn waves-effect waves-light #1565c0 blue darken-3 lighten-3 relatorio">
                         <i class="material-icons right">assignment</i>Gerar relatório
                     </a>
