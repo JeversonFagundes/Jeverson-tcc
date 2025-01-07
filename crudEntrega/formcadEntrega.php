@@ -49,7 +49,7 @@ $resultado = excutarSQL($mysql, $sql);
     <title>Formulário de entrega de atividade complementar</title>
 
     <style>
-        .espacamento{
+        .espacamento {
             margin-bottom: 30px;
         }
     </style>
@@ -62,6 +62,11 @@ $resultado = excutarSQL($mysql, $sql);
 
         <h1 class="center-align">Tabela de atividades complementares</h1>
 
+        <?php
+
+        exibirNotificacoes();
+        limpaNotificacoes();
+        ?>
         <div class="card-panel">
 
             <table class="highlight responsive-table">
