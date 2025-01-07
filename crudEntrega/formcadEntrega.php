@@ -108,7 +108,7 @@ $resultado = excutarSQL($mysql, $sql);
                 <?php
 
                 //atribuir a variavél sql2 ($sql2) a busca pelo id e natureza das atividades complementares de curso relacionadas ao curso do aluno que está logado no momento.
-                $sql2 = "SELECT id_atividade_complementar, natureza FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
+                $sql2 = "SELECT id_atividade_complementar, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
 
                 //atribuir a variavél resultado2 ($resultado2) a execução do comando sql2 ($sql2).
                 $resultado2 = excutarSQL($mysql, $sql2);
@@ -127,7 +127,7 @@ $resultado = excutarSQL($mysql, $sql);
                         <!--declarar o resto das opções da lista de seleção. Agora essas opções tem os valores vindos do banco de dados que estão dentro da variavél dados ($dados) acima.-->
                         <option value="<?php echo $dados['id_atividade_complementar'] ?>">
 
-                            <?php echo $dados['natureza'] ?>
+                            <?php echo $dados['descricao'] ?>
 
                         </option>
                     <?php

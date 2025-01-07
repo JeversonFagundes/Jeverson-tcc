@@ -137,7 +137,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
                                 }
                                 ?> value=" <?php echo $atividade_complementar['id_atividade_complementar']; ?>">
 
-                            <?php echo $atividade_complementar['natureza']; ?>
+                            <?php echo $atividade_complementar['descricao']; ?>
 
                         </option>
 

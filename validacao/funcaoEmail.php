@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+
 // Declarar a função que irá enviar o email para o aluno quando o coordenador de curso deferir ou indeferir a atividade que foi entregue pelo aluno no sistema.
 function email($nome, $status, $email, $carga_horaria_aprovada, $descricao, $matricula, $certificado, $observacoes, $tipo)
 {

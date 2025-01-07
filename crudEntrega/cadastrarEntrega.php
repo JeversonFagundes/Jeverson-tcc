@@ -18,8 +18,10 @@ $id = $_SESSION['aluno'][1];
 
 //O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
 
+//O real_escape_string() é usado para escapar caracteres especiais em uma string, tornando-a segura para ser usada em uma consulta SQL, evitando que caracteres especiais quebrem a excução do comando sql.
+
 $atividade_complementar = $_POST['atividade_complementar'];
-$titulo = trim($_POST['titulo']);
+$titulo = trim($mysql->real_escape_string($_POST['titulo']));
 $carga = trim($_POST['carga']);
 $carga_deferida = $_POST['cargaDefe'];
 $status = $_POST['status'];

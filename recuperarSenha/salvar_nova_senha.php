@@ -2,20 +2,22 @@
 
 //SALVAR_NOVA_SENHA.PHP
 
-//receber os dados vindos do formulário que está no arquivo "nova_senha.php".
-
-//O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
-
-$email = trim($_POST['email']);
-$token = $_POST['token'];
-$senha = trim($_POST['senha']);
-$repetirSenha = trim($_POST['repetirSenha']);
-
 //conectar com o banco de dados jeverson-tcc.
 require_once "../conecta.php";
 
 //declarar a veriavél de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
+
+//receber os dados vindos do formulário que está no arquivo "nova_senha.php".
+
+//O trim() em PHP é utilizado para remover os espaços em branco (ou outros caracteres) do início e do final de uma string. Isso é útil quando você deseja limpar entradas de dados de usuários ou formatar strings de maneira mais adequada.
+
+//O real_escape_string() é usado para escapar caracteres especiais em uma string, tornando-a segura para ser usada em uma consulta SQL, evitando que caracteres especiais quebrem a excução do comando sql.
+
+$email = trim($_POST['email']);
+$token = $_POST['token'];
+$senha = trim($mysql->real_escape_string($_POST['senha']));
+$repetirSenha = trim($mysql->real_escape_string($_POST['repetirSenha']));
 
 //conectar no arquivo de notificações do sistema.
 require_once "../boasPraticas/notificacoes.php";

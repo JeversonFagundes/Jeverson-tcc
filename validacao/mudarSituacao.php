@@ -12,6 +12,8 @@ require_once "../boasPraticas/notificacoes.php";
 //declarar a variavel de conexão com o banco de dados jeverson-tcc.
 $mysql = conectar();
 
+//O real_escape_string() é usado para escapar caracteres especiais em uma string, tornando-a segura para ser usada em uma consulta SQL, evitando que caracteres especiais quebrem a excução do comando sql.
+
 //verificar qual foi a opção que o coordenador de curso escolheu.
 if ($_POST['deferir']) {
 
@@ -24,7 +26,7 @@ if ($_POST['deferir']) {
     $id = $_POST['id_atividade'];
     $cargaDefe = trim($_POST['cargaDefe']);
     $situacao = "Deferido";
-    $observacoes = trim($_POST['observacoes']);
+    $observacoes = trim($mysql->real_escape_string($_POST['observacoes']));
     $id_aluno = $_POST['aluno'];
     $nome = $_POST['nome'];
     $matricula = $_POST['matricula'];
@@ -59,7 +61,7 @@ if ($_POST['deferir']) {
         $cargaDefe = 0;
         $situacao = "Indeferido";
         $id_aluno = $_POST['aluno'];
-        $observacoes = trim($_POST['observacoes']);
+        $observacoes = trim($mysql->real_escape_string($_POST['observacoes']));
         $nome = $_POST['nome'];
         $matricula = $_POST['matricula'];
         $email = $_POST['email'];
