@@ -83,7 +83,7 @@ $resultado = excutarSQL($mysql, $sql);
         .myModal {
             width: 75%;
             /* Ajuste a largura conforme necessário */
-            height: 55%;
+            height: 50%;
             /* Ajuste a altura conforme necessário */
         }
 
@@ -253,7 +253,7 @@ $resultado = excutarSQL($mysql, $sql);
                                         <label for="textarea1">Adicionar observações : </label>
                                     </div>
 
-                                    <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" class="waves-effect waves-light btn">Visualizar entrega</a>
+                                    <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" target="_blank" class="waves-effect waves-light btn">Visualizar entrega</a>
 
                                     <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
                                         Deferir </button>
@@ -320,7 +320,7 @@ $resultado = excutarSQL($mysql, $sql);
                                             <label for="textarea1">Adicionar observações : </label>
                                         </div>
 
-                                        <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" class="waves-effect waves-light btn">Visualizar entrega</a>
+                                        <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" target="_blank" class="waves-effect waves-light btn">Visualizar entrega</a>
 
                                         <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
                                             Deferir </button>
@@ -385,7 +385,7 @@ $resultado = excutarSQL($mysql, $sql);
                                             <label for="textarea1">Adicionar observações : </label>
                                         </div>
 
-                                        <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" class="waves-effect waves-light btn">Visualizar entrega</a>
+                                        <a href="<?php echo $pastaDestino . $informacoes_entrega['caminho']; ?>" target="_blank" class="waves-effect waves-light btn">Visualizar entrega</a>
 
                                         <button type="submit" name="deferir" value="Deferir" class="modal-action modal-close waves-red btn green darken-1">
                                             Deferir </button>

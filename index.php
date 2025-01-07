@@ -47,8 +47,7 @@ require_once "boasPraticas/notificacoes.php";
 
         //chamar a função que limpa a notificação de dentro da sessão.
         limpaNotificacoes();
-        require_once "conecta.php";
-        echo mysqli_real_escape_string(conectar(), "marcia dal'agnol");
+        
         ?>
         <form action="login.php" method="post">
 
