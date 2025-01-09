@@ -118,7 +118,7 @@ thead { background-color: #a1887f; color: white;
 
 $dados .= "<main class=\"container\">";
 
-$dados .= "<h2 style='text-align: center;'><img src='http://localhost/jeverson-tcc/iffar.jpg' height='80' width='65%'> </h2>" . "<br><br>";
+$dados .= "<h2 style='text-align: center;'><img src='http://localhost/jeverson-tcc/iffar.jpg' height='90' width='65%'> </h2>" . "<br><br>";
 
 $dados .= "<h1 style='text-align: center;text-decoration: underline;'> Relatório das horas aprovadas</h1>" . "<br><br>";
 
