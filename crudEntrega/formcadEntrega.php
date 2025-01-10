@@ -11,6 +11,8 @@ require_once "../boasPraticas/notificacoes.php";
 //incluir a navbar
 require_once "../boasPraticas/headerNav.php";
 
+require_once "../boasPraticas/tresPontos.php";
+
 //declarar a variavel de conexão com o banco de dados.
 $mysql = conectar();
 
@@ -44,7 +46,6 @@ $resultado = excutarSQL($mysql, $sql);
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css" media="screen,projection" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de entrega de atividade complementar</title>
 
@@ -132,7 +133,7 @@ $resultado = excutarSQL($mysql, $sql);
                         <!-- declarar o resto das opções da lista de seleção. Agora essas opções tem os valores vindos do banco de dados que estão dentro da variavél dados ($dados) acima.-->
                         <option value="<?php echo $dados['id_atividade_complementar'] ?>">
 
-                            <?php echo strWordCut( $dados['descricao'], 40, "...") ?>
+                            <?php echo strWordCut($dados['descricao'], 80, "...") ?>
 
                         </option>
                     <?php
@@ -188,6 +189,7 @@ $resultado = excutarSQL($mysql, $sql);
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('select');
@@ -200,6 +202,7 @@ $resultado = excutarSQL($mysql, $sql);
             $('select').formSelect();
         });
     </script>
+
 </body>
 
 </html>
