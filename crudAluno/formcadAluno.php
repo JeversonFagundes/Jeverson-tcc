@@ -117,23 +117,23 @@ $resultado = excutarSQL($mysql, $sql);
 
                 <div class="input-field col s12 espacamento">
                     <i class="material-icons prefix">mail_outline</i>
-                    <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                    <input placeholder="Digite o seu email" id="email" name="email" type="text" class="validate" pattern="^(?!\s*$)[^\s@']+@[^\s@']+$" required>
                     <label for="email">Email</label>
-                    <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                    <span class="helper-text" data-error="O campo deve conter o @, exemplo : user@gmail.com, este campo não deve conter aspas simples."></span>
                 </div>
 
                 <div class="input-field col s12 espacamento">
                     <i class="material-icons prefix">lock_outline</i>
                     <input id="senha" type="password" placeholder="Digite a seu senha" class="validate" name="senha" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                     <label for="senha">Senha</label>
-                    <span class="helper-text" data-error="Deve ter 8 caracteres, no mínimo e  conter pelo menos 1 letra maiuscula,1 letra minuscula, 1 número e 1 caracter especial;."> </span>
+                    <span class="helper-text" data-error="Deve ter oito caracteres no mínimo e conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial."> </span>
                 </div>
 
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock_outline</i>
                     <input id="senha2" type="password" placeholder="Digite a seu senha" class="validate" name="senha2" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
                     <label for="senha2">Confirmar senha</label>
-                    <span class="helper-text" data-error="Deve ter 8 caracteres, no mínimo e  conter pelo menos 1 letra maiuscula,1 letra minuscula, 1 número e 1 caracter especial;."> </span>
+                    <span class="helper-text" data-error="Deve ter oito caracteres no mínimo e conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial."> </span>
                 </div>
 
                 <p><a href="../logout.php">Voltar</a></p>

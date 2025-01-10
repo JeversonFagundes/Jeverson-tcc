@@ -150,16 +150,16 @@ $entrega = mysqli_fetch_assoc($resultado2);
 
                 <div class="input-field col s12 espacamento">
                     <!--<i class="material-icons prefix">person_outline</i>-->
-                    <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^[^']+$" required value="<?php echo $entrega['titulo_certificado']; ?>">
+                    <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^(?!\s*$).+" required value="<?php echo $entrega['titulo_certificado']; ?>">
                     <label for="titulo">Titulo certificado</label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo corretamente, não se deve usar aspas simples"></span>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo corretamente este campo."></span>
                 </div>
 
                 <div class="input-field col s12">
                     <!--<i class="material-icons prefix">person_outline</i>-->
-                    <input placeholder="Digite a carga horária do seu certificado" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,2}$" required value="<?php echo $entrega['carga_horaria_certificado']; ?>">
+                    <input placeholder="Por exemplo: 10" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,2}$" required value="<?php echo $entrega['carga_horaria_certificado']; ?>">
                     <label for="tcarga">Carga horaria do certificado</label>
-                    <span class="helper-text" data-error="Este campo deve ser preenchido com no máximo dois digitos numericos"></span>
+                    <span class="helper-text" data-error="Este campo deve ser preenchido com no máximo dois dígitos numéricos."></span>
                 </div>
 
                 <input type="hidden" name="id" value=" <?php echo $entrega['id_entrega_atividade']; ?>">

@@ -72,13 +72,13 @@ $dados = mysqli_fetch_assoc($resultado);
                 <div class="input-field col s12">
                     <input placeholder="Digite o nome do curso" id="nome" name="nome" value="<?php echo $dados['nome_curso']; ?>" type="text" class="validate" pattern="^.+$" required>
                     <label for="nome">Nome do curso : </label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo."></span>
                 </div>
 
                 <div class="input-field col s12">
-                    <input placeholder="Digite a carga horária do curso" id="carga" name="carga" value="<?php echo $dados['carga_horaria']; ?>" type="text" class="validate" pattern="^.+$" required>
+                    <input placeholder="Por exemplo : 10" id="carga" name="carga" value="<?php echo $dados['carga_horaria']; ?>" type="text" class="validate" pattern="^\d+$" required>
                     <label for="carga">Carga horaria do curso : </label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="ste campo deve conter apenas caracteres numéricos."></span>
                 </div>
 
 

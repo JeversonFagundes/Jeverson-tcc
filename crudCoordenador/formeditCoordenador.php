@@ -120,9 +120,9 @@ $coordenador = mysqli_fetch_assoc($resultado);
                 <br>
                 <div class="input-field col s12 espacamento">
                     <i class="material-icons prefix">mail_outline</i>
-                    <input placeholder="Digite o seu email" value="<?php echo $coordenador['email']; ?>" id="email" name="email" type="text" class="validate" pattern="^.*@.*$" required>
+                    <input placeholder="Digite o seu email" value="<?php echo $coordenador['email']; ?>" id="email" name="email" type="text" class="validate" pattern="^(?!\s*$)[^\s@']+@[^\s@']+$" required>
                     <label for="email">Email</label>
-                    <span class="helper-text" data-error="O campo deve conter o @, exemplo user@gmail.com"></span>
+                    <span class="helper-text" data-error="O campo deve conter o @, exemplo : user@gmail.com, este campo não deve conter aspas simples."></span>
                 </div>
 
                 <div class="row">

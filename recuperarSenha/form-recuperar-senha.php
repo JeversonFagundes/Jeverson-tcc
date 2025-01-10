@@ -53,9 +53,9 @@ require_once "../boasPraticas/notificacoes.php";
             <form action="recuperar.php" method="post">
 
                 <div class="input-field col s12">
-                    <input placeholder="Digite o email para recuperação de senha" id="email" name="email" type="text" class="validate" pattern="^.+$" required>
+                    <input placeholder="Digite o email para recuperação de senha" id="email" name="email" type="text" class="validate" pattern="^(?!\s*$)[^\s@']+@[^\s@']+$" required>
                     <label for="email">Email</label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="O campo deve conter o @, exemplo : user@gmail.com, este campo não deve conter aspas simples."></span>
                 </div>
 
                 <a href="../index.php">Voltar para tela inicial</a>

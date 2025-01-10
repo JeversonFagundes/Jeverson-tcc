@@ -39,13 +39,13 @@ require_once "../boasPraticas/notificacoes.php";
                 <div class="input-field col s12">
                     <input placeholder="Digite o nome do curso" id="nome" name="nome" type="text" class="validate" pattern="^.+$" required>
                     <label for="nome">Nome do curso : </label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="Você deve preenchar esse campo."></span>
                 </div>
 
                 <div class="input-field col s12">
-                    <input placeholder="Digite a carga horária do curso" id="carga" name="cargaHoraria" type="text" class="validate" pattern="^.+$" required>
+                    <input placeholder="Por exemplo : 10" id="carga" name="cargaHoraria" type="text" class="validate" pattern="^\d+$" required>
                     <label for="carga">Carga horaria: </label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="Este campo deve conter apenas caracteres numéricos."></span>
                 </div>
 
                 <div class="row">

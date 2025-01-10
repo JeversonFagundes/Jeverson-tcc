@@ -71,20 +71,21 @@ $dados = mysqli_fetch_assoc($resultado);
                 <input type="hidden" value="<?php echo $dados['id_atividade_complementar']; ?>" name="id">
 
                 <div class="input-field col s12">
-                    <input placeholder="Digite a natureza da atividade" value="<?php echo $dados['natureza']; ?>" id="natureza" name="natureza" type="text" class="validate" pattern="^.+$" required>
+                    <input placeholder="Por exemplo : 12 ou 1" value="<?php echo $dados['natureza']; ?>" id="natureza" name="natureza" type="text" class="validate" pattern="^.+$" required>
                     <label for="natureza">Natureza</label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas."></span>
                 </div>
 
                 <div class="input-field col s12">
-                    <input placeholder="Digite a carga hoária da atividade" value="<?php echo $dados['carga_horaria_maxima']; ?>" id="carga" name="carga" type="text" class="validate" pattern="^.+$" required>
-                    <label for="carga">Carga horária máxima</label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo"></span>
+                    <input placeholder="Por exemplo : 60" value="<?php echo $dados['carga_horaria_maxima']; ?>" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,3}$" required>
+                    <label for="carga">Aproveitamento máximo</label>
+                    <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas."></span>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="textarea1" name="descricao" class="materialize-textarea"><?php echo $dados['descricao']; ?></textarea>
+                        <textarea id="textarea1" name="descricao" class="materialize-textarea" class="validate" pattern="^(?!\s*$).+" required ><?php echo $dados['descricao']; ?></textarea>
+                        <span class="helper-text" data-error="O campo deve ser preenchido corretamente."></span>
                         <label for="textarea1">Descrição da atividade</label>
                     </div>
                 </div>

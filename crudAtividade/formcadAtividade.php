@@ -124,21 +124,21 @@ $quantidade = $query->num_rows;
                     <div class="row">
 
                         <div class="input-field col s12">
-                            <input placeholder="Digite a natureza da atividade complementar" id="natureza" name="natureza" type="text" class="validate" pattern="^\d{1,2}$" required>
+                            <input placeholder="Por exemplo : 12 ou 1" id="natureza" name="natureza" type="text" class="validate" pattern="^\d{1,2}$" required>
                             <label for="natureza">Natureza</label>
-                            <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas"></span>
+                            <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas."></span>
                         </div>
 
                         <div class="input-field col s12">
-                            <input placeholder="Digite o aproveitamento máximo da atividade" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,3}$" required>
+                            <input placeholder="Por exemplo : 60" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,3}$" required>
                             <label for="carga">Aproveitamento máximo</label>
-                            <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas"></span>
+                            <span class="helper-text" data-error="O campo deve conter apenas caracteres numéricos com apenas duas casas."></span>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea1" class="materialize-textarea" name="descricao" class="validate" pattern="^(?!.*').*$" required></textarea>
-                                <span class="helper-text" data-error="O campo não pode conter aspas simples"></span>
+                                <textarea id="textarea1" class="materialize-textarea" name="descricao" class="validate" pattern="^(?!\s*$).+" required></textarea>
+                                <span class="helper-text" data-error="O campo deve ser preenchido corretamente."></span>
                                 <label for="textarea1">Descrição da atividade</label>
                             </div>
                         </div>
