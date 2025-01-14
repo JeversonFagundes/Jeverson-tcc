@@ -32,6 +32,8 @@ WHERE ea.id_curso = "  . $_SESSION['aluno'][2];
 //atribuir a variavél resultado ($resultado) a execução do comando sql ($sql).
 $resultado = excutarSQL($mysql, $sql);
 
+//quantidade de linhas afetadas.
+$quantidade_linhas = $resultado->num_rows;
 
 ?>
 
@@ -61,130 +63,145 @@ $resultado = excutarSQL($mysql, $sql);
 
     <main class="container">
 
-        <h1 class="center-align">Tabela de atividades complementares</h1>
-
         <?php
 
-        exibirNotificacoes();
-        limpaNotificacoes();
+        if ($quantidade_linhas == 0) {
+
         ?>
-        <div class="card-panel">
+            <h1 class="center-align">Tabela de atividades complementares</h1>
+            <p class="center-align">Não há naturezas de atividades complementares de curso para serem entregues!</p>
+        <?php
 
-            <table class="highlight responsive-table">
-                <thead>
-                    <tr>
-                        <th>Natureza</th>
-                        <th>Descrição</th>
-                        <th>Carga Horária Máxima</th>
-                    </tr>
-                </thead>
+        } else {
+        ?>
 
-                <tbody>
-
-                    <?php
-
-                    while ($dados = mysqli_fetch_assoc($resultado)) {
-                        echo '<tr>';
-                        echo '<td>' . $dados['natureza'] . '</td>';
-                        echo '<td>' . $dados['descricao'] . '</td>';
-                        echo '<td>' . $dados['carga_horaria_maxima'] . '</td>';
-
-                        echo '</tr>';
-                    }
-
-                    ?>
-                </tbody>
-            </table>
+            <h1 class="center-align">Tabela de atividades complementares</h1>
 
             <?php
 
-            mysqli_data_seek($resultado, 0);
-
-            $total_horas = mysqli_fetch_assoc($resultado);
-
+            exibirNotificacoes();
+            limpaNotificacoes();
             ?>
+            <div class="card-panel">
 
-            <p> <strong> Total de horas exigidas pelo PCC : <?php echo $total_horas['carga_horaria'] ?> horas </strong> </p>
+                <table class="highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Natureza</th>
+                            <th>Descrição</th>
+                            <th>Carga Horária Máxima</th>
+                        </tr>
+                    </thead>
 
-            <br>
+                    <tbody>
 
-            <!--(enctype="multipart/form-data") é utilizado em formulários HTML para especificar como os dados do formulário devem ser codificados ao serem enviados para o servidor. Este valor é essencial quando o formulário inclui uploads de arquivos, como imagens ou documentos-->
-            <form action="cadastrarEntrega.php" method="post" enctype="multipart/form-data">
+                        <?php
+
+                        while ($dados = mysqli_fetch_assoc($resultado)) {
+                            echo '<tr>';
+                            echo '<td>' . $dados['natureza'] . '</td>';
+                            echo '<td>' . $dados['descricao'] . '</td>';
+                            echo '<td>' . $dados['carga_horaria_maxima'] . '</td>';
+
+                            echo '</tr>';
+                        }
+
+                        ?>
+                    </tbody>
+                </table>
 
                 <?php
 
-                //atribuir a variavél sql2 ($sql2) a busca pelo id e natureza das atividades complementares de curso relacionadas ao curso do aluno que está logado no momento.
-                $sql2 = "SELECT id_atividade_complementar, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
+                mysqli_data_seek($resultado, 0);
 
-                //atribuir a variavél resultado2 ($resultado2) a execução do comando sql2 ($sql2).
-                $resultado2 = excutarSQL($mysql, $sql2);
+                $total_horas = mysqli_fetch_assoc($resultado);
+
                 ?>
 
-                <label>Qual é a natureza do seu certificado?</label>
-                <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
-                <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
-                <select equired id="select" name="atividade_complementar" class="browser-default">
-                    <?php
-
-                    //atribuir a variavél dados ($dados) os valores do array associativo gerado no busca do comando sql2 ($sql2). Essa variavél será repetida enquanto houver dados.
-                    while ($dados = mysqli_fetch_assoc($resultado2)) {
-
-                    ?>
-                        <!-- declarar o resto das opções da lista de seleção. Agora essas opções tem os valores vindos do banco de dados que estão dentro da variavél dados ($dados) acima.-->
-                        <option value="<?php echo $dados['id_atividade_complementar'] ?>">
-
-                            <?php echo strWordCut($dados['descricao'], 80, "...") ?>
-
-                        </option>
-                    <?php
-                    }
-                    ?>
-                </select>
+                <p> <strong> Total de horas exigidas pelo PCC : <?php echo $total_horas['carga_horaria'] ?> horas </strong> </p>
 
                 <br>
 
-                <div class="input-field col s12 espacamento">
-                    <!--<i class="material-icons prefix">person_outline</i>-->
-                    <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^(?!\s*$).+" required>
-                    <label for="titulo">Titulo certificado</label>
-                    <span class="helper-text" data-error="Você deve preenchar esse campo corretamente este campo."></span>
-                </div>
+                <!--(enctype="multipart/form-data") é utilizado em formulários HTML para especificar como os dados do formulário devem ser codificados ao serem enviados para o servidor. Este valor é essencial quando o formulário inclui uploads de arquivos, como imagens ou documentos-->
+                <form action="cadastrarEntrega.php" method="post" enctype="multipart/form-data">
 
-                <div class="input-field col s12">
-                    <!--<i class="material-icons prefix">person_outline</i>-->
-                    <input placeholder="Por exemplo: 10" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,2}$" required>
-                    <label for="tcarga">Carga horaria do certificado</label>
-                    <span class="helper-text" data-error="Este campo deve ser preenchido com no máximo dois dígitos numéricos."></span>
-                </div>
+                    <?php
 
-                <input type="hidden" name="cargaDefe" value="0">
-                <input type="hidden" name="status" value="Em análise">
+                    //atribuir a variavél sql2 ($sql2) a busca pelo id e natureza das atividades complementares de curso relacionadas ao curso do aluno que está logado no momento.
+                    $sql2 = "SELECT id_atividade_complementar, descricao FROM atividade_complementar WHERE id_curso = " . $_SESSION['aluno'][2];
 
-                <div class="file-field input-field">
-                    <div class="btn">
-                        <span>Certificado</span>
-                        <input type="file" id="certi" name="certificado" required>
+                    //atribuir a variavél resultado2 ($resultado2) a execução do comando sql2 ($sql2).
+                    $resultado2 = excutarSQL($mysql, $sql2);
+                    ?>
+
+                    <label>Qual é a natureza do seu certificado?</label>
+                    <!--As tags selects e options são usadas para criar menus suspensos (dropdowns) ou listas de opções em formulários.-->
+                    <!--SELECT cria um menu suspenso que permite ao usuário escolher uma ou mais opções.-->
+                    <select equired id="select" name="atividade_complementar" class="browser-default">
+                        <?php
+
+                        //atribuir a variavél dados ($dados) os valores do array associativo gerado no busca do comando sql2 ($sql2). Essa variavél será repetida enquanto houver dados.
+                        while ($dados = mysqli_fetch_assoc($resultado2)) {
+
+                        ?>
+                            <!-- declarar o resto das opções da lista de seleção. Agora essas opções tem os valores vindos do banco de dados que estão dentro da variavél dados ($dados) acima.-->
+                            <option value="<?php echo $dados['id_atividade_complementar'] ?>">
+
+                                <?php echo strWordCut($dados['descricao'], 80, "...") ?>
+
+                            </option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+
+                    <br>
+
+                    <div class="input-field col s12 espacamento">
+                        <!--<i class="material-icons prefix">person_outline</i>-->
+                        <input placeholder="Digite o titulo do seu certificado" id="titulo" name="titulo" type="text" class="validate" pattern="^(?!\s*$).+" required>
+                        <label for="titulo">Titulo certificado</label>
+                        <span class="helper-text" data-error="Você deve preenchar esse campo corretamente este campo."></span>
                     </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
+
+                    <div class="input-field col s12">
+                        <!--<i class="material-icons prefix">person_outline</i>-->
+                        <input placeholder="Por exemplo: 10" id="carga" name="carga" type="text" class="validate" pattern="^\d{1,2}$" required>
+                        <label for="tcarga">Carga horaria do certificado</label>
+                        <span class="helper-text" data-error="Este campo deve ser preenchido com no máximo dois dígitos numéricos."></span>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col s12">
-                        <p class="center-align">
-                            <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="action">Entregar atividade
-                                <i class="material-icons right">send</i> </button>
-                        </p>
+                    <input type="hidden" name="cargaDefe" value="0">
+                    <input type="hidden" name="status" value="Em análise">
+
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Certificado</span>
+                            <input type="file" id="certi" name="certificado" required>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
+                        </div>
                     </div>
-                </div>
 
-        </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="center-align">
+                                <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="action">Entregar atividade
+                                    <i class="material-icons right">send</i> </button>
+                            </p>
+                        </div>
+                    </div>
 
-        </form>
+            </div>
 
-        </div>
+            </form>
 
+            </div>
+
+        <?php
+        }
+        ?>
     </main>
 
     <!--Import jQuery before materialize.js-->
