@@ -113,8 +113,11 @@ $entrega = mysqli_fetch_assoc($resultado2);
                 </tbody>
             </table>
 
-            <br>
+        </div>
 
+        <br>
+
+        <div class="card-panel">
             <form action="editarEntrega.php" method="post" enctype="multipart/form-data">
 
                 <!--Abrir um campo select para a selção dos itens.-->

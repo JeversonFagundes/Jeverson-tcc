@@ -121,7 +121,9 @@ $quantidade_linhas = $resultado->num_rows;
                 <p> <strong> Total de horas exigidas pelo PCC : <?php echo $total_horas['carga_horaria'] ?> horas </strong> </p>
 
                 <br>
+            </div>
 
+            <div class="card-panel">
                 <!--(enctype="multipart/form-data") é utilizado em formulários HTML para especificar como os dados do formulário devem ser codificados ao serem enviados para o servidor. Este valor é essencial quando o formulário inclui uploads de arquivos, como imagens ou documentos-->
                 <form action="cadastrarEntrega.php" method="post" enctype="multipart/form-data">
 
