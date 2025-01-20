@@ -40,14 +40,50 @@ if ($_POST['deferir']) {
     //executar o comando sql ($sql).
     excutarSQL($mysql, $sql);
 
-    // Agora você pode chamar a função email
-    email($nome, $situacao, $email, $cargaDefe, $descricao, $matricula, $certificado, $observacoes, 1);
+    $sql_busca_natureza = "SELECT ea.id_atividade_complementar FROM entrega_atividade ea WHERE ea.id_entrega_atividade = $id";
 
-    //chamar a função de notificação do sistema
-    notificacoes(1, "Atividade deferida com sucesso!");
+    $excutar_sql_busca_natureza = excutarSQL($mysql, $sql_busca_natureza);
 
-    //redirecionar o coordenador de curso para a tela validação
-    header("location: validar.php?id=" . $id_aluno);
+    $natureza = mysqli_fetch_assoc($excutar_sql_busca_natureza);
+
+    $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
+    INNER JOIN entrega_atividade ea 
+    ON ac.id_atividade_complementar = ea.id_atividade_complementar AND ea.status = 'Deferido'
+    WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+
+    $excucao_sql_busca = excutarSQL($mysql, $sql_busca);
+
+    $busca = mysqli_fetch_all($excucao_sql_busca, MYSQLI_ASSOC);
+
+    $total_carga_horaria_aprovada = 0;
+
+    foreach ($busca as $atividade) {
+        $total_carga_horaria_aprovada += $atividade['carga_horaria_aprovada'];
+    }
+
+    if ($busca[0]['carga_horaria_maxima'] < $total_carga_horaria_aprovada) {
+
+        $sql32 = "UPDATE entrega_atividade SET carga_horaria_aprovada = 0, status = 'Em análise', observacoes = 'Sem observações' WHERE id_entrega_atividade = $id";
+
+        excutarSQL($mysql, $sql32);
+
+        notificacoes(2, "Não é possível deferir mais horas para essa natureza, pois a carga horária máxima para a natureza \"" . $busca[0]['descricao'] . "\" é de " . $busca[0]['carga_horaria_maxima'] . " horas.");
+
+        // Redirecionar o coordenador de curso para a tela de validação
+        header("Location: validar.php?id=" . $id_aluno);
+        exit(); // Certifique-se de que o script pare de executar após o redirecionamento
+
+    } else {
+
+        // Agora você pode chamar a função email
+        email($nome, $situacao, $email, $cargaDefe, $descricao, $matricula, $certificado, $observacoes, 1);
+
+        //chamar a função de notificação do sistema
+        notificacoes(1, "Atividade deferida com sucesso!");
+
+        //redirecionar o coordenador de curso para a tela validação
+        header("location: validar.php?id=" . $id_aluno);
+    }
 } else {
 
     //se escolheu o opção de deferir o arquivo que foi entregue no sistema, realizamos o processedimento necessários.

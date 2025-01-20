@@ -83,7 +83,7 @@ $resultado = excutarSQL($mysql, $sql);
         .myModal {
             width: 75%;
             /* Ajuste a largura conforme necessário */
-            height: 50%;
+            height: 52%;
             /* Ajuste a altura conforme necessário */
         }
 
@@ -408,6 +408,7 @@ $resultado = excutarSQL($mysql, $sql);
 
     </main>
 
+    <br><br>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 

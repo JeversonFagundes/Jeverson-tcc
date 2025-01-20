@@ -97,7 +97,7 @@ require_once "boasPraticas/notificacoes.php";
 
         <p><strong>Coordenadores de curso</strong></p>
 
-        <p> nome: Michel Michelon - email: michel@yopmail.com - curso: Informática</p>
+        <p> nome: Michel Michelon - email: michel@gmail.com - curso: Informática</p>
 
         <p> nome: Jeremias - email: jeremias@yopmail.com - curso: Curso de Manutenção e Suporte em Informática (MSI)</p>
 
