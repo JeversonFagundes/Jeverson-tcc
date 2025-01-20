@@ -133,8 +133,8 @@ $quatidade_linhas = $resultado->num_rows;
                     <thead>
                         <tr>
                             <th>Nome do aluno</th>
-                            <th class="teste">Matricula</th>
                             <th class="teste">Email</th>
+                            <th class="teste">Matricula</th>
                             <th class="teste">Visualizar</th>
                         </tr>
                     </thead>

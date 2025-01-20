@@ -229,9 +229,11 @@ $resultado = excutarSQL($mysql, $sql);
                             $natureza = mysqli_fetch_assoc($executar_sql_busca_natureza);
 
                             $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
-                                INNER JOIN entrega_atividade ea 
-                                ON ac.id_atividade_complementar = ea.id_atividade_complementar
-                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+                            INNER JOIN entrega_atividade ea 
+                            ON ac.id_atividade_complementar = ea.id_atividade_complementar
+                            INNER JOIN aluno a 
+                            ON a.id_aluno = ea.id_aluno
+                            WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'] . " AND a.id_aluno = " . $id;
 
                             $execucao_sql_busca = excutarSQL($mysql, $sql_busca);
 
@@ -338,7 +340,9 @@ $resultado = excutarSQL($mysql, $sql);
                                 $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
                                 INNER JOIN entrega_atividade ea 
                                 ON ac.id_atividade_complementar = ea.id_atividade_complementar
-                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+                                INNER JOIN aluno a 
+                                ON a.id_aluno = ea.id_aluno
+                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'] . " AND a.id_aluno = " . $id;
 
                                 $execucao_sql_busca = excutarSQL($mysql, $sql_busca);
 
@@ -356,6 +360,7 @@ $resultado = excutarSQL($mysql, $sql);
                                     $horas_restantes = 0;
                                 }
                                 ?>
+
 
                                 <div class="modal-footer">
                                     <form action="mudarSituacao.php" method="POST">
@@ -443,7 +448,9 @@ $resultado = excutarSQL($mysql, $sql);
                                 $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
                                 INNER JOIN entrega_atividade ea 
                                 ON ac.id_atividade_complementar = ea.id_atividade_complementar
-                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+                                INNER JOIN aluno a 
+                                ON a.id_aluno = ea.id_aluno
+                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'] . " AND a.id_aluno = " . $id;
 
                                 $execucao_sql_busca = excutarSQL($mysql, $sql_busca);
 
@@ -461,6 +468,7 @@ $resultado = excutarSQL($mysql, $sql);
                                     $horas_restantes = 0;
                                 }
                                 ?>
+
                                 <div class="modal-footer">
                                     <form action="mudarSituacao.php" method="POST">
 
