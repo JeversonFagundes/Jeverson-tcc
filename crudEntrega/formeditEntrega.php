@@ -195,6 +195,7 @@ $entrega = mysqli_fetch_assoc($resultado2);
             </form>
 
         </div>
+
     </main>
 
     <!--Import jQuery before materialize.js-->

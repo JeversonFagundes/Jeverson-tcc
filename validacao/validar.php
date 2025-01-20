@@ -83,7 +83,7 @@ $resultado = excutarSQL($mysql, $sql);
         .myModal {
             width: 75%;
             /* Ajuste a largura conforme necessário */
-            height: 52%;
+            height: 61%;
             /* Ajuste a altura conforme necessário */
         }
 
@@ -220,6 +220,36 @@ $resultado = excutarSQL($mysql, $sql);
                         <!-- Modal Structure -->
                         <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal myModal">
 
+                            <?php
+
+                            $sql_busca_natureza = "SELECT ea.id_atividade_complementar FROM entrega_atividade ea WHERE ea.id_entrega_atividade = " . $informacoes_entrega['id_entrega_atividade'];
+
+                            $executar_sql_busca_natureza = excutarSQL($mysql, $sql_busca_natureza);
+
+                            $natureza = mysqli_fetch_assoc($executar_sql_busca_natureza);
+
+                            $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
+                                INNER JOIN entrega_atividade ea 
+                                ON ac.id_atividade_complementar = ea.id_atividade_complementar
+                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+
+                            $execucao_sql_busca = excutarSQL($mysql, $sql_busca);
+
+                            $busca = mysqli_fetch_all($execucao_sql_busca, MYSQLI_ASSOC);
+
+                            $total_carga_horaria_aprovada = 0;
+
+                            foreach ($busca as $atividade) {
+                                $total_carga_horaria_aprovada += $atividade['carga_horaria_aprovada'];
+                            }
+
+                            $horas_restantes = $busca[0]['carga_horaria_maxima'] - $total_carga_horaria_aprovada;
+
+                            if ($horas_restantes < 0) {
+                                $horas_restantes = 0;
+                            }
+                            ?>
+
                             <div class="modal-footer">
                                 <form action="mudarSituacao.php" method="POST">
 
@@ -235,6 +265,16 @@ $resultado = excutarSQL($mysql, $sql);
                                     <div class="input-field col s12">
                                         <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $informacoes_entrega['descricao'] ?></textarea>
                                         <label for="textarea2">Descrição da natureza : </label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input placeholder="Carga horária restante para essa natureza"
+                                            id="cargaRestante"
+                                            name="cargaRestante"
+                                            value="<?php echo $horas_restantes ?>"
+                                            type="text"
+                                            readonly>
+                                        <label for="cargaRestante">Carga horária restante para essa natureza:</label>
                                     </div>
 
                                     <div class="input-field col s12">
@@ -287,6 +327,36 @@ $resultado = excutarSQL($mysql, $sql);
                             <!-- Modal Structure -->
                             <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal myModal">
 
+                                <?php
+
+                                $sql_busca_natureza = "SELECT ea.id_atividade_complementar FROM entrega_atividade ea WHERE ea.id_entrega_atividade = " . $informacoes_entrega['id_entrega_atividade'];
+
+                                $executar_sql_busca_natureza = excutarSQL($mysql, $sql_busca_natureza);
+
+                                $natureza = mysqli_fetch_assoc($executar_sql_busca_natureza);
+
+                                $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
+                                INNER JOIN entrega_atividade ea 
+                                ON ac.id_atividade_complementar = ea.id_atividade_complementar
+                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+
+                                $execucao_sql_busca = excutarSQL($mysql, $sql_busca);
+
+                                $busca = mysqli_fetch_all($execucao_sql_busca, MYSQLI_ASSOC);
+
+                                $total_carga_horaria_aprovada = 0;
+
+                                foreach ($busca as $atividade) {
+                                    $total_carga_horaria_aprovada += $atividade['carga_horaria_aprovada'];
+                                }
+
+                                $horas_restantes = $busca[0]['carga_horaria_maxima'] - $total_carga_horaria_aprovada;
+
+                                if ($horas_restantes < 0) {
+                                    $horas_restantes = 0;
+                                }
+                                ?>
+
                                 <div class="modal-footer">
                                     <form action="mudarSituacao.php" method="POST">
 
@@ -302,6 +372,16 @@ $resultado = excutarSQL($mysql, $sql);
                                         <div class="input-field col s12">
                                             <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $informacoes_entrega['descricao'] ?></textarea>
                                             <label for="textarea2">Descrição da natureza : </label>
+                                        </div>
+
+                                        <div class="input-field col s12">
+                                            <input placeholder="Carga horária restante para essa natureza"
+                                                id="cargaRestante"
+                                                name="cargaRestante"
+                                                value="<?php echo $horas_restantes ?>"
+                                                type="text"
+                                                readonly>
+                                            <label for="cargaRestante">Carga horária restante para essa natureza:</label>
                                         </div>
 
                                         <div class="input-field col s12">
@@ -352,6 +432,35 @@ $resultado = excutarSQL($mysql, $sql);
                             <!-- Modal Structure -->
                             <div id="modal<?php echo $informacoes_entrega['id_entrega_atividade']; ?>" class="modal myModal">
 
+                                <?php
+
+                                $sql_busca_natureza = "SELECT ea.id_atividade_complementar FROM entrega_atividade ea WHERE ea.id_entrega_atividade = " . $informacoes_entrega['id_entrega_atividade'];
+
+                                $executar_sql_busca_natureza = excutarSQL($mysql, $sql_busca_natureza);
+
+                                $natureza = mysqli_fetch_assoc($executar_sql_busca_natureza);
+
+                                $sql_busca = "SELECT ac.carga_horaria_maxima, ac.descricao, ea.titulo_certificado, ea.carga_horaria_aprovada FROM atividade_complementar ac 
+                                INNER JOIN entrega_atividade ea 
+                                ON ac.id_atividade_complementar = ea.id_atividade_complementar
+                                WHERE ac.id_atividade_complementar = " . $natureza['id_atividade_complementar'];
+
+                                $execucao_sql_busca = excutarSQL($mysql, $sql_busca);
+
+                                $busca = mysqli_fetch_all($execucao_sql_busca, MYSQLI_ASSOC);
+
+                                $total_carga_horaria_aprovada = 0;
+
+                                foreach ($busca as $atividade) {
+                                    $total_carga_horaria_aprovada += $atividade['carga_horaria_aprovada'];
+                                }
+
+                                $horas_restantes = $busca[0]['carga_horaria_maxima'] - $total_carga_horaria_aprovada;
+
+                                if ($horas_restantes < 0) {
+                                    $horas_restantes = 0;
+                                }
+                                ?>
                                 <div class="modal-footer">
                                     <form action="mudarSituacao.php" method="POST">
 
@@ -368,6 +477,18 @@ $resultado = excutarSQL($mysql, $sql);
                                             <textarea id="textarea2" disabled class="materialize-textarea"><?php echo $informacoes_entrega['descricao'] ?></textarea>
                                             <label for="textarea2">Descrição da natureza : </label>
                                         </div>
+
+
+                                        <div class="input-field col s12">
+                                            <input placeholder="Carga horária restante para essa natureza"
+                                                id="cargaRestante"
+                                                name="cargaRestante"
+                                                value="<?php echo $horas_restantes ?>"
+                                                type="text"
+                                                readonly>
+                                            <label for="cargaRestante">Carga horária restante para essa natureza:</label>
+                                        </div>
+
 
                                         <div class="input-field col s12">
                                             <input placeholder="Carga horária desenvolvida" id="cargahorariadesenvolvida" value="<?php echo $informacoes_entrega['carga_horaria_certificado'] ?>" type="text" class="validate" disabled>
