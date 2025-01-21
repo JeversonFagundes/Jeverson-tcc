@@ -128,8 +128,8 @@ $coordenador = mysqli_fetch_assoc($resultado);
                 <div class="row">
                     <div class="col s12">
                         <p class="center-align">
-                            <button class="btn waves-effect waves-light #2e7d32 green darken-3 lighten-3" type="submit" name="action">Alterar coordenador de curso
-                                <i class="material-icons right">send</i> </button>
+                            <button class="btn waves-effect waves-light  #1565c0 blue darken-3 lighten-3" type="submit" name="action">Alterar coordenador de curso
+                                <i class="material-icons right">create</i> </button>
                         </p>
                     </div>
                 </div>
