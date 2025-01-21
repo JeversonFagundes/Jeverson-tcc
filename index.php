@@ -47,7 +47,7 @@ require_once "boasPraticas/notificacoes.php";
 
         //chamar a função que limpa a notificação de dentro da sessão.
         limpaNotificacoes();
-        
+
         ?>
         <form action="login.php" method="post">
 
@@ -87,7 +87,7 @@ require_once "boasPraticas/notificacoes.php";
 
         <p><strong>Alunos</strong></p>
 
-        <p> nome: Jeverson Miguel Rios Fagundes - email: jeverson.2022311922@aluno.iffar.edu.br  - curso: Informática</p>
+        <p> nome: Jeverson Miguel Rios Fagundes - email: jeverson.2022311922@aluno.iffar.edu.br - curso: Informática</p>
 
         <p> nome: Victor Yan - email: victor@yopmail.com - curso: Curso de Manutenção e Suporte em Informática (MSI)</p>
 
@@ -99,16 +99,16 @@ require_once "boasPraticas/notificacoes.php";
 
         <p> nome: Michel Michelon - email: michel@gmail.com - curso: Informática</p>
 
-        <p> nome: Jeremias - email: jeremias@yopmail.com - curso: Curso de Manutenção e Suporte em Informática (MSI)</p>
+        <p> nome: Jeremias - email:leandro@yopmail.com - curso: Curso de Manutenção e Suporte em Informática (MSI)</p>
 
-        <p> nome: Jeverson - email: jeverson@yopmail.com - curso: Curso de Markiting Subsequente</p>
+        <p> nome: Jeverson - email: diely@yopmail.com - curso: Curso de Markiting Subsequente</p>
 
-        <p> nome: Joceanny - email: joceanny@yopmail.com - curso: Curso Técnico Integrado em Administração</p>
+        <p> nome: Joceanny - email: anelise@yopmail.com - curso: Curso Técnico Integrado em Administração</p>
 
         <p><strong>Administrador</strong></p>
 
         <p>email: pablo@yopmail.com</p>
-    
+
         <p><strong>Senha:</strong></p>
 
         <p><strong>senha: Gremista123@</strong></p>
