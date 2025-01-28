@@ -1,0 +1,10 @@
+
+     Aluno: Jeverson Miguel Rios Fagundes.
+     email: jeverson.2022311922@aluno.iffar.edu.br
+     curso: Tecnico em Informática.
+     senha: Jeversonfagundes123@
+
+     Coordenador de curso: Michel Michelon
+     email: michel@gmail.com 
+     curso: Tecnico em Informática.
+     senha: Michelmichelon123@
