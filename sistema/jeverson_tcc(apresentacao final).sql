@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 28-Jan-2025 às 23:54
+-- Tempo de geração: 29-Jan-2025 às 21:22
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -59,15 +59,14 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `conclusao_horas`, `id_curso`) VALUES
-(94, 'Victor Yan', '2000000000', 'victoryan@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Ymo5bnhCZ1dNZXF4UmxaVA$RCJidqP/F/3nH23w76WG9BcpY/9Er5ybv7szV90En8s', 0, 9),
-(97, 'Roberto Graziadei', '2022315930', 'roberto@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$SzRCWXVCUkdtaWZSUGEyRg$Dhei5cGt/+vIHfgNfplWZXSEM6pjO76fGCzvIR0YdIA', 1, 9);
+(98, 'Roberto Graziadei', '2022311870', 'roberto@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$dS5hSS9zNWVlOFN0R2kzNw$95GJ+aj9yefILvIlbSCuS3BwSfMPIqkqU9j7jljj6a4', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -213,16 +212,17 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `entrega_atividade`
 --
 
 INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`, `id_atividade_complementar`, `observacoes`) VALUES
-(148, 'Modelagem de dados', 10, 'graciliano2.jpg', 0, 'Indeferido', 94, '679969e9afd7e.jpg', 13, 'Certificado não condiz com a natureza'),
-(149, 'Certificado Crud', 30, 'Certificado CRUD.pdf', 30, 'Deferido', 97, '67996b0ab38f3.pdf', 13, 'Sem observações'),
-(150, 'Banco de Dados', 30, 'Certificado Banco de dados.pdf', 30, 'Deferido', 97, '67996b26b4541.pdf', 13, 'Sem observações');
+(152, 'Certificado Banco de Dados', 15, 'Certificado Banco de dados.pdf', 15, 'Deferido', 98, '679a9a23b9e4b.pdf', 13, 'Sem observações'),
+(153, 'Certificado CRUD', 20, 'Certificado CRUD.pdf', 15, 'Deferido', 98, '679a9a48aa0bd.pdf', 13, 'Sem observações'),
+(154, 'Certificado de Português', 16, 'Portugues.pdf', 16, 'Deferido', 98, '679a9aa57eaf0.pdf', 12, 'Sem observações'),
+(156, 'Matemática Básica', 16, 'matbásica.jpg', 14, 'Deferido', 98, '679a9b2052d4b.jpg', 4, 'Sem observações');
 
 -- --------------------------------------------------------
 

@@ -8,3 +8,8 @@
      email: michel@gmail.com 
      curso: Tecnico em Informática.
      senha: Michelmichelon123@
+
+     Aluno Teste: Roberto Graziadei.
+     email: roberto@gmail.com
+     curso: Tecnico em Informática.
+     senha: Robertograziadei123@
