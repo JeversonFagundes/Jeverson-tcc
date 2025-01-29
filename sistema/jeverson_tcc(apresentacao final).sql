@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 28-Jan-2025 às 21:34
+-- Tempo de geração: 28-Jan-2025 às 23:54
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -59,17 +59,15 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
   KEY `fk_aluno_curso` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
 INSERT INTO `aluno` (`id_aluno`, `nome`, `matricula`, `email`, `senha`, `conclusao_horas`, `id_curso`) VALUES
-(89, 'Victor Yan', '2022311870', 'victor@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 12),
-(92, 'Luiz Guilherme', '1111111111', 'luiz@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 11),
-(93, 'Roberto Graziadei', '0000000000', 'roberto@yopmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Um1QTGlQVW9wUkozaHhWSg$ytjOww8P9v/u6loF4OA6rcTYW94fXd97dEfe4X1N10E', 0, 13),
-(94, 'Victor Yan', '2000000000', 'victoryan@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Ymo5bnhCZ1dNZXF4UmxaVA$RCJidqP/F/3nH23w76WG9BcpY/9Er5ybv7szV90En8s', 0, 9);
+(94, 'Victor Yan', '2000000000', 'victoryan@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$Ymo5bnhCZ1dNZXF4UmxaVA$RCJidqP/F/3nH23w76WG9BcpY/9Er5ybv7szV90En8s', 0, 9),
+(97, 'Roberto Graziadei', '2022315930', 'roberto@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$SzRCWXVCUkdtaWZSUGEyRg$Dhei5cGt/+vIHfgNfplWZXSEM6pjO76fGCzvIR0YdIA', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -215,14 +213,16 @@ CREATE TABLE IF NOT EXISTS `entrega_atividade` (
   PRIMARY KEY (`id_entrega_atividade`),
   KEY `fk_aluno_entrega_atividade` (`id_aluno`),
   KEY `fk_id_atividade_complementar` (`id_atividade_complementar`)
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `entrega_atividade`
 --
 
 INSERT INTO `entrega_atividade` (`id_entrega_atividade`, `titulo_certificado`, `carga_horaria_certificado`, `certificado`, `carga_horaria_aprovada`, `status`, `id_aluno`, `caminho`, `id_atividade_complementar`, `observacoes`) VALUES
-(145, 'Modelagem de dados', 12, 'coordenador de curos alteração.PNG', 0, 'Indeferido', 94, '678ec6df29045.png', 1, 'Sem observações');
+(148, 'Modelagem de dados', 10, 'graciliano2.jpg', 0, 'Indeferido', 94, '679969e9afd7e.jpg', 13, 'Certificado não condiz com a natureza'),
+(149, 'Certificado Crud', 30, 'Certificado CRUD.pdf', 30, 'Deferido', 97, '67996b0ab38f3.pdf', 13, 'Sem observações'),
+(150, 'Banco de Dados', 30, 'Certificado Banco de dados.pdf', 30, 'Deferido', 97, '67996b26b4541.pdf', 13, 'Sem observações');
 
 -- --------------------------------------------------------
 
@@ -239,14 +239,6 @@ CREATE TABLE IF NOT EXISTS `recuperar_senha` (
   `usado` tinyint DEFAULT NULL,
   PRIMARY KEY (`id_recuperar_senha`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `recuperar_senha`
---
-
-INSERT INTO `recuperar_senha` (`id_recuperar_senha`, `email`, `token`, `data_criacao`, `usado`) VALUES
-(30, 'jeverson.2022311922@aluno.iffar.edu.br', '883b54d45fdfff05b1e295a353defc479675de3d12587d5e31ba138b5b0a3c2c94357d28d93e0e93db17a8f40bb6bbbbdbc7', '2024-12-29 16:55:02', 0),
-(31, 'michel@gmail.com', '0dd0bdceeab10ffb92e96feea930f7abb1fd365d9a552af3611bffd4a06447ab8c227f04d05fe735b72eb9dc9cdbcda075f2', '2025-01-28 18:19:44', 0);
 
 --
 -- Restrições para despejos de tabelas
