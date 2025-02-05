@@ -55,6 +55,31 @@ $quantidade_linhas = $resultado->num_rows;
         .espacamento {
             margin-bottom: 30px;
         }
+        .tooltip-wrapper {
+            
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 300px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%; /* Ajuste conforme necessário */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-wrapper:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 
 </head>
@@ -176,15 +201,19 @@ $quantidade_linhas = $resultado->num_rows;
                     <input type="hidden" name="cargaDefe" value="0">
                     <input type="hidden" name="status" value="Em análise">
 
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>Certificado</span>
-                            <input type="file" id="certi" name="certificado" required>
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
-                        </div>
-                    </div>
+                    <div class="file-field input-field tooltip-wrapper">
+            <div class="btn">
+                <span>Certificado</span>
+                <input type="file" id="certi" name="certificado" required>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado.">
+            </div>
+            <div class="tooltip-text">
+                Formatos aceitos: png, gif, svg, jpeg, jfif, pdf e jpg.<br>
+                Observações: caso necessário enviar mais de uma imagem do mesmo certificado (frente e verso), você deverá unir as duas imagens em um único arquivo PDF.
+            </div>
+        </div>
 
                     <div class="row">
                         <div class="col s12">

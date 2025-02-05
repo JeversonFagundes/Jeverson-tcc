@@ -59,6 +59,31 @@ $entrega = mysqli_fetch_assoc($resultado2);
         .espacamento {
             margin-bottom: 30px;
         }
+        .tooltip-wrapper {
+            
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 300px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%; /* Ajuste conforme necessário */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-wrapper:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 
 </head>
@@ -169,15 +194,19 @@ $entrega = mysqli_fetch_assoc($resultado2);
 
                 <input type="hidden" name="caminho" value="<?php echo $entrega['caminho']; ?>">
 
-                <div class="file-field input-field espacamento">
-                    <div class="btn">
-                        <span>Certificado</span>
-                        <input type="file" id="certi" name="certificado">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado">
-                    </div>
-                </div>
+                <div class="file-field input-field tooltip-wrapper espacamento">
+            <div class="btn">
+                <span>Certificado</span>
+                <input type="file" id="certi" name="certificado" required>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Faça o upload do seu certificado.">
+            </div>
+            <div class="tooltip-text">
+                Formatos aceitos: png, gif, svg, jpeg, jfif, pdf e jpg.<br>
+                Observações: caso necessário enviar mais de uma imagem do mesmo certificado (frente e verso), você deverá unir as duas imagens em um único arquivo PDF.
+            </div>
+        </div>
 
                 <!--aqui passamos um link para que o aluno possa var o arquivo que ele cadastrou no sistema.-->
                 <p>Seu certificado : <a class="waves-effect waves-light btn" href=" <?php echo $pasta . $entrega['caminho']; ?>"><?php echo $entrega['certificado']; ?></a>
